@@ -1,12 +1,7 @@
-options(timeout = 240)
-
-args <- commandArgs(FALSE)
-file_arg <- sub("^--file=", "", args[grep("^--file=", args)])
-root <- if (length(file_arg)) dirname(normalizePath(file_arg)) else getwd()
-data_dir <- file.path(root, "data")
+data_dir <- file.path("data")
 dir.create(data_dir, showWarnings = FALSE, recursive = TRUE)
 
-api <- "https://stats-nsi-stable.pacificdata.org/rest/data"
+endpoint <- "https://stats-nsi-stable.pacificdata.org/rest/data"
 
 countries <- c(
   AS = "American Samoa",
@@ -36,7 +31,7 @@ countries <- c(
 
 fetch <- function(flow, version, key) {
   url <- paste0(
-    api,
+    endpoint,
     "/SPC,",
     flow,
     ",",
@@ -67,12 +62,134 @@ clean <- function(x, value_name, multiplier = 1, unit = NULL) {
     value = value
   )
   out <- out[is.finite(out$year) & is.finite(out$value), ]
-  out <- stats::aggregate(
-    value ~ country_code + country + year,
-    out,
+  out <- stats::aggregate(value ~ country_code + country + year, out, mean)
+  names(out)[4] <- value_name
+  out[order(out$country, out$year), ]
+}
+
+fetch_historical_sea_level <- function() {
+  stations <- data.frame(
+    station_id = c(
+      539,
+      540,
+      528,
+      1370,
+      1925,
+      513,
+      1217,
+      1838,
+      1254,
+      1303,
+      1607,
+      1608,
+      1609,
+      1610,
+      1860,
+      1739,
+      1804,
+      1452,
+      1839,
+      1373,
+      1861,
+      1841,
+      1327,
+      1805,
+      2356,
+      1397,
+      2242,
+      1843
+    ),
+    country_code = c(
+      "AS",
+      "GU",
+      "FM",
+      "FM",
+      "FM",
+      "MH",
+      "MH",
+      "MH",
+      "PG",
+      "PG",
+      "PG",
+      "PG",
+      "PG",
+      "PG",
+      "PG",
+      "KI",
+      "KI",
+      "TV",
+      "TV",
+      "SB",
+      "SB",
+      "VU",
+      "FJ",
+      "FJ",
+      "FJ",
+      "PF",
+      "PF",
+      "CK"
+    )
+  )
+  stations$country <- unname(countries[stations$country_code])
+
+  archive <- tempfile(fileext = ".zip")
+  directory <- tempfile()
+  dir.create(directory)
+  on.exit(unlink(c(archive, directory), recursive = TRUE), add = TRUE)
+
+  utils::download.file(
+    "https://psmsl.org/data/obtaining/rlr.annual.data/rlr_annual.zip",
+    archive,
+    quiet = TRUE,
+    mode = "wb"
+  )
+  utils::unzip(archive, exdir = directory)
+
+  records <- lapply(seq_len(nrow(stations)), function(i) {
+    path <- file.path(
+      directory,
+      "rlr_annual",
+      "data",
+      paste0(stations$station_id[i], ".rlrdata")
+    )
+    x <- utils::read.table(
+      path,
+      sep = ";",
+      fill = TRUE,
+      stringsAsFactors = FALSE
+    )
+    x <- x[x$V2 != -99999, c("V1", "V2")]
+    names(x) <- c("year", "sea_level_mm")
+    baseline <- x$sea_level_mm[x$year %in% 1993:2000]
+    if (length(baseline) < 2) {
+      return(NULL)
+    }
+    x$sea_level_anomaly_mm <- x$sea_level_mm - mean(baseline)
+    x$station_id <- stations$station_id[i]
+    x$country_code <- stations$country_code[i]
+    x$country <- stations$country[i]
+    x[, c(
+      "station_id",
+      "country_code",
+      "country",
+      "year",
+      "sea_level_anomaly_mm"
+    )]
+  })
+
+  records <- do.call(rbind, records)
+  level <- stats::aggregate(
+    sea_level_anomaly_mm ~ country_code + country + year,
+    records,
     mean
   )
-  names(out)[4] <- value_name
+  count <- stats::aggregate(
+    station_id ~ country_code + country + year,
+    records,
+    function(x) length(unique(x))
+  )
+  names(count)[4] <- "station_count"
+  out <- merge(level, count, by = c("country_code", "country", "year"))
   out[order(out$country, out$year), ]
 }
 
@@ -104,6 +221,8 @@ sea_level <- clean(
   1000
 )
 
+sea_level_historical <- fetch_historical_sea_level()
+
 disaster_affected <- clean(
   fetch("DF_SDG_11", "3.0", "A.VC_DSR_AFFCT........."),
   "affected_people"
@@ -123,6 +242,11 @@ population_growth <- clean(
 utils::write.csv(
   sea_level,
   file.path(data_dir, "sea_level.csv"),
+  row.names = FALSE
+)
+utils::write.csv(
+  sea_level_historical,
+  file.path(data_dir, "sea_level_historical.csv"),
   row.names = FALSE
 )
 utils::write.csv(
@@ -173,8 +297,8 @@ growth <- period_mean(
 )
 
 summary <- merge(early, recent, by = c("country_code", "country"))
-summary$sea_level_rise_mm <-
-  summary$sea_level_2019_2023_mm - summary$sea_level_1993_1997_mm
+summary$sea_level_rise_mm <- summary$sea_level_2019_2023_mm -
+  summary$sea_level_1993_1997_mm
 summary <- merge(
   summary,
   affected,

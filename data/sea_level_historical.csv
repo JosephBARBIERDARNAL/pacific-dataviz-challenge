@@ -1,0 +1,542 @@
+"country_code","country","year","sea_level_anomaly_mm","station_count"
+"AS","American Samoa",1949,-119,1
+"AS","American Samoa",1950,-68,1
+"AS","American Samoa",1951,-78,1
+"AS","American Samoa",1952,-96,1
+"AS","American Samoa",1953,-144,1
+"AS","American Samoa",1954,-77,1
+"AS","American Samoa",1955,-16,1
+"AS","American Samoa",1957,-67,1
+"AS","American Samoa",1958,-133,1
+"AS","American Samoa",1959,-84,1
+"AS","American Samoa",1960,-18,1
+"AS","American Samoa",1961,-48,1
+"AS","American Samoa",1962,-49,1
+"AS","American Samoa",1963,-56,1
+"AS","American Samoa",1964,-58,1
+"AS","American Samoa",1965,-49,1
+"AS","American Samoa",1966,-119,1
+"AS","American Samoa",1967,-45,1
+"AS","American Samoa",1968,-53,1
+"AS","American Samoa",1969,-74,1
+"AS","American Samoa",1970,-60,1
+"AS","American Samoa",1971,12,1
+"AS","American Samoa",1972,-49,1
+"AS","American Samoa",1973,-100,1
+"AS","American Samoa",1974,8,1
+"AS","American Samoa",1975,-42,1
+"AS","American Samoa",1977,-84,1
+"AS","American Samoa",1980,-26,1
+"AS","American Samoa",1982,2,1
+"AS","American Samoa",1983,-172,1
+"AS","American Samoa",1984,-33,1
+"AS","American Samoa",1985,20,1
+"AS","American Samoa",1986,7,1
+"AS","American Samoa",1987,-80,1
+"AS","American Samoa",1988,-56,1
+"AS","American Samoa",1989,-28,1
+"AS","American Samoa",1990,-17,1
+"AS","American Samoa",1991,9,1
+"AS","American Samoa",1992,-49,1
+"AS","American Samoa",1993,16,1
+"AS","American Samoa",1994,81,1
+"AS","American Samoa",1995,-1,1
+"AS","American Samoa",1996,56,1
+"AS","American Samoa",1997,4,1
+"AS","American Samoa",1998,-199,1
+"AS","American Samoa",1999,43,1
+"AS","American Samoa",2001,47,1
+"AS","American Samoa",2002,32,1
+"AS","American Samoa",2003,42,1
+"AS","American Samoa",2004,73,1
+"AS","American Samoa",2005,30,1
+"AS","American Samoa",2006,79,1
+"AS","American Samoa",2007,58,1
+"AS","American Samoa",2008,50,1
+"AS","American Samoa",2009,53,1
+"AS","American Samoa",2010,81,1
+"AS","American Samoa",2011,197,1
+"AS","American Samoa",2012,176,1
+"AS","American Samoa",2013,160,1
+"AS","American Samoa",2014,174,1
+"AS","American Samoa",2015,215,1
+"AS","American Samoa",2016,164,1
+"AS","American Samoa",2017,237,1
+"AS","American Samoa",2018,255,1
+"AS","American Samoa",2019,306,1
+"AS","American Samoa",2022,290,1
+"AS","American Samoa",2023,282,1
+"AS","American Samoa",2024,241,1
+"CK","Cook Islands",1994,-3.57142857142844,1
+"CK","Cook Islands",1995,-42.5714285714284,1
+"CK","Cook Islands",1996,20.4285714285716,1
+"CK","Cook Islands",1997,36.4285714285716,1
+"CK","Cook Islands",1998,-69.5714285714284,1
+"CK","Cook Islands",1999,61.4285714285716,1
+"CK","Cook Islands",2000,-2.57142857142844,1
+"CK","Cook Islands",2001,-1.57142857142844,1
+"CK","Cook Islands",2002,-11.5714285714284,1
+"CK","Cook Islands",2003,-2.57142857142844,1
+"CK","Cook Islands",2004,-8.57142857142844,1
+"CK","Cook Islands",2005,6.42857142857156,1
+"CK","Cook Islands",2006,91.4285714285716,1
+"CK","Cook Islands",2007,81.4285714285716,1
+"CK","Cook Islands",2008,69.4285714285716,1
+"CK","Cook Islands",2009,58.4285714285716,1
+"CK","Cook Islands",2011,99.4285714285716,1
+"CK","Cook Islands",2013,27.4285714285716,1
+"CK","Cook Islands",2014,55.4285714285716,1
+"CK","Cook Islands",2015,38.4285714285716,1
+"CK","Cook Islands",2016,73.4285714285716,1
+"CK","Cook Islands",2017,73.4285714285716,1
+"CK","Cook Islands",2018,44.4285714285716,1
+"CK","Cook Islands",2019,98.4285714285716,1
+"CK","Cook Islands",2020,74.4285714285716,1
+"CK","Cook Islands",2021,147.428571428572,1
+"CK","Cook Islands",2022,166.428571428572,1
+"CK","Cook Islands",2023,122.428571428572,1
+"CK","Cook Islands",2024,107.428571428572,1
+"FJ","Fiji",1973,-92.5,1
+"FJ","Fiji",1976,-50.5,1
+"FJ","Fiji",1977,-103.5,1
+"FJ","Fiji",1982,-82.5,1
+"FJ","Fiji",1986,-126.5,1
+"FJ","Fiji",1988,-89.5,1
+"FJ","Fiji",1989,4.5,1
+"FJ","Fiji",1990,-11.5,1
+"FJ","Fiji",1991,12.5,1
+"FJ","Fiji",1992,2.5,1
+"FJ","Fiji",1993,-15.4375,2
+"FJ","Fiji",1994,-20.9375,2
+"FJ","Fiji",1995,-15.4375,2
+"FJ","Fiji",1996,35.0625,2
+"FJ","Fiji",1997,42.625,1
+"FJ","Fiji",1998,-60.3541666666665,2
+"FJ","Fiji",1999,-14.3541666666665,2
+"FJ","Fiji",2000,70.1458333333335,2
+"FJ","Fiji",2001,48.6458333333335,2
+"FJ","Fiji",2002,51.6458333333335,2
+"FJ","Fiji",2003,-7.85416666666652,2
+"FJ","Fiji",2004,27.1458333333335,2
+"FJ","Fiji",2005,12.6458333333335,2
+"FJ","Fiji",2006,44.1458333333335,2
+"FJ","Fiji",2007,82.6458333333335,2
+"FJ","Fiji",2008,121.645833333333,2
+"FJ","Fiji",2009,132.645833333333,2
+"FJ","Fiji",2010,52.6458333333335,2
+"FJ","Fiji",2011,120.645833333333,2
+"FJ","Fiji",2012,163.645833333333,2
+"FJ","Fiji",2013,104.145833333333,2
+"FJ","Fiji",2014,90.6458333333335,2
+"FJ","Fiji",2015,82.1458333333335,2
+"FJ","Fiji",2016,67.1458333333335,2
+"FJ","Fiji",2017,107.145833333333,2
+"FJ","Fiji",2018,114.645833333333,2
+"FJ","Fiji",2019,119.145833333333,2
+"FJ","Fiji",2020,131.645833333333,2
+"FJ","Fiji",2021,180.645833333333,2
+"FJ","Fiji",2022,242.145833333333,2
+"FJ","Fiji",2023,177.645833333333,2
+"FJ","Fiji",2024,133.145833333333,2
+"PF","French Polynesia",1977,-80.125,1
+"PF","French Polynesia",1978,-66.125,1
+"PF","French Polynesia",1979,-54.125,1
+"PF","French Polynesia",1980,-40.125,1
+"PF","French Polynesia",1981,-35.125,1
+"PF","French Polynesia",1982,-8.125,1
+"PF","French Polynesia",1983,-101.125,1
+"PF","French Polynesia",1984,-8.125,1
+"PF","French Polynesia",1985,12.875,1
+"PF","French Polynesia",1986,-0.125,1
+"PF","French Polynesia",1987,-34.125,1
+"PF","French Polynesia",1988,-25.125,1
+"PF","French Polynesia",1989,-23.125,1
+"PF","French Polynesia",1990,-10.125,1
+"PF","French Polynesia",1991,-16.125,1
+"PF","French Polynesia",1992,-7.125,1
+"PF","French Polynesia",1993,2.875,1
+"PF","French Polynesia",1994,-22.125,1
+"PF","French Polynesia",1995,7.875,1
+"PF","French Polynesia",1996,10.875,1
+"PF","French Polynesia",1997,-21.125,1
+"PF","French Polynesia",1998,-55.125,1
+"PF","French Polynesia",1999,66.875,1
+"PF","French Polynesia",2000,9.875,1
+"PF","French Polynesia",2001,0.875,1
+"PF","French Polynesia",2002,15.875,1
+"PF","French Polynesia",2003,30.875,1
+"PF","French Polynesia",2004,32.875,1
+"PF","French Polynesia",2005,-6.125,1
+"PF","French Polynesia",2006,44.875,1
+"PF","French Polynesia",2008,-4.125,1
+"PF","French Polynesia",2009,2.875,1
+"PF","French Polynesia",2010,-21.125,1
+"PF","French Polynesia",2011,20.875,1
+"PF","French Polynesia",2012,18.875,1
+"PF","French Polynesia",2013,8.875,1
+"PF","French Polynesia",2014,62.875,1
+"PF","French Polynesia",2015,101.875,1
+"PF","French Polynesia",2016,83.875,1
+"PF","French Polynesia",2017,55.875,1
+"PF","French Polynesia",2018,70.875,1
+"GU","Guam",1948,-17.3999999999996,1
+"GU","Guam",1949,-17.3999999999996,1
+"GU","Guam",1950,-6.39999999999964,1
+"GU","Guam",1951,-51.3999999999996,1
+"GU","Guam",1952,-33.3999999999996,1
+"GU","Guam",1953,38.6000000000004,1
+"GU","Guam",1954,16.6000000000004,1
+"GU","Guam",1955,-15.3999999999996,1
+"GU","Guam",1956,-69.3999999999996,1
+"GU","Guam",1957,-13.3999999999996,1
+"GU","Guam",1958,-101.4,1
+"GU","Guam",1959,-68.3999999999996,1
+"GU","Guam",1960,-38.3999999999996,1
+"GU","Guam",1961,-14.3999999999996,1
+"GU","Guam",1962,-8.39999999999964,1
+"GU","Guam",1963,-66.3999999999996,1
+"GU","Guam",1964,-59.3999999999996,1
+"GU","Guam",1965,-42.3999999999996,1
+"GU","Guam",1966,-56.3999999999996,1
+"GU","Guam",1967,-124.4,1
+"GU","Guam",1968,-110.4,1
+"GU","Guam",1969,-84.3999999999996,1
+"GU","Guam",1970,38.6000000000004,1
+"GU","Guam",1971,54.6000000000004,1
+"GU","Guam",1972,-176.4,1
+"GU","Guam",1973,-48.3999999999996,1
+"GU","Guam",1974,-63.3999999999996,1
+"GU","Guam",1977,-20.3999999999996,1
+"GU","Guam",1978,-37.3999999999996,1
+"GU","Guam",1979,-66.3999999999996,1
+"GU","Guam",1980,-40.3999999999996,1
+"GU","Guam",1981,3.60000000000036,1
+"GU","Guam",1982,-99.3999999999996,1
+"GU","Guam",1983,-140.4,1
+"GU","Guam",1984,55.6000000000004,1
+"GU","Guam",1985,-11.3999999999996,1
+"GU","Guam",1987,-116.4,1
+"GU","Guam",1988,-0.399999999999636,1
+"GU","Guam",1989,-23.3999999999996,1
+"GU","Guam",1990,-127.4,1
+"GU","Guam",1991,-122.4,1
+"GU","Guam",1992,-120.4,1
+"GU","Guam",1994,-0.399999999999636,1
+"GU","Guam",1995,-34.3999999999996,1
+"GU","Guam",1996,53.6000000000004,1
+"GU","Guam",1997,-118.4,1
+"GU","Guam",2000,99.6000000000004,1
+"GU","Guam",2001,71.6000000000004,1
+"GU","Guam",2002,11.6000000000004,1
+"GU","Guam",2003,17.6000000000004,1
+"GU","Guam",2005,54.6000000000004,1
+"GU","Guam",2006,109.6,1
+"GU","Guam",2007,88.6000000000004,1
+"GU","Guam",2008,176.6,1
+"GU","Guam",2009,101.6,1
+"GU","Guam",2010,78.6000000000004,1
+"GU","Guam",2012,147.6,1
+"GU","Guam",2013,148.6,1
+"GU","Guam",2014,58.6000000000004,1
+"GU","Guam",2015,-52.3999999999996,1
+"GU","Guam",2016,-6.39999999999964,1
+"GU","Guam",2017,117.6,1
+"GU","Guam",2018,47.6000000000004,1
+"GU","Guam",2019,34.6000000000004,1
+"GU","Guam",2020,67.6000000000004,1
+"GU","Guam",2021,172.6,1
+"GU","Guam",2022,159.6,1
+"GU","Guam",2023,73.6000000000004,1
+"GU","Guam",2024,150.6,1
+"GU","Guam",2025,208.6,1
+"KI","Kiribati",1988,-93.3999999999996,1
+"KI","Kiribati",1989,-14.3999999999996,1
+"KI","Kiribati",1990,68.6000000000004,1
+"KI","Kiribati",1991,44.6000000000004,1
+"KI","Kiribati",1992,-51.3999999999996,1
+"KI","Kiribati",1993,-4.39999999999964,1
+"KI","Kiribati",1994,20.6000000000004,1
+"KI","Kiribati",1995,-17.3666666666663,2
+"KI","Kiribati",1996,10.1333333333337,2
+"KI","Kiribati",1997,50.6333333333337,2
+"KI","Kiribati",1998,-126.333333333333,1
+"KI","Kiribati",1999,-9.33333333333303,1
+"KI","Kiribati",2000,32.666666666667,1
+"KI","Kiribati",2001,74.666666666667,1
+"KI","Kiribati",2002,114.666666666667,1
+"KI","Kiribati",2004,114.666666666667,1
+"KI","Kiribati",2005,62.666666666667,1
+"KI","Kiribati",2006,94.666666666667,1
+"KI","Kiribati",2007,36.666666666667,1
+"KI","Kiribati",2008,13.666666666667,1
+"KI","Kiribati",2009,111.666666666667,1
+"KI","Kiribati",2010,8.66666666666697,1
+"KI","Kiribati",2011,72.666666666667,1
+"KI","Kiribati",2012,100.666666666667,1
+"KI","Kiribati",2013,78.666666666667,1
+"KI","Kiribati",2014,147.666666666667,1
+"KI","Kiribati",2015,155.666666666667,1
+"KI","Kiribati",2016,25.666666666667,1
+"KI","Kiribati",2017,85.666666666667,1
+"KI","Kiribati",2018,159.666666666667,1
+"KI","Kiribati",2019,166.666666666667,1
+"KI","Kiribati",2020,82.666666666667,1
+"KI","Kiribati",2021,93.666666666667,1
+"KI","Kiribati",2022,108.666666666667,1
+"KI","Kiribati",2023,164.666666666667,1
+"KI","Kiribati",2024,66.666666666667,1
+"MH","Marshall Islands",1947,-49.875,1
+"MH","Marshall Islands",1948,-47.875,1
+"MH","Marshall Islands",1949,-53.875,1
+"MH","Marshall Islands",1950,-59.875,1
+"MH","Marshall Islands",1951,-96.875,1
+"MH","Marshall Islands",1952,-85.875,1
+"MH","Marshall Islands",1953,-50.875,1
+"MH","Marshall Islands",1954,-68.875,1
+"MH","Marshall Islands",1955,-22.875,1
+"MH","Marshall Islands",1956,-47.875,1
+"MH","Marshall Islands",1957,-107.875,1
+"MH","Marshall Islands",1958,-82.875,1
+"MH","Marshall Islands",1959,-102.875,1
+"MH","Marshall Islands",1960,-18.875,1
+"MH","Marshall Islands",1961,-2.875,1
+"MH","Marshall Islands",1962,21.125,1
+"MH","Marshall Islands",1963,-52.875,1
+"MH","Marshall Islands",1964,-26.875,1
+"MH","Marshall Islands",1965,-99.875,1
+"MH","Marshall Islands",1966,-65.875,1
+"MH","Marshall Islands",1967,-13.875,1
+"MH","Marshall Islands",1969,-105.508928571428,2
+"MH","Marshall Islands",1970,-10.0089285714284,2
+"MH","Marshall Islands",1971,14.4910714285716,2
+"MH","Marshall Islands",1972,-101.508928571428,2
+"MH","Marshall Islands",1973,0.125,1
+"MH","Marshall Islands",1974,16.125,1
+"MH","Marshall Islands",1975,7.125,1
+"MH","Marshall Islands",1976,-63.0089285714284,2
+"MH","Marshall Islands",1977,-18.0089285714284,2
+"MH","Marshall Islands",1978,-10.5089285714284,2
+"MH","Marshall Islands",1979,-34.875,1
+"MH","Marshall Islands",1980,-30.875,1
+"MH","Marshall Islands",1981,-0.508928571428442,2
+"MH","Marshall Islands",1982,-120.508928571428,2
+"MH","Marshall Islands",1983,-15.0089285714284,2
+"MH","Marshall Islands",1984,8.99107142857156,2
+"MH","Marshall Islands",1985,-25.0089285714284,2
+"MH","Marshall Islands",1986,-16.0089285714284,2
+"MH","Marshall Islands",1987,-57.5089285714284,2
+"MH","Marshall Islands",1988,29.4910714285716,2
+"MH","Marshall Islands",1989,12.9910714285716,2
+"MH","Marshall Islands",1990,13.9910714285716,2
+"MH","Marshall Islands",1991,-71.0089285714284,2
+"MH","Marshall Islands",1992,-31.5089285714284,2
+"MH","Marshall Islands",1993,-27.5089285714284,2
+"MH","Marshall Islands",1994,-30.0059523809523,3
+"MH","Marshall Islands",1995,7.32738095238104,3
+"MH","Marshall Islands",1996,44.9940476190477,3
+"MH","Marshall Islands",1997,-97.672619047619,3
+"MH","Marshall Islands",1998,24.9940476190477,3
+"MH","Marshall Islands",1999,28.9940476190477,3
+"MH","Marshall Islands",2000,59.5625,2
+"MH","Marshall Islands",2001,42.0625,2
+"MH","Marshall Islands",2002,-25.4375,2
+"MH","Marshall Islands",2003,39.5625,2
+"MH","Marshall Islands",2004,42.5625,2
+"MH","Marshall Islands",2005,43.5625,2
+"MH","Marshall Islands",2006,32.0625,2
+"MH","Marshall Islands",2007,109.0625,2
+"MH","Marshall Islands",2008,66.0625,2
+"MH","Marshall Islands",2009,31,1
+"MH","Marshall Islands",2010,79,1
+"MH","Marshall Islands",2011,102.0625,2
+"MH","Marshall Islands",2012,124.0625,2
+"MH","Marshall Islands",2013,80.5625,2
+"MH","Marshall Islands",2014,44.0625,2
+"MH","Marshall Islands",2015,-55.9375,2
+"MH","Marshall Islands",2016,101.0625,2
+"MH","Marshall Islands",2017,113.0625,2
+"MH","Marshall Islands",2018,70.5625,2
+"MH","Marshall Islands",2019,108.0625,2
+"MH","Marshall Islands",2020,92.0625,2
+"MH","Marshall Islands",2021,119.5625,2
+"MH","Marshall Islands",2022,100.125,1
+"MH","Marshall Islands",2023,87.125,1
+"MH","Marshall Islands",2024,72.5625,2
+"MH","Marshall Islands",2025,122.125,1
+"FM","Micronesia",1976,-94.875,1
+"FM","Micronesia",1977,-29.875,1
+"FM","Micronesia",1978,7.125,1
+"FM","Micronesia",1979,-29.875,1
+"FM","Micronesia",1980,-54.875,1
+"FM","Micronesia",1982,-125.875,1
+"FM","Micronesia",1983,-28.875,1
+"FM","Micronesia",1984,2.125,1
+"FM","Micronesia",1985,-4.875,1
+"FM","Micronesia",1986,-18.875,1
+"FM","Micronesia",1987,-97.875,1
+"FM","Micronesia",1988,48.125,1
+"FM","Micronesia",1989,43.125,1
+"FM","Micronesia",1990,-45.875,1
+"FM","Micronesia",1992,-77.875,1
+"FM","Micronesia",1993,-70.875,1
+"FM","Micronesia",1994,-60.875,1
+"FM","Micronesia",1995,-7.875,1
+"FM","Micronesia",1996,55.125,1
+"FM","Micronesia",1997,-130.875,1
+"FM","Micronesia",1998,22.125,1
+"FM","Micronesia",1999,84.125,1
+"FM","Micronesia",2000,109.125,1
+"FM","Micronesia",2001,61.125,1
+"FM","Micronesia",2002,-42.875,1
+"FM","Micronesia",2003,12.125,1
+"FM","Micronesia",2004,31.125,1
+"PG","Papua New Guinea",1985,27.1333333333332,3
+"PG","Papua New Guinea",1986,21,1
+"PG","Papua New Guinea",1987,-41.2000000000001,3
+"PG","Papua New Guinea",1988,40.6333333333332,3
+"PG","Papua New Guinea",1989,49.9749999999999,4
+"PG","Papua New Guinea",1990,39.9666666666665,3
+"PG","Papua New Guinea",1991,18.1333333333332,3
+"PG","Papua New Guinea",1992,-48.5333333333335,3
+"PG","Papua New Guinea",1993,-38.5250000000001,4
+"PG","Papua New Guinea",1994,13.4749999999999,4
+"PG","Papua New Guinea",1995,55.3999999999996,1
+"PG","Papua New Guinea",1996,114.4,1
+"PG","Papua New Guinea",1997,-50.9500000000001,3
+"PG","Papua New Guinea",1998,-80.25,1
+"PG","Papua New Guinea",1999,74.75,1
+"PG","Papua New Guinea",2000,88.75,1
+"PG","Papua New Guinea",2001,73.75,1
+"PG","Papua New Guinea",2002,-21.25,1
+"PG","Papua New Guinea",2003,25.75,1
+"PG","Papua New Guinea",2004,34.75,1
+"PG","Papua New Guinea",2005,42.75,1
+"PG","Papua New Guinea",2006,47.75,1
+"PG","Papua New Guinea",2007,67.75,1
+"PG","Papua New Guinea",2008,99.75,1
+"PG","Papua New Guinea",2009,63.75,1
+"PG","Papua New Guinea",2010,69.75,1
+"PG","Papua New Guinea",2012,118.75,1
+"PG","Papua New Guinea",2013,122.75,1
+"PG","Papua New Guinea",2015,1.75,1
+"PG","Papua New Guinea",2016,43.75,1
+"PG","Papua New Guinea",2018,155.75,1
+"PG","Papua New Guinea",2019,82.75,1
+"PG","Papua New Guinea",2021,180.75,1
+"PG","Papua New Guinea",2022,205.75,1
+"PG","Papua New Guinea",2023,109.75,1
+"SB","Solomon Islands",1976,167.5,1
+"SB","Solomon Islands",1977,75.5,1
+"SB","Solomon Islands",1978,74.5,1
+"SB","Solomon Islands",1980,60.5,1
+"SB","Solomon Islands",1981,109.5,1
+"SB","Solomon Islands",1982,75.5,1
+"SB","Solomon Islands",1983,-133.5,1
+"SB","Solomon Islands",1984,107.5,1
+"SB","Solomon Islands",1985,136.5,1
+"SB","Solomon Islands",1986,130.5,1
+"SB","Solomon Islands",1987,-73.5,1
+"SB","Solomon Islands",1988,121.5,1
+"SB","Solomon Islands",1989,189.5,1
+"SB","Solomon Islands",1990,109.5,1
+"SB","Solomon Islands",1991,117.5,1
+"SB","Solomon Islands",1992,-118.5,1
+"SB","Solomon Islands",1993,-65.5,1
+"SB","Solomon Islands",1994,65.5,1
+"SB","Solomon Islands",1995,-22,1
+"SB","Solomon Islands",1996,46,1
+"SB","Solomon Islands",1998,-175,1
+"SB","Solomon Islands",1999,62,1
+"SB","Solomon Islands",2000,89,1
+"SB","Solomon Islands",2001,41,1
+"SB","Solomon Islands",2002,-35,1
+"SB","Solomon Islands",2003,-14,1
+"SB","Solomon Islands",2004,-18,1
+"SB","Solomon Islands",2005,1,1
+"SB","Solomon Islands",2006,36,1
+"SB","Solomon Islands",2007,49,1
+"SB","Solomon Islands",2008,110,1
+"SB","Solomon Islands",2009,55,1
+"SB","Solomon Islands",2010,-1,1
+"SB","Solomon Islands",2011,132,1
+"SB","Solomon Islands",2012,89,1
+"SB","Solomon Islands",2013,64,1
+"SB","Solomon Islands",2014,50,1
+"SB","Solomon Islands",2015,-15,1
+"SB","Solomon Islands",2016,-50,1
+"SB","Solomon Islands",2018,94,1
+"SB","Solomon Islands",2019,32,1
+"SB","Solomon Islands",2020,80,1
+"SB","Solomon Islands",2022,227,1
+"SB","Solomon Islands",2023,127,1
+"TV","Tuvalu",1978,-13.1428571428569,1
+"TV","Tuvalu",1982,31.8571428571431,1
+"TV","Tuvalu",1983,-229.142857142857,1
+"TV","Tuvalu",1984,-67.1428571428569,1
+"TV","Tuvalu",1985,47.8571428571431,1
+"TV","Tuvalu",1986,48.8571428571431,1
+"TV","Tuvalu",1987,-105.142857142857,1
+"TV","Tuvalu",1988,23.8571428571431,1
+"TV","Tuvalu",1989,-11.1428571428569,1
+"TV","Tuvalu",1990,23.8571428571431,1
+"TV","Tuvalu",1991,35.8571428571431,1
+"TV","Tuvalu",1992,-130.142857142857,1
+"TV","Tuvalu",1993,-29.1428571428569,1
+"TV","Tuvalu",1994,39,2
+"TV","Tuvalu",1995,48.5,2
+"TV","Tuvalu",1996,46,2
+"TV","Tuvalu",1997,-3.5,2
+"TV","Tuvalu",1998,-185.5,2
+"TV","Tuvalu",1999,42.5,2
+"TV","Tuvalu",2000,55.1428571428569,1
+"TV","Tuvalu",2001,38.1428571428569,1
+"TV","Tuvalu",2002,73.1428571428569,1
+"TV","Tuvalu",2003,49.1428571428569,1
+"TV","Tuvalu",2004,56.1428571428569,1
+"TV","Tuvalu",2005,47.1428571428569,1
+"TV","Tuvalu",2006,51.1428571428569,1
+"TV","Tuvalu",2007,75.1428571428569,1
+"TV","Tuvalu",2008,60.1428571428569,1
+"TV","Tuvalu",2009,47.1428571428569,1
+"TV","Tuvalu",2010,16.1428571428569,1
+"TV","Tuvalu",2011,68.1428571428569,1
+"TV","Tuvalu",2013,75.1428571428569,1
+"TV","Tuvalu",2014,99.1428571428569,1
+"TV","Tuvalu",2015,87.1428571428569,1
+"TV","Tuvalu",2016,21.1428571428569,1
+"TV","Tuvalu",2017,91.1428571428569,1
+"TV","Tuvalu",2018,151.142857142857,1
+"TV","Tuvalu",2020,144.142857142857,1
+"TV","Tuvalu",2021,128.142857142857,1
+"TV","Tuvalu",2022,132.142857142857,1
+"VU","Vanuatu",1994,-35.5714285714284,1
+"VU","Vanuatu",1995,-28.5714285714284,1
+"VU","Vanuatu",1996,46.4285714285716,1
+"VU","Vanuatu",1997,17.4285714285716,1
+"VU","Vanuatu",1998,-30.5714285714284,1
+"VU","Vanuatu",1999,-27.5714285714284,1
+"VU","Vanuatu",2000,58.4285714285716,1
+"VU","Vanuatu",2001,73.4285714285716,1
+"VU","Vanuatu",2002,45.4285714285716,1
+"VU","Vanuatu",2003,0.428571428571558,1
+"VU","Vanuatu",2004,11.4285714285716,1
+"VU","Vanuatu",2005,-0.571428571428442,1
+"VU","Vanuatu",2006,17.4285714285716,1
+"VU","Vanuatu",2007,58.4285714285716,1
+"VU","Vanuatu",2008,99.4285714285716,1
+"VU","Vanuatu",2009,131.428571428572,1
+"VU","Vanuatu",2010,39.4285714285716,1
+"VU","Vanuatu",2011,60.4285714285716,1
+"VU","Vanuatu",2012,68.4285714285716,1
+"VU","Vanuatu",2013,21.4285714285716,1
+"VU","Vanuatu",2014,8.42857142857156,1
+"VU","Vanuatu",2015,-7.57142857142844,1
+"VU","Vanuatu",2016,-18.5714285714284,1
+"VU","Vanuatu",2017,-8.57142857142844,1
+"VU","Vanuatu",2018,-3.57142857142844,1
+"VU","Vanuatu",2019,-10.5714285714284,1
+"VU","Vanuatu",2020,24.4285714285716,1
+"VU","Vanuatu",2021,51.4285714285716,1
+"VU","Vanuatu",2022,154.428571428572,1
+"VU","Vanuatu",2023,103.428571428572,1
+"VU","Vanuatu",2024,20.4285714285716,1
