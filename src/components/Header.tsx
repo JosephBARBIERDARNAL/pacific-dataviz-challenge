@@ -65,15 +65,6 @@ export function Header({
         >
           <span className="header-control-label">Record</span>
           <button
-            className="record-button record-button--satellite"
-            type="button"
-            aria-pressed={selectedRecord === "satellite"}
-            onClick={() => onSelectRecord("satellite")}
-          >
-            Satellite
-            <span>1993–2023</span>
-          </button>
-          <button
             className="record-button record-button--historical"
             type="button"
             aria-pressed={selectedRecord === "historical"}
@@ -81,6 +72,15 @@ export function Header({
           >
             Tide gauges
             <span>1947–2025</span>
+          </button>
+          <button
+            className="record-button record-button--satellite"
+            type="button"
+            aria-pressed={selectedRecord === "satellite"}
+            onClick={() => onSelectRecord("satellite")}
+          >
+            Satellite
+            <span>1993–2023</span>
           </button>
         </div>
       </div>

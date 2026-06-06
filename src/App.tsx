@@ -39,7 +39,7 @@ export default function App() {
   const { selectedView, selectView } = useView(data);
   const { displayView, isChanging } = useViewTransition(selectedView);
   const [selectedRecord, setSelectedRecord] =
-    useState<ChartRecord>("satellite");
+    useState<ChartRecord>("historical");
 
   const isGlobal = displayView === "global";
   const summary =

@@ -21,6 +21,11 @@ export function Footer() {
             </a>
           </p>
         </div>
+        <img
+          className="footer-logo"
+          src={`${import.meta.env.BASE_URL}image/logo.png`}
+          alt="Pacific Dataviz Challenge"
+        />
       </div>
     </footer>
   );

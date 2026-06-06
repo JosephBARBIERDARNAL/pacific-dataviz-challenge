@@ -22,14 +22,6 @@ interface Metric {
   value: string;
 }
 
-function rankLabel(data: SeaLevelData, summary: CountrySummary): string {
-  const summaries = [...data.summaryByCountry.values()];
-  const betterCount = summaries.filter((d) => d.rise > summary.rise).length;
-  const tied = summaries.filter((d) => d.rise === summary.rise).length;
-  const rank = betterCount + 1;
-  return tied > 1 ? `Joint #${rank}` : `#${rank}`;
-}
-
 function buildMetrics(
   data: SeaLevelData,
   summary: CountrySummary | null,
@@ -37,19 +29,15 @@ function buildMetrics(
   if (summary) {
     return [
       {
-        label: "1993–2023 change",
+        label: "sea level change",
         value: `${formatSignedValue(summary.rise)} mm`,
       },
       {
-        label: "Regional rank",
-        value: rankLabel(data, summary),
-      },
-      {
-        label: "People directly affected, 2005–2023",
+        label: "People directly affected (cumulative)",
         value: reportedNumber(summary.affected),
       },
       {
-        label: "Reported disaster losses, 2007–2020",
+        label: "Reported disaster losses (cumulative)",
         value: reportedCurrency(summary.losses),
       },
     ];
@@ -165,12 +153,6 @@ export function ViewPanel({
       aria-live="polite"
     >
       <section className="measure-summary" aria-label="Current chart measure">
-        <p className="eyebrow">Currently showing · {placeName}</p>
-        <h2 id="view-title">
-          {showingSatellite
-            ? "Satellite-era sea-level anomaly"
-            : "Historical tide-gauge anomaly"}
-        </h2>
         <p className="measure-description">
           {showingSatellite
             ? isGlobal
@@ -190,8 +172,8 @@ export function ViewPanel({
       <div id="metrics" className="metrics" aria-label="Key sea-level figures">
         {metrics.map((metric) => (
           <div className="metric" key={metric.label}>
-            <span className="metric-label">{metric.label}</span>
             <span className="metric-value">{metric.value}</span>
+            <span className="metric-label">{metric.label}</span>
           </div>
         ))}
       </div>

@@ -41,12 +41,12 @@ export function drawLineChart(
       ? mobile
         ? 460
         : 680
-    : mobile
-      ? 420
-      : 560;
+      : mobile
+        ? 420
+        : 560;
   const margin: Margin = {
     top: 36,
-    right: mobile ? 22 : 128,
+    right: mobile ? 22 : options.countStrip ? 190 : 128,
     bottom: options.countStrip ? 126 : 62,
     left: mobile ? 58 : 72,
   };
@@ -224,10 +224,7 @@ export function drawLineChart(
       .append("text")
       .attr("class", "direct-label")
       .attr("x", labelX)
-      .attr(
-        "y",
-        Math.max(margin.top + 14, y(lastValid.value as number) - 12),
-      )
+      .attr("y", Math.max(margin.top + 14, y(lastValid.value as number) - 12))
       .attr("text-anchor", labelAnchor)
       .attr("fill", dark ? options.color : textColor)
       .attr("font-size", 12)
@@ -244,8 +241,8 @@ export function drawLineChart(
         height,
         margin,
         plotBottom,
-        textColor,
-        subtle,
+        options.color,
+        mobile,
       )
     : null;
 
@@ -286,8 +283,8 @@ function drawCountStrip(
   height: number,
   margin: Margin,
   plotBottom: number,
-  textColor: string,
-  subtle: string,
+  color: string,
+  mobile: boolean,
 ): { bars: CoverageBars; stripBottom: number } {
   const stripTop = plotBottom + 50;
   const stripBottom = height - 20;
@@ -300,15 +297,6 @@ function drawCountStrip(
     1,
     (width - margin.left - margin.right) / data.length - 0.5,
   );
-
-  svg
-    .append("text")
-    .attr("class", "count-label")
-    .attr("x", margin.left)
-    .attr("y", stripTop - 12)
-    .attr("fill", subtle)
-    .attr("font-size", 12)
-    .text("COUNTRIES CONTRIBUTING");
 
   const bars = svg
     .append("g")
@@ -326,14 +314,29 @@ function drawCountStrip(
     .attr("stroke-opacity", (d) => (d.count ? 0.65 : 0))
     .attr("stroke-width", 0.5);
 
-  svg
-    .append("text")
-    .attr("class", "count-label")
-    .attr("x", width - margin.right + 7)
-    .attr("y", countScale(maxCount) + 4)
-    .attr("fill", textColor)
-    .attr("font-size", 12)
-    .text(maxCount);
+  const lastCountDatum = data
+    .slice()
+    .reverse()
+    .find((d) => (d.count ?? 0) > 0);
+  if (lastCountDatum) {
+    const count = lastCountDatum.count ?? 0;
+    svg
+      .append("text")
+      .attr("class", "count-label")
+      .attr(
+        "x",
+        mobile ? x(lastCountDatum.year) - 4 : x(lastCountDatum.year) + 10,
+      )
+      .attr(
+        "y",
+        mobile ? stripTop - 12 : Math.max(stripTop + 12, countScale(count) - 8),
+      )
+      .attr("text-anchor", mobile ? "end" : "start")
+      .attr("fill", color)
+      .attr("font-size", 12)
+      .attr("font-weight", 700)
+      .text("COUNTRIES CONTRIBUTING TO MEAN");
+  }
 
   return { bars, stripBottom };
 }
@@ -425,7 +428,9 @@ function addChartInteraction({
       .html(
         lines
           .map((line, lineIndex) =>
-            lineIndex === 0 ? `<strong>${line}</strong>` : `<span>${line}</span>`,
+            lineIndex === 0
+              ? `<strong>${line}</strong>`
+              : `<span>${line}</span>`,
           )
           .join("<br>"),
       );
