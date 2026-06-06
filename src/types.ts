@@ -36,7 +36,6 @@ export interface CountrySummary {
   rise: number;
   affected: number;
   losses: number;
-  populationGrowth: number;
 }
 
 export interface CountryOption {

@@ -12,6 +12,7 @@ export interface LineChartOptions {
   tooltip: (d: ChartPoint) => string[];
   range?: boolean;
   countStrip?: boolean;
+  prominent?: boolean;
 }
 
 interface Margin {
@@ -36,6 +37,10 @@ export function drawLineChart(
     ? mobile
       ? 480
       : 640
+    : options.prominent
+      ? mobile
+        ? 460
+        : 680
     : mobile
       ? 420
       : 560;
@@ -203,7 +208,7 @@ export function drawLineChart(
     .datum(data)
     .attr("fill", "none")
     .attr("stroke", options.color)
-    .attr("stroke-width", 3)
+    .attr("stroke-width", options.prominent ? 4 : 3)
     .attr("stroke-linejoin", "round")
     .attr("stroke-linecap", "round")
     .attr("d", line);

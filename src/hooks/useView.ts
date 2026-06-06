@@ -16,14 +16,11 @@ function updateUrl(view: View, replace = false): void {
 
 interface ViewState {
   selectedView: View;
-  /** Increments on every selection, even a repeated one — used to recenter the globe. */
-  focusKey: number;
   selectView: (view: View) => void;
 }
 
 export function useView(data: SeaLevelData | null): ViewState {
   const [selectedView, setSelectedView] = useState<View>("global");
-  const [focusKey, setFocusKey] = useState(0);
   const selectedViewRef = useRef(selectedView);
   selectedViewRef.current = selectedView;
 
@@ -54,7 +51,6 @@ export function useView(data: SeaLevelData | null): ViewState {
   const selectView = useCallback(
     (view: View) => {
       if (!isValidView(view)) return;
-      setFocusKey((key) => key + 1);
       if (view === selectedViewRef.current) return;
       updateUrl(view);
       setSelectedView(view);
@@ -62,5 +58,5 @@ export function useView(data: SeaLevelData | null): ViewState {
     [isValidView],
   );
 
-  return { selectedView, focusKey, selectView };
+  return { selectedView, selectView };
 }

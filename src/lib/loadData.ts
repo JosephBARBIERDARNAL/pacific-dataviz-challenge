@@ -35,7 +35,6 @@ function parseSummary(row: d3.DSVRowString): CountrySummary {
     rise: +row.sea_level_rise_mm!,
     affected: +row.affected_people_2005_2023!,
     losses: +row.loss_usd_2007_2020!,
-    populationGrowth: +row.population_growth_2020_2025_pct!,
   };
 }
 

@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { ContextSection } from "./components/ContextSection";
 import { Footer } from "./components/Footer";
 import { Header } from "./components/Header";
 import { HistoricalSection } from "./components/HistoricalSection";
@@ -39,7 +38,7 @@ function useViewTransition(selectedView: View) {
 
 export default function App() {
   const { data, error } = useSeaLevelData();
-  const { selectedView, focusKey, selectView } = useView(data);
+  const { selectedView, selectView } = useView(data);
   const { displayView, isChanging } = useViewTransition(selectedView);
 
   const isGlobal = displayView === "global";
@@ -67,22 +66,13 @@ export default function App() {
       <main id="main-content">
         <section className="hero" aria-labelledby="page-title">
           <div className="hero-intro">
-            <div>
-              <p className="eyebrow">Water does not rise evenly</p>
-              <h1 id="page-title">A changing shoreline across the Pacific</h1>
-            </div>
-            <p className="dek">
-              Satellite observations give a comparable view across 21 Pacific
-              countries and territories. Tide gauges reach further back, but
-              only for some places and years. This page keeps those records
-              apart.
-            </p>
+            <p className="eyebrow">Water is rising</p>
+            <h1 id="page-title">A changing shoreline across the Pacific</h1>
           </div>
 
           <ViewNavigation
             countries={data?.countries ?? []}
             selectedView={selectedView}
-            focusKey={focusKey}
             onSelect={selectView}
           />
 
@@ -96,10 +86,8 @@ export default function App() {
             (data ? (
               <ViewPanel
                 data={data}
-                selectedView={displayView}
                 summary={summary}
                 satellite={satellite}
-                historical={historical}
                 isChanging={isChanging}
               />
             ) : (
@@ -109,20 +97,13 @@ export default function App() {
                 aria-labelledby="view-title"
                 aria-live="polite"
               >
-                <div className="view-heading">
-                  <div>
-                    <h2 id="view-title">Loading data…</h2>
-                  </div>
-                </div>
+                <h2 id="view-title">Loading data…</h2>
               </div>
             ))}
         </section>
 
         {data && !error && (
-          <>
-            <HistoricalSection summary={summary} historical={historical} />
-            <ContextSection data={data} summary={summary} />
-          </>
+          <HistoricalSection summary={summary} historical={historical} />
         )}
 
         <ImpactsSection />

@@ -55,16 +55,15 @@ export function HistoricalSection({
 
   return (
     <section className="evidence-section" aria-labelledby="historical-section-title">
-      <div className="section-heading">
-        <div>
-          <p className="eyebrow eyebrow--dark">The longer, narrower record</p>
-          <h2 id="historical-section-title">What tide gauges saw</h2>
-        </div>
-        <p id="historical-intro" className="section-intro">
-          {hasHistorical
-            ? ""
-            : "Historical coverage is selective. Some country views therefore retain only the complete satellite-era panel."}
-        </p>
+      <div>
+        <p className="eyebrow eyebrow--dark">The longer, narrower record</p>
+        <h2 id="historical-section-title">What tide gauges saw</h2>
+        {!hasHistorical && (
+          <p id="historical-intro" className="section-intro">
+            Historical coverage is selective. Some country views therefore
+            retain only the complete satellite-era panel.
+          </p>
+        )}
       </div>
 
       {hasHistorical ? (

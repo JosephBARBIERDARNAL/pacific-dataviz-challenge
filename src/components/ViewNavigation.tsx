@@ -1,17 +1,14 @@
 import type { CountryOption, View } from "../types";
-import { Globe } from "./Globe";
 
 interface ViewNavigationProps {
   countries: CountryOption[];
   selectedView: View;
-  focusKey: number;
   onSelect: (view: View) => void;
 }
 
 export function ViewNavigation({
   countries,
   selectedView,
-  focusKey,
   onSelect,
 }: ViewNavigationProps) {
   const views: CountryOption[] = [
@@ -21,11 +18,11 @@ export function ViewNavigation({
 
   return (
     <nav className="view-navigation" aria-label="Choose a regional or country view">
-      <div className="navigation-copy">
+      <div>
         <p className="eyebrow">Explore the Pacific</p>
         <h2 className="navigation-title">Choose a country or territory</h2>
         <p className="navigation-note">
-          Select a marker, drag the globe, or use the complete list.
+          Use the complete list to compare the regional view with each place.
         </p>
         <div className="view-controls">
           <div className="view-select-wrap">
@@ -53,12 +50,6 @@ export function ViewNavigation({
           </button>
         </div>
       </div>
-      <Globe
-        countries={countries}
-        selectedView={selectedView}
-        focusKey={focusKey}
-        onSelect={onSelect}
-      />
     </nav>
   );
 }
