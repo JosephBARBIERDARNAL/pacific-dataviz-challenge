@@ -1,4 +1,4 @@
-data_dir <- file.path("data")
+data_dir <- file.path("public", "data")
 dir.create(data_dir, showWarnings = FALSE, recursive = TRUE)
 
 endpoint <- "https://stats-nsi-stable.pacificdata.org/rest/data"
