@@ -723,7 +723,7 @@ a:focus-visible {
 
 .footer-inner {
   display: grid;
-  grid-template-columns: 0.8fr 1.1fr 1.1fr;
+  grid-template-columns: 5fr 1fr 1fr;
   gap: clamp(2rem, 7vw, 7rem);
 }
 
@@ -736,13 +736,8 @@ a:focus-visible {
 }
 
 .site-footer a {
-  display: block;
   margin-bottom: 0.3rem;
   color: var(--white);
-}
-
-.site-footer p:last-child {
-  margin-bottom: 0;
 }
 
 .axis text,

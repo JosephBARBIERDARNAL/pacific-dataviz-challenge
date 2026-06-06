@@ -1,1 +1,1 @@
-# pacific-dataviz-challenge
+# Pacific Dataviz Challenge (2026)
