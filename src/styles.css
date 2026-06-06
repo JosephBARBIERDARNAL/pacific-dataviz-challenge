@@ -209,7 +209,7 @@ h3,
 
 .hero {
   min-height: calc(100vh - 4.5rem);
-  padding: clamp(3.5rem, 7vw, 7.5rem) 0 5rem;
+  padding: clamp(7rem, 12vw, 12rem) 0 5rem;
   overflow: hidden;
   background: var(--navy);
   color: var(--white);
@@ -728,7 +728,7 @@ a:focus-visible {
 
   .hero {
     min-height: 100vh;
-    padding-top: 3.25rem;
+    padding-top: 6rem;
   }
 
   h1 {

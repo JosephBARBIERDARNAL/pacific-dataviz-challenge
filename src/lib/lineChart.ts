@@ -64,7 +64,7 @@ export function drawLineChart(
     number,
     number,
   ];
-  const yPadding = Math.max(20, (yExtent[1] - yExtent[0]) * 0.12);
+  const yPadding = Math.max(8, (yExtent[1] - yExtent[0]) * 0.05);
   const x = d3
     .scaleLinear()
     .domain(d3.extent(data, (d) => d.year) as [number, number])
@@ -72,7 +72,6 @@ export function drawLineChart(
   const y = d3
     .scaleLinear()
     .domain([yExtent[0] - yPadding, yExtent[1] + yPadding])
-    .nice(mobile ? 4 : 6)
     .range([plotBottom, margin.top]);
 
   const dark = options.theme === "dark";

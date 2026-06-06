@@ -27,10 +27,6 @@ export function ImpactsSection() {
       <div>
         <p className="eyebrow eyebrow--dark">Why millimeters matter</p>
         <h2 id="impacts-title">Higher water changes the baseline</h2>
-        <p className="section-intro">
-          Sea-level rise compounds everyday coastal pressures and lets storm
-          tides reach farther inland.
-        </p>
       </div>
       <div className="impact-grid">
         {IMPACTS.map((impact) => (

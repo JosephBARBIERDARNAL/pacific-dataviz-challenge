@@ -214,7 +214,7 @@ export function ViewPanel({
             <p className="chart-note">
               {isGlobal
                 ? "Line: equal-country mean. Band: lowest to highest country value each year."
-                : "Annual values in millimeters."}
+                : "Annual satellite measurements in millimeters."}
             </p>
           </header>
           <LineChart
