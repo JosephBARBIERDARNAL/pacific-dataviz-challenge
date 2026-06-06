@@ -1,10 +1,3 @@
-if (!requireNamespace("ggplot2", quietly = TRUE)) {
-  stop("ggplot2 is required")
-}
-if (!requireNamespace("scales", quietly = TRUE)) {
-  stop("scales is required")
-}
-
 args <- commandArgs(FALSE)
 file_arg <- sub("^--file=", "", args[grep("^--file=", args)])
 root <- if (length(file_arg)) dirname(normalizePath(file_arg)) else getwd()
@@ -31,11 +24,7 @@ save <- function(plot, name) {
   )
 }
 
-regional <- stats::aggregate(
-  sea_level_mm ~ year,
-  sea,
-  mean
-)
+regional <- stats::aggregate(sea_level_mm ~ year, sea, mean)
 
 p1 <- ggplot2::ggplot(regional, ggplot2::aes(year, sea_level_mm)) +
   ggplot2::geom_hline(yintercept = 0, color = "grey70") +
