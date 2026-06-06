@@ -9,10 +9,7 @@ export function denseHistorical(
 
   const byYear = new Map(records.map((d) => [d.year, d]));
   return d3
-    .range(
-      d3.min(records, (d) => d.year)!,
-      d3.max(records, (d) => d.year)! + 1,
-    )
+    .range(d3.min(records, (d) => d.year)!, d3.max(records, (d) => d.year)! + 1)
     .map(
       (year) =>
         byYear.get(year) || {

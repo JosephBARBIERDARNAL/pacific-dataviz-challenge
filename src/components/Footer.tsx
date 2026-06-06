@@ -16,7 +16,11 @@ export function Footer() {
           </p>
           <p>
             Author:{" "}
-            <a href="https://barbierjoseph.com/" target="_blank" rel="noreferrer">
+            <a
+              href="https://barbierjoseph.com/"
+              target="_blank"
+              rel="noreferrer"
+            >
               Joseph Barbier
             </a>
           </p>

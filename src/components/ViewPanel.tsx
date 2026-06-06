@@ -81,7 +81,6 @@ export function ViewPanel({
   const metrics = buildMetrics(data, summary);
   const validHistorical = historical.filter((d) => d.value != null);
   const hasHistorical = isGlobal || validHistorical.length > 0;
-  const placeName = isGlobal ? "Pacific region" : summary.country;
 
   const satelliteOptions = useMemo<LineChartOptions>(
     () => ({
