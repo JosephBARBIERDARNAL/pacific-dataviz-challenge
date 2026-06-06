@@ -1,0 +1,793 @@
+"country_code","country","year","population_growth_pct"
+"AS","American Samoa",1990,3.22
+"AS","American Samoa",1991,2.64
+"AS","American Samoa",1992,2.42
+"AS","American Samoa",1993,2.29
+"AS","American Samoa",1994,2.17
+"AS","American Samoa",1995,2.08
+"AS","American Samoa",1996,1.99
+"AS","American Samoa",1997,1.88
+"AS","American Samoa",1998,1.79
+"AS","American Samoa",1999,1.65
+"AS","American Samoa",2000,1.07
+"AS","American Samoa",2001,0.35
+"AS","American Samoa",2002,0.01
+"AS","American Samoa",2003,-0.16
+"AS","American Samoa",2004,-0.26
+"AS","American Samoa",2005,-0.35
+"AS","American Samoa",2006,-0.43
+"AS","American Samoa",2007,-0.46
+"AS","American Samoa",2008,-0.51
+"AS","American Samoa",2009,-0.54
+"AS","American Samoa",2010,-0.54
+"AS","American Samoa",2011,-0.6
+"AS","American Samoa",2012,-0.73
+"AS","American Samoa",2013,-0.89
+"AS","American Samoa",2014,-1.01
+"AS","American Samoa",2015,-1.1
+"AS","American Samoa",2016,-1.19
+"AS","American Samoa",2017,-1.26
+"AS","American Samoa",2018,-1.31
+"AS","American Samoa",2019,-1.38
+"AS","American Samoa",2020,-0.89
+"AS","American Samoa",2021,-1.07
+"AS","American Samoa",2022,-1.8
+"AS","American Samoa",2023,-1.69
+"AS","American Samoa",2024,-0.89
+"AS","American Samoa",2025,-1.6
+"CK","Cook Islands",1990,1.08
+"CK","Cook Islands",1991,1.12
+"CK","Cook Islands",1992,0.92
+"CK","Cook Islands",1993,0.7
+"CK","Cook Islands",1994,0.52
+"CK","Cook Islands",1995,0.56
+"CK","Cook Islands",1996,0.4
+"CK","Cook Islands",1997,-1.3
+"CK","Cook Islands",1998,-3.11
+"CK","Cook Islands",1999,-3.49
+"CK","Cook Islands",2000,-3.77
+"CK","Cook Islands",2001,-3.87
+"CK","Cook Islands",2002,-1.73
+"CK","Cook Islands",2003,0.37
+"CK","Cook Islands",2004,0.34
+"CK","Cook Islands",2005,0.35
+"CK","Cook Islands",2006,0.5
+"CK","Cook Islands",2007,1.91
+"CK","Cook Islands",2008,3.08
+"CK","Cook Islands",2009,3.13
+"CK","Cook Islands",2010,3.01
+"CK","Cook Islands",2011,2.81
+"CK","Cook Islands",2012,1.18
+"CK","Cook Islands",2013,-0.3
+"CK","Cook Islands",2014,-0.44
+"CK","Cook Islands",2015,-0.48
+"CK","Cook Islands",2016,-0.66
+"CK","Cook Islands",2017,-1.63
+"CK","Cook Islands",2018,-2.68
+"CK","Cook Islands",2019,-2.76
+"CK","Cook Islands",2020,-3
+"CK","Cook Islands",2021,-2.96
+"CK","Cook Islands",2022,-2.96
+"CK","Cook Islands",2023,-3.39
+"CK","Cook Islands",2024,-2.17
+"CK","Cook Islands",2025,-3.41
+"FJ","Fiji",1990,0.91
+"FJ","Fiji",1991,0.82
+"FJ","Fiji",1992,0.73
+"FJ","Fiji",1993,0.64
+"FJ","Fiji",1994,0.56
+"FJ","Fiji",1995,0.5
+"FJ","Fiji",1996,0.63
+"FJ","Fiji",1997,1.04
+"FJ","Fiji",1998,1.25
+"FJ","Fiji",1999,1.16
+"FJ","Fiji",2000,1.09
+"FJ","Fiji",2001,1.03
+"FJ","Fiji",2002,1
+"FJ","Fiji",2003,0.96
+"FJ","Fiji",2004,0.93
+"FJ","Fiji",2005,0.92
+"FJ","Fiji",2006,0.9
+"FJ","Fiji",2007,0.84
+"FJ","Fiji",2008,0.62
+"FJ","Fiji",2009,0.42
+"FJ","Fiji",2010,0.35
+"FJ","Fiji",2011,0.28
+"FJ","Fiji",2012,0.21
+"FJ","Fiji",2013,0.16
+"FJ","Fiji",2014,0.13
+"FJ","Fiji",2015,0.11
+"FJ","Fiji",2016,0.06
+"FJ","Fiji",2017,-0.04
+"FJ","Fiji",2018,-0.17
+"FJ","Fiji",2019,-0.25
+"FJ","Fiji",2020,0.01
+"FJ","Fiji",2021,0.19
+"FJ","Fiji",2022,0.3
+"FJ","Fiji",2023,0.51
+"FJ","Fiji",2024,0.26
+"FJ","Fiji",2025,0.48
+"PF","French Polynesia",1990,2.07
+"PF","French Polynesia",1991,1.95
+"PF","French Polynesia",1992,1.83
+"PF","French Polynesia",1993,1.73
+"PF","French Polynesia",1994,1.64
+"PF","French Polynesia",1995,1.55
+"PF","French Polynesia",1996,1.52
+"PF","French Polynesia",1997,1.61
+"PF","French Polynesia",1998,1.64
+"PF","French Polynesia",1999,1.59
+"PF","French Polynesia",2000,1.58
+"PF","French Polynesia",2001,1.56
+"PF","French Polynesia",2002,1.51
+"PF","French Polynesia",2003,1.56
+"PF","French Polynesia",2004,1.59
+"PF","French Polynesia",2005,1.5
+"PF","French Polynesia",2006,1.43
+"PF","French Polynesia",2007,1.22
+"PF","French Polynesia",2008,0.73
+"PF","French Polynesia",2009,0.41
+"PF","French Polynesia",2010,0.41
+"PF","French Polynesia",2011,0.42
+"PF","French Polynesia",2012,0.5
+"PF","French Polynesia",2013,0.6
+"PF","French Polynesia",2014,0.6
+"PF","French Polynesia",2015,0.54
+"PF","French Polynesia",2016,0.47
+"PF","French Polynesia",2017,0.32
+"PF","French Polynesia",2018,-0.1
+"PF","French Polynesia",2019,-0.28
+"PF","French Polynesia",2020,0.06
+"PF","French Polynesia",2021,0.21
+"PF","French Polynesia",2022,0.21
+"PF","French Polynesia",2023,0.26
+"PF","French Polynesia",2024,0.11
+"PF","French Polynesia",2025,0.24
+"GU","Guam",1990,2.08
+"GU","Guam",1991,1.77
+"GU","Guam",1992,1.65
+"GU","Guam",1993,1.57
+"GU","Guam",1994,1.52
+"GU","Guam",1995,1.48
+"GU","Guam",1996,1.41
+"GU","Guam",1997,1.35
+"GU","Guam",1998,1.31
+"GU","Guam",1999,1.32
+"GU","Guam",2000,1.12
+"GU","Guam",2001,0.79
+"GU","Guam",2002,0.61
+"GU","Guam",2003,0.5
+"GU","Guam",2004,0.41
+"GU","Guam",2005,0.34
+"GU","Guam",2006,0.29
+"GU","Guam",2007,0.26
+"GU","Guam",2008,0.26
+"GU","Guam",2009,0.29
+"GU","Guam",2010,0.21
+"GU","Guam",2011,0
+"GU","Guam",2012,-0.12
+"GU","Guam",2013,-0.22
+"GU","Guam",2014,-0.29
+"GU","Guam",2015,-0.35
+"GU","Guam",2016,-0.41
+"GU","Guam",2017,-0.45
+"GU","Guam",2018,-0.5
+"GU","Guam",2019,-0.53
+"GU","Guam",2020,0.21
+"GU","Guam",2021,0.97
+"GU","Guam",2022,0.88
+"GU","Guam",2023,0.81
+"GU","Guam",2024,0.37
+"GU","Guam",2025,0.74
+"KI","Kiribati",1990,2.33
+"KI","Kiribati",1991,2.02
+"KI","Kiribati",1992,1.67
+"KI","Kiribati",1993,1.54
+"KI","Kiribati",1994,1.49
+"KI","Kiribati",1995,1.52
+"KI","Kiribati",1996,1.71
+"KI","Kiribati",1997,1.84
+"KI","Kiribati",1998,1.8
+"KI","Kiribati",1999,1.71
+"KI","Kiribati",2000,1.7
+"KI","Kiribati",2001,1.93
+"KI","Kiribati",2002,2.14
+"KI","Kiribati",2003,2.07
+"KI","Kiribati",2004,2.03
+"KI","Kiribati",2005,2.03
+"KI","Kiribati",2006,2.03
+"KI","Kiribati",2007,2.04
+"KI","Kiribati",2008,2.11
+"KI","Kiribati",2009,2.15
+"KI","Kiribati",2010,2.09
+"KI","Kiribati",2011,1.79
+"KI","Kiribati",2012,1.48
+"KI","Kiribati",2013,1.38
+"KI","Kiribati",2014,1.3
+"KI","Kiribati",2015,1.29
+"KI","Kiribati",2016,1.42
+"KI","Kiribati",2017,1.51
+"KI","Kiribati",2018,1.51
+"KI","Kiribati",2019,1.51
+"KI","Kiribati",2020,1.75
+"KI","Kiribati",2021,1.81
+"KI","Kiribati",2022,1.63
+"KI","Kiribati",2023,1.58
+"KI","Kiribati",2024,0.73
+"KI","Kiribati",2025,1.48
+"MH","Marshall Islands",1990,2.41
+"MH","Marshall Islands",1991,2.08
+"MH","Marshall Islands",1992,1.82
+"MH","Marshall Islands",1993,1.51
+"MH","Marshall Islands",1994,1.32
+"MH","Marshall Islands",1995,1.16
+"MH","Marshall Islands",1996,1.05
+"MH","Marshall Islands",1997,0.99
+"MH","Marshall Islands",1998,0.93
+"MH","Marshall Islands",1999,0.98
+"MH","Marshall Islands",2000,1
+"MH","Marshall Islands",2001,0.83
+"MH","Marshall Islands",2002,0.59
+"MH","Marshall Islands",2003,0.42
+"MH","Marshall Islands",2004,0.29
+"MH","Marshall Islands",2005,0.23
+"MH","Marshall Islands",2006,0.16
+"MH","Marshall Islands",2007,0.08
+"MH","Marshall Islands",2008,-0.02
+"MH","Marshall Islands",2009,-0.02
+"MH","Marshall Islands",2010,0.06
+"MH","Marshall Islands",2011,-0.27
+"MH","Marshall Islands",2012,-0.94
+"MH","Marshall Islands",2013,-1.42
+"MH","Marshall Islands",2014,-1.76
+"MH","Marshall Islands",2015,-1.99
+"MH","Marshall Islands",2016,-2.23
+"MH","Marshall Islands",2017,-2.47
+"MH","Marshall Islands",2018,-2.68
+"MH","Marshall Islands",2019,-2.82
+"MH","Marshall Islands",2020,-2.96
+"MH","Marshall Islands",2021,-3.1
+"MH","Marshall Islands",2022,-3.13
+"MH","Marshall Islands",2023,-3.12
+"MH","Marshall Islands",2024,-1.78
+"MH","Marshall Islands",2025,-3.32
+"FM","Micronesia",1990,1.91
+"FM","Micronesia",1991,1.85
+"FM","Micronesia",1992,2
+"FM","Micronesia",1993,2.16
+"FM","Micronesia",1994,1.88
+"FM","Micronesia",1995,1.05
+"FM","Micronesia",1996,0.43
+"FM","Micronesia",1997,0.33
+"FM","Micronesia",1998,0.28
+"FM","Micronesia",1999,0.27
+"FM","Micronesia",2000,0.32
+"FM","Micronesia",2001,0.29
+"FM","Micronesia",2002,0.08
+"FM","Micronesia",2003,-0.15
+"FM","Micronesia",2004,-0.32
+"FM","Micronesia",2005,-0.45
+"FM","Micronesia",2006,-0.62
+"FM","Micronesia",2007,-0.78
+"FM","Micronesia",2008,-0.84
+"FM","Micronesia",2009,-0.9
+"FM","Micronesia",2010,-0.38
+"FM","Micronesia",2011,0.14
+"FM","Micronesia",2012,0.18
+"FM","Micronesia",2013,0.22
+"FM","Micronesia",2014,0.25
+"FM","Micronesia",2015,0.29
+"FM","Micronesia",2016,0.33
+"FM","Micronesia",2017,0.37
+"FM","Micronesia",2018,0.4
+"FM","Micronesia",2019,0.35
+"FM","Micronesia",2020,0.57
+"FM","Micronesia",2021,0.63
+"FM","Micronesia",2022,0.44
+"FM","Micronesia",2023,0.47
+"FM","Micronesia",2024,0.2
+"FM","Micronesia",2025,0.47
+"NR","Nauru",1990,2.61
+"NR","Nauru",1991,2.36
+"NR","Nauru",1992,1.72
+"NR","Nauru",1993,0.77
+"NR","Nauru",1994,0.33
+"NR","Nauru",1995,0.29
+"NR","Nauru",1996,0.19
+"NR","Nauru",1997,0.08
+"NR","Nauru",1998,0.04
+"NR","Nauru",1999,-0.1
+"NR","Nauru",2000,-0.22
+"NR","Nauru",2001,-0.36
+"NR","Nauru",2002,-0.45
+"NR","Nauru",2003,-0.21
+"NR","Nauru",2004,-0.01
+"NR","Nauru",2005,-0.11
+"NR","Nauru",2006,-0.12
+"NR","Nauru",2007,-0.18
+"NR","Nauru",2008,-0.08
+"NR","Nauru",2009,0.09
+"NR","Nauru",2010,0.23
+"NR","Nauru",2011,0.6
+"NR","Nauru",2012,1.58
+"NR","Nauru",2013,2.48
+"NR","Nauru",2014,2.12
+"NR","Nauru",2015,1.98
+"NR","Nauru",2016,1.7
+"NR","Nauru",2017,1.63
+"NR","Nauru",2018,1.32
+"NR","Nauru",2019,1
+"NR","Nauru",2020,0.4
+"NR","Nauru",2021,0.59
+"NR","Nauru",2022,0.8
+"NR","Nauru",2023,0.61
+"NR","Nauru",2024,-0.12
+"NR","Nauru",2025,0.7
+"NC","New Caledonia",1990,2.57
+"NC","New Caledonia",1991,2.71
+"NC","New Caledonia",1992,2.67
+"NC","New Caledonia",1993,2.57
+"NC","New Caledonia",1994,2.5
+"NC","New Caledonia",1995,2.43
+"NC","New Caledonia",1996,2.33
+"NC","New Caledonia",1997,2.2
+"NC","New Caledonia",1998,2.14
+"NC","New Caledonia",1999,2.09
+"NC","New Caledonia",2000,2.09
+"NC","New Caledonia",2001,2.06
+"NC","New Caledonia",2002,1.99
+"NC","New Caledonia",2003,1.91
+"NC","New Caledonia",2004,1.76
+"NC","New Caledonia",2005,1.47
+"NC","New Caledonia",2006,1.29
+"NC","New Caledonia",2007,1.28
+"NC","New Caledonia",2008,1.24
+"NC","New Caledonia",2009,1.35
+"NC","New Caledonia",2010,1.68
+"NC","New Caledonia",2011,1.9
+"NC","New Caledonia",2012,1.91
+"NC","New Caledonia",2013,1.91
+"NC","New Caledonia",2014,1.59
+"NC","New Caledonia",2015,0.69
+"NC","New Caledonia",2016,0.09
+"NC","New Caledonia",2017,0.04
+"NC","New Caledonia",2018,0
+"NC","New Caledonia",2019,0.02
+"NC","New Caledonia",2020,0.2
+"NC","New Caledonia",2021,0.36
+"NC","New Caledonia",2022,0.67
+"NC","New Caledonia",2023,0.96
+"NC","New Caledonia",2024,0.48
+"NC","New Caledonia",2025,0.94
+"NU","Niue",1990,-1.17
+"NU","Niue",1991,-1.23
+"NU","Niue",1992,-1.28
+"NU","Niue",1993,-1.79
+"NU","Niue",1994,-1.49
+"NU","Niue",1995,-1.72
+"NU","Niue",1996,-1.54
+"NU","Niue",1997,-1.74
+"NU","Niue",1998,-2.21
+"NU","Niue",1999,-2.98
+"NU","Niue",2000,-2.89
+"NU","Niue",2001,-2.59
+"NU","Niue",2002,-2.31
+"NU","Niue",2003,-1.86
+"NU","Niue",2004,-1.95
+"NU","Niue",2005,-2.04
+"NU","Niue",2006,-1.5
+"NU","Niue",2007,-0.87
+"NU","Niue",2008,-0.38
+"NU","Niue",2009,-0.16
+"NU","Niue",2010,-0.5
+"NU","Niue",2011,-0.66
+"NU","Niue",2012,0
+"NU","Niue",2013,0.22
+"NU","Niue",2014,0.56
+"NU","Niue",2015,0.77
+"NU","Niue",2016,-0.16
+"NU","Niue",2017,0.16
+"NU","Niue",2018,0.27
+"NU","Niue",2019,0.27
+"NU","Niue",2020,0.33
+"NU","Niue",2021,0.87
+"NU","Niue",2022,0.65
+"NU","Niue",2023,-0.21
+"NU","Niue",2024,-2.68
+"NU","Niue",2025,0.39
+"MP","Northern Mariana Islands",1990,4.93
+"MP","Northern Mariana Islands",1991,2.44
+"MP","Northern Mariana Islands",1992,1.75
+"MP","Northern Mariana Islands",1993,1.71
+"MP","Northern Mariana Islands",1994,1.69
+"MP","Northern Mariana Islands",1995,3.09
+"MP","Northern Mariana Islands",1996,7.32
+"MP","Northern Mariana Islands",1997,9.45
+"MP","Northern Mariana Islands",1998,8.37
+"MP","Northern Mariana Islands",1999,7.46
+"MP","Northern Mariana Islands",2000,3.7
+"MP","Northern Mariana Islands",2001,-0.54
+"MP","Northern Mariana Islands",2002,-1.76
+"MP","Northern Mariana Islands",2003,-2.04
+"MP","Northern Mariana Islands",2004,-2.27
+"MP","Northern Mariana Islands",2005,-2.47
+"MP","Northern Mariana Islands",2006,-2.67
+"MP","Northern Mariana Islands",2007,-2.87
+"MP","Northern Mariana Islands",2008,-3.05
+"MP","Northern Mariana Islands",2009,-3.18
+"MP","Northern Mariana Islands",2010,-2.22
+"MP","Northern Mariana Islands",2011,-0.89
+"MP","Northern Mariana Islands",2012,-0.71
+"MP","Northern Mariana Islands",2013,-0.89
+"MP","Northern Mariana Islands",2014,-1.1
+"MP","Northern Mariana Islands",2015,-1.27
+"MP","Northern Mariana Islands",2016,-1.44
+"MP","Northern Mariana Islands",2017,-1.59
+"MP","Northern Mariana Islands",2018,-1.77
+"MP","Northern Mariana Islands",2019,-1.92
+"MP","Northern Mariana Islands",2020,-1.26
+"MP","Northern Mariana Islands",2021,-1.14
+"MP","Northern Mariana Islands",2022,-1.92
+"MP","Northern Mariana Islands",2023,-2.03
+"MP","Northern Mariana Islands",2024,-1.16
+"MP","Northern Mariana Islands",2025,-1.75
+"PW","Palau",1990,2.15
+"PW","Palau",1991,2.31
+"PW","Palau",1992,2.37
+"PW","Palau",1993,2.4
+"PW","Palau",1994,2.44
+"PW","Palau",1995,2.52
+"PW","Palau",1996,2.68
+"PW","Palau",1997,2.57
+"PW","Palau",1998,2.29
+"PW","Palau",1999,2.05
+"PW","Palau",2000,1.44
+"PW","Palau",2001,0.89
+"PW","Palau",2002,0.79
+"PW","Palau",2003,0.79
+"PW","Palau",2004,0.82
+"PW","Palau",2005,-0.01
+"PW","Palau",2006,-1.13
+"PW","Palau",2007,-1.47
+"PW","Palau",2008,-1.55
+"PW","Palau",2009,-1.51
+"PW","Palau",2010,-1.69
+"PW","Palau",2011,-1.74
+"PW","Palau",2012,-1.72
+"PW","Palau",2013,-0.71
+"PW","Palau",2014,0.41
+"PW","Palau",2015,0.34
+"PW","Palau",2016,0.1
+"PW","Palau",2017,0.13
+"PW","Palau",2018,-0.01
+"PW","Palau",2019,-0.12
+"PW","Palau",2020,0.02
+"PW","Palau",2021,-0.05
+"PW","Palau",2022,-0.13
+"PW","Palau",2023,-0.19
+"PW","Palau",2024,-0.37
+"PW","Palau",2025,-0.13
+"PG","Papua New Guinea",1990,2.65
+"PG","Papua New Guinea",1991,3.22
+"PG","Papua New Guinea",1992,3.6
+"PG","Papua New Guinea",1993,3.7
+"PG","Papua New Guinea",1994,3.69
+"PG","Papua New Guinea",1995,3.66
+"PG","Papua New Guinea",1996,3.64
+"PG","Papua New Guinea",1997,3.63
+"PG","Papua New Guinea",1998,3.58
+"PG","Papua New Guinea",1999,3.54
+"PG","Papua New Guinea",2000,3.51
+"PG","Papua New Guinea",2001,3.46
+"PG","Papua New Guinea",2002,3.41
+"PG","Papua New Guinea",2003,3.38
+"PG","Papua New Guinea",2004,3.33
+"PG","Papua New Guinea",2005,3.28
+"PG","Papua New Guinea",2006,3.24
+"PG","Papua New Guinea",2007,3.2
+"PG","Papua New Guinea",2008,3.15
+"PG","Papua New Guinea",2009,3.11
+"PG","Papua New Guinea",2010,3.07
+"PG","Papua New Guinea",2011,2.96
+"PG","Papua New Guinea",2012,2.83
+"PG","Papua New Guinea",2013,2.74
+"PG","Papua New Guinea",2014,2.66
+"PG","Papua New Guinea",2015,2.58
+"PG","Papua New Guinea",2016,2.5
+"PG","Papua New Guinea",2017,2.42
+"PG","Papua New Guinea",2018,2.35
+"PG","Papua New Guinea",2019,2.28
+"PG","Papua New Guinea",2020,2.15
+"PG","Papua New Guinea",2021,2.01
+"PG","Papua New Guinea",2022,1.9
+"PG","Papua New Guinea",2023,1.83
+"PG","Papua New Guinea",2024,0.9
+"PG","Papua New Guinea",2025,1.78
+"PN","Pitcairn",1990,7.27
+"PN","Pitcairn",1991,11.86
+"PN","Pitcairn",1992,-18.18
+"PN","Pitcairn",1993,5.56
+"PN","Pitcairn",1994,-5.26
+"PN","Pitcairn",1995,1.85
+"PN","Pitcairn",1996,-21.82
+"PN","Pitcairn",1997,-6.98
+"PN","Pitcairn",1998,65
+"PN","Pitcairn",1999,-30.3
+"PN","Pitcairn",2000,10.87
+"PN","Pitcairn",2001,-13.73
+"PN","Pitcairn",2002,9.09
+"PN","Pitcairn",2003,22.92
+"PN","Pitcairn",2004,3.39
+"PN","Pitcairn",2005,3.28
+"PN","Pitcairn",2006,3.17
+"PN","Pitcairn",2007,-1.54
+"PN","Pitcairn",2008,3.12
+"PN","Pitcairn",2009,-3.03
+"PN","Pitcairn",2010,-3.12
+"PN","Pitcairn",2011,-3.23
+"PN","Pitcairn",2012,-5
+"PN","Pitcairn",2013,-5.26
+"PN","Pitcairn",2014,-5.56
+"PN","Pitcairn",2015,0
+"PN","Pitcairn",2016,0
+"PN","Pitcairn",2017,0
+"PN","Pitcairn",2018,0
+"PN","Pitcairn",2019,0
+"PN","Pitcairn",2020,0
+"PN","Pitcairn",2021,-1.96
+"PN","Pitcairn",2022,0
+"PN","Pitcairn",2023,0
+"PN","Pitcairn",2024,0
+"PN","Pitcairn",2025,0
+"WS","Samoa",1990,0.16
+"WS","Samoa",1991,0.19
+"WS","Samoa",1992,0.57
+"WS","Samoa",1993,0.85
+"WS","Samoa",1994,0.81
+"WS","Samoa",1995,0.82
+"WS","Samoa",1996,0.85
+"WS","Samoa",1997,0.84
+"WS","Samoa",1998,0.76
+"WS","Samoa",1999,0.77
+"WS","Samoa",2000,0.78
+"WS","Samoa",2001,0.82
+"WS","Samoa",2002,0.71
+"WS","Samoa",2003,0.53
+"WS","Samoa",2004,0.44
+"WS","Samoa",2005,0.39
+"WS","Samoa",2006,0.39
+"WS","Samoa",2007,0.55
+"WS","Samoa",2008,0.72
+"WS","Samoa",2009,0.74
+"WS","Samoa",2010,0.79
+"WS","Samoa",2011,0.87
+"WS","Samoa",2012,0.92
+"WS","Samoa",2013,0.9
+"WS","Samoa",2014,0.89
+"WS","Samoa",2015,0.87
+"WS","Samoa",2016,0.85
+"WS","Samoa",2017,0.94
+"WS","Samoa",2018,1.06
+"WS","Samoa",2019,1.06
+"WS","Samoa",2020,1.03
+"WS","Samoa",2021,0.86
+"WS","Samoa",2022,0.7
+"WS","Samoa",2023,0.65
+"WS","Samoa",2024,0.3
+"WS","Samoa",2025,0.62
+"SB","Solomon Islands",1990,3.16
+"SB","Solomon Islands",1991,3.11
+"SB","Solomon Islands",1992,3.07
+"SB","Solomon Islands",1993,3.02
+"SB","Solomon Islands",1994,2.99
+"SB","Solomon Islands",1995,2.96
+"SB","Solomon Islands",1996,2.93
+"SB","Solomon Islands",1997,2.9
+"SB","Solomon Islands",1998,2.84
+"SB","Solomon Islands",1999,2.73
+"SB","Solomon Islands",2000,2.31
+"SB","Solomon Islands",2001,1.97
+"SB","Solomon Islands",2002,1.9
+"SB","Solomon Islands",2003,1.85
+"SB","Solomon Islands",2004,1.81
+"SB","Solomon Islands",2005,1.79
+"SB","Solomon Islands",2006,1.76
+"SB","Solomon Islands",2007,1.74
+"SB","Solomon Islands",2008,1.73
+"SB","Solomon Islands",2009,1.84
+"SB","Solomon Islands",2010,2.86
+"SB","Solomon Islands",2011,3.75
+"SB","Solomon Islands",2012,3.73
+"SB","Solomon Islands",2013,3.72
+"SB","Solomon Islands",2014,3.69
+"SB","Solomon Islands",2015,3.65
+"SB","Solomon Islands",2016,3.59
+"SB","Solomon Islands",2017,3.52
+"SB","Solomon Islands",2018,3.42
+"SB","Solomon Islands",2019,2.69
+"SB","Solomon Islands",2020,2.24
+"SB","Solomon Islands",2021,2.43
+"SB","Solomon Islands",2022,2.42
+"SB","Solomon Islands",2023,2.42
+"SB","Solomon Islands",2024,1.19
+"SB","Solomon Islands",2025,2.39
+"TK","Tokelau",1990,0.44
+"TK","Tokelau",1991,0.06
+"TK","Tokelau",1992,0.5
+"TK","Tokelau",1993,-0.27
+"TK","Tokelau",1994,-0.11
+"TK","Tokelau",1995,-0.06
+"TK","Tokelau",1996,0
+"TK","Tokelau",1997,1.05
+"TK","Tokelau",1998,0.87
+"TK","Tokelau",1999,1.41
+"TK","Tokelau",2000,1.18
+"TK","Tokelau",2001,1
+"TK","Tokelau",2002,-1.41
+"TK","Tokelau",2003,-3.5
+"TK","Tokelau",2004,-3.96
+"TK","Tokelau",2005,-4.46
+"TK","Tokelau",2006,-3.77
+"TK","Tokelau",2007,-0.68
+"TK","Tokelau",2008,0.44
+"TK","Tokelau",2009,0.69
+"TK","Tokelau",2010,0.68
+"TK","Tokelau",2011,1.05
+"TK","Tokelau",2012,3.41
+"TK","Tokelau",2013,4.18
+"TK","Tokelau",2014,0.17
+"TK","Tokelau",2015,-1.81
+"TK","Tokelau",2016,-1.21
+"TK","Tokelau",2017,3.55
+"TK","Tokelau",2018,7.53
+"TK","Tokelau",2019,7.37
+"TK","Tokelau",2020,5.6
+"TK","Tokelau",2021,3.78
+"TK","Tokelau",2022,3.46
+"TK","Tokelau",2023,4.81
+"TK","Tokelau",2024,0.45
+"TK","Tokelau",2025,4.36
+"TO","Tonga",1990,0.29
+"TO","Tonga",1991,0.2
+"TO","Tonga",1992,0.12
+"TO","Tonga",1993,0.09
+"TO","Tonga",1994,0.07
+"TO","Tonga",1995,0.05
+"TO","Tonga",1996,0.05
+"TO","Tonga",1997,0.39
+"TO","Tonga",1998,0.72
+"TO","Tonga",1999,0.64
+"TO","Tonga",2000,0.62
+"TO","Tonga",2001,0.6
+"TO","Tonga",2002,0.57
+"TO","Tonga",2003,0.57
+"TO","Tonga",2004,0.58
+"TO","Tonga",2005,0.57
+"TO","Tonga",2006,0.56
+"TO","Tonga",2007,0.44
+"TO","Tonga",2008,0.27
+"TO","Tonga",2009,0.18
+"TO","Tonga",2010,0.18
+"TO","Tonga",2011,0.16
+"TO","Tonga",2012,-0.1
+"TO","Tonga",2013,-0.36
+"TO","Tonga",2014,-0.43
+"TO","Tonga",2015,-0.49
+"TO","Tonga",2016,-0.54
+"TO","Tonga",2017,-0.16
+"TO","Tonga",2018,0.21
+"TO","Tonga",2019,0.09
+"TO","Tonga",2020,0.03
+"TO","Tonga",2021,-0.21
+"TO","Tonga",2022,-0.42
+"TO","Tonga",2023,-0.42
+"TO","Tonga",2024,-0.24
+"TO","Tonga",2025,-0.39
+"TV","Tuvalu",1990,1.6
+"TV","Tuvalu",1991,1.48
+"TV","Tuvalu",1992,1.16
+"TV","Tuvalu",1993,0.98
+"TV","Tuvalu",1994,0.93
+"TV","Tuvalu",1995,0.77
+"TV","Tuvalu",1996,0.64
+"TV","Tuvalu",1997,0.66
+"TV","Tuvalu",1998,0.5
+"TV","Tuvalu",1999,0.48
+"TV","Tuvalu",2000,0.51
+"TV","Tuvalu",2001,0.38
+"TV","Tuvalu",2002,0.44
+"TV","Tuvalu",2003,0.75
+"TV","Tuvalu",2004,1.32
+"TV","Tuvalu",2005,1.2
+"TV","Tuvalu",2006,1.17
+"TV","Tuvalu",2007,1.23
+"TV","Tuvalu",2008,1.35
+"TV","Tuvalu",2009,1.41
+"TV","Tuvalu",2010,1.41
+"TV","Tuvalu",2011,1.59
+"TV","Tuvalu",2012,1.38
+"TV","Tuvalu",2013,0.61
+"TV","Tuvalu",2014,-0.13
+"TV","Tuvalu",2015,-0.23
+"TV","Tuvalu",2016,-0.26
+"TV","Tuvalu",2017,-0.55
+"TV","Tuvalu",2018,-1.1
+"TV","Tuvalu",2019,-1.55
+"TV","Tuvalu",2020,-1.69
+"TV","Tuvalu",2021,-1.95
+"TV","Tuvalu",2022,-1.95
+"TV","Tuvalu",2023,-1.8
+"TV","Tuvalu",2024,-1.36
+"TV","Tuvalu",2025,-1.68
+"VU","Vanuatu",1990,2.54
+"VU","Vanuatu",1991,2.52
+"VU","Vanuatu",1992,2.51
+"VU","Vanuatu",1993,2.48
+"VU","Vanuatu",1994,2.42
+"VU","Vanuatu",1995,2.34
+"VU","Vanuatu",1996,2.26
+"VU","Vanuatu",1997,2.17
+"VU","Vanuatu",1998,2.11
+"VU","Vanuatu",1999,2.09
+"VU","Vanuatu",2000,2.33
+"VU","Vanuatu",2001,2.54
+"VU","Vanuatu",2002,2.53
+"VU","Vanuatu",2003,2.49
+"VU","Vanuatu",2004,2.47
+"VU","Vanuatu",2005,2.45
+"VU","Vanuatu",2006,2.45
+"VU","Vanuatu",2007,2.48
+"VU","Vanuatu",2008,2.54
+"VU","Vanuatu",2009,2.57
+"VU","Vanuatu",2010,2.37
+"VU","Vanuatu",2011,2.19
+"VU","Vanuatu",2012,2.23
+"VU","Vanuatu",2013,2.24
+"VU","Vanuatu",2014,2.26
+"VU","Vanuatu",2015,2.25
+"VU","Vanuatu",2016,2.25
+"VU","Vanuatu",2017,2.36
+"VU","Vanuatu",2018,2.43
+"VU","Vanuatu",2019,2.35
+"VU","Vanuatu",2020,2.35
+"VU","Vanuatu",2021,2.35
+"VU","Vanuatu",2022,2.35
+"VU","Vanuatu",2023,2.35
+"VU","Vanuatu",2024,1.14
+"VU","Vanuatu",2025,2.28
+"WF","Wallis and Futuna",1990,1.05
+"WF","Wallis and Futuna",1991,1.12
+"WF","Wallis and Futuna",1992,1.08
+"WF","Wallis and Futuna",1993,0.99
+"WF","Wallis and Futuna",1994,1.05
+"WF","Wallis and Futuna",1995,0.94
+"WF","Wallis and Futuna",1996,0.85
+"WF","Wallis and Futuna",1997,0.72
+"WF","Wallis and Futuna",1998,0.77
+"WF","Wallis and Futuna",1999,0.87
+"WF","Wallis and Futuna",2000,0.89
+"WF","Wallis and Futuna",2001,0.8
+"WF","Wallis and Futuna",2002,0.82
+"WF","Wallis and Futuna",2003,0.15
+"WF","Wallis and Futuna",2004,-1.05
+"WF","Wallis and Futuna",2005,-1.83
+"WF","Wallis and Futuna",2006,-2.08
+"WF","Wallis and Futuna",2007,-2.14
+"WF","Wallis and Futuna",2008,-2.29
+"WF","Wallis and Futuna",2009,-1.99
+"WF","Wallis and Futuna",2010,-1.81
+"WF","Wallis and Futuna",2011,-1.83
+"WF","Wallis and Futuna",2012,-1.85
+"WF","Wallis and Futuna",2013,-1.61
+"WF","Wallis and Futuna",2014,-1.39
+"WF","Wallis and Futuna",2015,-1.16
+"WF","Wallis and Futuna",2016,-1.02
+"WF","Wallis and Futuna",2017,-0.94
+"WF","Wallis and Futuna",2018,-1.01
+"WF","Wallis and Futuna",2019,-0.98
+"WF","Wallis and Futuna",2020,-0.59
+"WF","Wallis and Futuna",2021,-0.34
+"WF","Wallis and Futuna",2022,-0.85
+"WF","Wallis and Futuna",2023,-0.9
+"WF","Wallis and Futuna",2024,-0.88
+"WF","Wallis and Futuna",2025,-0.75

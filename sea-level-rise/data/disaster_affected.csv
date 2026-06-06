@@ -1,0 +1,175 @@
+"country_code","country","year","affected_people"
+"AS","American Samoa",2009,0
+"AS","American Samoa",2014,0
+"AS","American Samoa",2015,0
+"AS","American Samoa",2018,3800
+"AS","American Samoa",2019,12
+"AS","American Samoa",2020,232
+"CK","Cook Islands",2005,1121
+"CK","Cook Islands",2007,0
+"CK","Cook Islands",2009,0
+"CK","Cook Islands",2010,4443
+"CK","Cook Islands",2020,0
+"FJ","Fiji",2005,0
+"FJ","Fiji",2006,60
+"FJ","Fiji",2007,12
+"FJ","Fiji",2008,804
+"FJ","Fiji",2009,12692
+"FJ","Fiji",2010,6644
+"FJ","Fiji",2011,344
+"FJ","Fiji",2012,37085
+"FJ","Fiji",2013,0
+"FJ","Fiji",2014,0
+"FJ","Fiji",2015,0
+"FJ","Fiji",2016,633584
+"FJ","Fiji",2017,0
+"FJ","Fiji",2018,155726
+"FJ","Fiji",2019,78045
+"FJ","Fiji",2020,235921
+"FJ","Fiji",2021,78030
+"FJ","Fiji",2022,1787
+"PF","French Polynesia",2007,0
+"GU","Guam",2015,0
+"KI","Kiribati",2008,85
+"KI","Kiribati",2014,44
+"KI","Kiribati",2015,2507
+"KI","Kiribati",2016,0
+"KI","Kiribati",2018,0
+"KI","Kiribati",2019,3
+"KI","Kiribati",2020,15
+"KI","Kiribati",2021,333
+"MH","Marshall Islands",2006,0
+"MH","Marshall Islands",2008,96
+"MH","Marshall Islands",2011,0
+"MH","Marshall Islands",2013,0
+"MH","Marshall Islands",2014,280
+"MH","Marshall Islands",2015,0
+"MH","Marshall Islands",2016,27452
+"MH","Marshall Islands",2017,7029
+"MH","Marshall Islands",2018,0
+"MH","Marshall Islands",2019,35844
+"MH","Marshall Islands",2020,56718
+"MH","Marshall Islands",2021,0
+"MH","Marshall Islands",2022,52914
+"FM","Micronesia",2006,0
+"FM","Micronesia",2008,0
+"FM","Micronesia",2009,0
+"FM","Micronesia",2011,0
+"FM","Micronesia",2015,7600
+"FM","Micronesia",2016,0
+"FM","Micronesia",2017,0
+"FM","Micronesia",2018,1266
+"FM","Micronesia",2019,20732
+"FM","Micronesia",2020,0
+"FM","Micronesia",2021,15010
+"NR","Nauru",2019,63
+"NR","Nauru",2020,1133
+"NR","Nauru",2021,4
+"NR","Nauru",2022,5393
+"NC","New Caledonia",2009,0
+"NC","New Caledonia",2011,0
+"NC","New Caledonia",2017,4
+"NC","New Caledonia",2018,0
+"NC","New Caledonia",2019,1
+"NC","New Caledonia",2020,2
+"NU","Niue",2012,0
+"NU","Niue",2020,0
+"MP","Northern Mariana Islands",2014,0
+"MP","Northern Mariana Islands",2015,0
+"PW","Palau",2009,0
+"PW","Palau",2011,0
+"PW","Palau",2012,1528
+"PW","Palau",2015,0
+"PW","Palau",2016,11009
+"PW","Palau",2021,24220
+"PW","Palau",2022,780
+"PG","Papua New Guinea",2005,2
+"PG","Papua New Guinea",2006,216
+"PG","Papua New Guinea",2007,56284
+"PG","Papua New Guinea",2008,36393
+"PG","Papua New Guinea",2009,580
+"PG","Papua New Guinea",2010,0
+"PG","Papua New Guinea",2011,0
+"PG","Papua New Guinea",2012,172
+"PG","Papua New Guinea",2013,264
+"PG","Papua New Guinea",2014,0
+"PG","Papua New Guinea",2015,0
+"PG","Papua New Guinea",2019,2100
+"PG","Papua New Guinea",2020,3297
+"WS","Samoa",2005,0
+"WS","Samoa",2006,0
+"WS","Samoa",2008,0
+"WS","Samoa",2009,6332
+"WS","Samoa",2012,0
+"WS","Samoa",2013,0
+"WS","Samoa",2014,0
+"WS","Samoa",2015,0
+"WS","Samoa",2016,0
+"WS","Samoa",2018,383
+"WS","Samoa",2019,5700
+"WS","Samoa",2020,195
+"WS","Samoa",2021,15
+"WS","Samoa",2022,16607
+"WS","Samoa",2023,138
+"SB","Solomon Islands",2006,0
+"SB","Solomon Islands",2007,21343
+"SB","Solomon Islands",2008,0
+"SB","Solomon Islands",2009,68
+"SB","Solomon Islands",2010,1456
+"SB","Solomon Islands",2011,36
+"SB","Solomon Islands",2012,216
+"SB","Solomon Islands",2013,7577
+"SB","Solomon Islands",2014,14831
+"SB","Solomon Islands",2015,185886
+"SB","Solomon Islands",2016,60858
+"SB","Solomon Islands",2017,51465
+"SB","Solomon Islands",2018,194155
+"SB","Solomon Islands",2019,1834
+"SB","Solomon Islands",2020,2339
+"SB","Solomon Islands",2021,240
+"SB","Solomon Islands",2022,20080
+"TK","Tokelau",2005,0
+"TK","Tokelau",2009,0
+"TK","Tokelau",2011,0
+"TO","Tonga",2005,0
+"TO","Tonga",2006,0
+"TO","Tonga",2007,0
+"TO","Tonga",2008,0
+"TO","Tonga",2009,7
+"TO","Tonga",2010,0
+"TO","Tonga",2011,345
+"TO","Tonga",2012,0
+"TO","Tonga",2013,0
+"TO","Tonga",2014,4520
+"TO","Tonga",2015,0
+"TO","Tonga",2016,0
+"TO","Tonga",2017,0
+"TO","Tonga",2018,84311
+"TO","Tonga",2019,640
+"TO","Tonga",2020,68
+"TV","Tuvalu",2011,0
+"TV","Tuvalu",2015,0
+"TV","Tuvalu",2016,1003
+"TV","Tuvalu",2017,0
+"TV","Tuvalu",2018,0
+"TV","Tuvalu",2019,0
+"TV","Tuvalu",2020,2266
+"TV","Tuvalu",2021,6
+"TV","Tuvalu",2022,7748
+"VU","Vanuatu",2005,0
+"VU","Vanuatu",2006,0
+"VU","Vanuatu",2007,4
+"VU","Vanuatu",2008,60
+"VU","Vanuatu",2009,422
+"VU","Vanuatu",2010,500
+"VU","Vanuatu",2011,248
+"VU","Vanuatu",2012,28
+"VU","Vanuatu",2013,0
+"VU","Vanuatu",2014,152
+"VU","Vanuatu",2015,0
+"VU","Vanuatu",2017,920
+"VU","Vanuatu",2018,23286
+"VU","Vanuatu",2019,18
+"VU","Vanuatu",2020,246802
+"VU","Vanuatu",2021,1400
+"WF","Wallis and Futuna",2020,0
