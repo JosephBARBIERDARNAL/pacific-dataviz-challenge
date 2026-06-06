@@ -1,15 +1,13 @@
 import { useEffect, useState } from "react";
 import { Footer } from "./components/Footer";
 import { Header } from "./components/Header";
-import { HistoricalSection } from "./components/HistoricalSection";
 import { ImpactsSection } from "./components/ImpactsSection";
-import { ViewNavigation } from "./components/ViewNavigation";
 import { ViewPanel } from "./components/ViewPanel";
 import { prefersReducedMotion } from "./constants";
 import { useSeaLevelData } from "./hooks/useSeaLevelData";
 import { useView } from "./hooks/useView";
 import { denseHistorical } from "./lib/denseHistorical";
-import type { View } from "./types";
+import type { ChartRecord, View } from "./types";
 
 /**
  * Briefly fades the view panel while switching views (matching the
@@ -40,6 +38,8 @@ export default function App() {
   const { data, error } = useSeaLevelData();
   const { selectedView, selectView } = useView(data);
   const { displayView, isChanging } = useViewTransition(selectedView);
+  const [selectedRecord, setSelectedRecord] =
+    useState<ChartRecord>("satellite");
 
   const isGlobal = displayView === "global";
   const summary =
@@ -61,7 +61,13 @@ export default function App() {
         Skip to the story
       </a>
 
-      <Header onSelect={selectView} />
+      <Header
+        countries={data?.countries ?? []}
+        selectedView={selectedView}
+        onSelect={selectView}
+        selectedRecord={selectedRecord}
+        onSelectRecord={setSelectedRecord}
+      />
 
       <main id="main-content">
         <section className="hero" aria-labelledby="page-title">
@@ -69,12 +75,6 @@ export default function App() {
             <p className="eyebrow">Water is rising</p>
             <h1 id="page-title">A changing shoreline across the Pacific</h1>
           </div>
-
-          <ViewNavigation
-            countries={data?.countries ?? []}
-            selectedView={selectedView}
-            onSelect={selectView}
-          />
 
           {error && (
             <div id="load-error" className="load-error" role="alert">
@@ -88,6 +88,8 @@ export default function App() {
                 data={data}
                 summary={summary}
                 satellite={satellite}
+                historical={historical}
+                selectedRecord={selectedRecord}
                 isChanging={isChanging}
               />
             ) : (
@@ -101,10 +103,6 @@ export default function App() {
               </div>
             ))}
         </section>
-
-        {data && !error && (
-          <HistoricalSection summary={summary} historical={historical} />
-        )}
 
         <ImpactsSection />
       </main>

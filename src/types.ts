@@ -55,6 +55,8 @@ export interface SeaLevelData {
 /** "global" or an ISO-style place code present in the summary data. */
 export type View = string;
 
+export type ChartRecord = "satellite" | "historical";
+
 /** A point any line chart can draw: a year plus an optional value. */
 export interface ChartPoint {
   year: number;
