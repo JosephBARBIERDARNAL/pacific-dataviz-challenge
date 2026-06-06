@@ -1,4 +1,4 @@
-suppressPackageStartupMessages(library(tidyverse))
+library(tidyverse)
 
 data_dir <- "data"
 chart_dir <- "charts"
