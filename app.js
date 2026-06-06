@@ -1,4 +1,4 @@
-/* global d3 */
+/* global d3, topojson */
 
 const COLORS = {
   navy: "#1a2b4b",
@@ -11,7 +11,34 @@ const DATA_PATHS = {
   satellite: "data/sea_level.csv",
   historical: "data/sea_level_historical.csv",
   summary: "data/country_summary.csv",
+  land: "https://cdn.jsdelivr.net/npm/world-atlas@2/land-110m.json",
 };
+
+const PACIFIC_CENTER_ROTATION = [-170, 8, 0];
+
+const PLACE_COORDINATES = new Map([
+  ["AS", [-170.7, -14.27]],
+  ["CK", [-159.78, -21.24]],
+  ["FJ", [178.07, -17.71]],
+  ["FM", [158.25, 6.89]],
+  ["GU", [144.79, 13.44]],
+  ["KI", [172.98, 1.45]],
+  ["MH", [171.18, 7.13]],
+  ["MP", [145.75, 15.18]],
+  ["NC", [165.62, -21.3]],
+  ["NR", [166.93, -0.52]],
+  ["NU", [-169.87, -19.05]],
+  ["PF", [-149.57, -17.68]],
+  ["PG", [147.18, -6.31]],
+  ["PW", [134.58, 7.51]],
+  ["SB", [160.16, -9.65]],
+  ["TK", [-171.85, -9.2]],
+  ["TO", [-175.2, -21.18]],
+  ["TV", [179.19, -8.52]],
+  ["VU", [167.69, -16.17]],
+  ["WF", [-176.2, -13.28]],
+  ["WS", [-172.1, -13.76]],
+]);
 
 const state = {
   selectedView: "global",
@@ -22,7 +49,13 @@ const state = {
   regionalSatellite: [],
   regionalHistorical: [],
   resizeObserver: null,
+  globeResizeObserver: null,
   chartWidths: new WeakMap(),
+  globeWidth: 0,
+  globeLand: null,
+  globeProjection: null,
+  globeSvg: null,
+  globeRotation: [...PACIFIC_CENTER_ROTATION],
 };
 
 const prefersReducedMotion = window.matchMedia(
@@ -66,7 +99,9 @@ function parseSummary(row) {
 
 async function init() {
   if (typeof d3 === "undefined") {
-    showLoadError("The chart library could not be loaded. Check the network connection and reload.");
+    showLoadError(
+      "The chart library could not be loaded. Check the network connection and reload.",
+    );
     return;
   }
 
@@ -81,6 +116,7 @@ async function init() {
     buildNavigation();
     bindEvents();
     setInitialView();
+    loadGlobeLand();
   } catch (error) {
     console.error(error);
     showLoadError(
@@ -127,23 +163,6 @@ function prepareData(satellite, historical, summaries) {
 
 function buildNavigation() {
   const views = [{ code: "global", country: "Global" }, ...state.countries];
-  const tabs = d3
-    .select("#country-tabs")
-    .selectAll("button")
-    .data(views)
-    .join("button")
-    .attr("class", "country-tab")
-    .attr("type", "button")
-    .attr("role", "tab")
-    .attr("id", (d) => `tab-${d.code}`)
-    .attr("aria-controls", "view-panel")
-    .attr("aria-selected", "false")
-    .attr("tabindex", "-1")
-    .text((d) => d.country)
-    .on("click", (_, d) => selectView(d.code))
-    .on("keydown", handleTabKeydown);
-
-  tabs.filter((d) => d.code === "global").attr("tabindex", "0");
 
   d3.select("#country-select")
     .selectAll("option")
@@ -151,6 +170,8 @@ function buildNavigation() {
     .join("option")
     .attr("value", (d) => d.code)
     .text((d) => d.country);
+
+  renderGlobe();
 }
 
 function bindEvents() {
@@ -163,6 +184,8 @@ function bindEvents() {
     selectView("global");
   });
 
+  d3.select("#global-view-button").on("click", () => selectView("global"));
+
   window.addEventListener("popstate", () => {
     const view = getViewFromUrl();
     state.selectedView = isValidView(view) ? view : "global";
@@ -170,21 +193,236 @@ function bindEvents() {
   });
 }
 
-function handleTabKeydown(event) {
-  if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
+async function loadGlobeLand() {
+  const status = d3.select("#map-status");
 
-  event.preventDefault();
-  const tabs = [...document.querySelectorAll(".country-tab")];
-  const currentIndex = tabs.indexOf(event.currentTarget);
-  let nextIndex = currentIndex;
+  if (typeof topojson === "undefined") {
+    status.text(
+      "Map outlines are unavailable. The markers and complete selector remain active.",
+    );
+    return;
+  }
 
-  if (event.key === "ArrowLeft") nextIndex = (currentIndex - 1 + tabs.length) % tabs.length;
-  if (event.key === "ArrowRight") nextIndex = (currentIndex + 1) % tabs.length;
-  if (event.key === "Home") nextIndex = 0;
-  if (event.key === "End") nextIndex = tabs.length - 1;
+  try {
+    const topology = await d3.json(DATA_PATHS.land);
+    state.globeLand = topojson.feature(topology, topology.objects.land);
+    status.text("");
+    renderGlobe();
+    syncGlobeSelection();
+  } catch (error) {
+    console.warn("World map geometry could not be loaded.", error);
+    status.text(
+      "Map outlines are unavailable. The markers and complete selector remain active.",
+    );
+  }
+}
 
-  tabs[nextIndex].focus();
-  tabs[nextIndex].click();
+function renderGlobe() {
+  const container = document.querySelector("#pacific-globe");
+  if (!container) return;
+
+  const width = Math.max(280, Math.round(container.clientWidth || 420));
+  const height = Math.max(288, Math.min(400, Math.round(width * 0.82)));
+  state.globeWidth = width;
+
+  const projection = d3
+    .geoOrthographic()
+    .translate([width / 2, height / 2])
+    .scale(Math.min(width, height) * 0.47)
+    .clipAngle(90)
+    .precision(0.3)
+    .rotate(state.globeRotation);
+  const path = d3.geoPath(projection);
+
+  d3.select(container).selectAll("*").remove();
+
+  const svg = d3
+    .select(container)
+    .append("svg")
+    .attr("viewBox", `0 0 ${width} ${height}`)
+    .attr("role", "group")
+    .attr(
+      "aria-label",
+      "Draggable Pacific globe with keyboard-accessible country and territory markers.",
+    );
+
+  svg
+    .append("path")
+    .datum({ type: "Sphere" })
+    .attr("class", "globe-sphere")
+    .attr("d", path);
+  svg
+    .append("path")
+    .datum(d3.geoGraticule10())
+    .attr("class", "globe-graticule")
+    .attr("d", path);
+  svg
+    .append("path")
+    .datum(state.globeLand)
+    .attr("class", "globe-land")
+    .attr("d", state.globeLand ? path : null);
+
+  const places = state.countries
+    .map((place) => ({
+      ...place,
+      coordinates: PLACE_COORDINATES.get(place.code),
+    }))
+    .filter((place) => place.coordinates);
+
+  const markers = svg
+    .append("g")
+    .attr("class", "map-markers")
+    .selectAll("circle")
+    .data(places)
+    .join("circle")
+    .attr("class", "map-marker")
+    .attr("r", 7)
+    .attr("tabindex", 0)
+    .attr("role", "button")
+    .attr("aria-label", (d) => `View ${d.country}`)
+    .on("click", (event, d) => {
+      event.stopPropagation();
+      selectView(d.code);
+    })
+    .on("keydown", (event, d) => {
+      if (event.key !== "Enter" && event.key !== " ") return;
+      event.preventDefault();
+      selectView(d.code);
+    });
+
+  markers.append("title").text((d) => d.country);
+
+  svg
+    .append("g")
+    .attr("class", "map-labels")
+    .selectAll("text")
+    .data(places)
+    .join("text")
+    .attr("class", "map-marker-label")
+    .text((d) => d.country);
+
+  svg.call(
+    d3
+      .drag()
+      .filter((event) => !event.target.classList.contains("map-marker"))
+      .on("start", () => {
+        svg.interrupt("recenter");
+      })
+      .on("drag", (event) => {
+        const rotation = projection.rotate();
+        rotation[0] += event.dx * 0.4;
+        rotation[1] = Math.max(-65, Math.min(65, rotation[1] - event.dy * 0.4));
+        projection.rotate(rotation);
+        state.globeRotation = rotation;
+        updateGlobeGeometry();
+      }),
+  );
+
+  state.globeProjection = projection;
+  state.globeSvg = svg;
+  state.globeDimensions = { width, height };
+  updateGlobeGeometry();
+
+  if ("ResizeObserver" in window) {
+    if (!state.globeResizeObserver) {
+      state.globeResizeObserver = new ResizeObserver((entries) => {
+        for (const entry of entries) {
+          const observedWidth = Math.round(entry.contentRect.width);
+          if (observedWidth === state.globeWidth) continue;
+          renderGlobe();
+          syncGlobeSelection(false);
+        }
+      });
+    }
+    state.globeResizeObserver.observe(container);
+  }
+}
+
+function updateGlobeGeometry() {
+  if (!state.globeSvg || !state.globeProjection) return;
+
+  const path = d3.geoPath(state.globeProjection);
+  const rotation = state.globeProjection.rotate();
+  const center = [-rotation[0], -rotation[1]];
+  const { width } = state.globeDimensions;
+
+  state.globeSvg.select(".globe-sphere").attr("d", path);
+  state.globeSvg.select(".globe-graticule").attr("d", path);
+  state.globeSvg
+    .select(".globe-land")
+    .attr("d", state.globeLand ? path(state.globeLand) : null);
+
+  state.globeSvg.selectAll(".map-marker").each(function positionMarker(d) {
+    const point = state.globeProjection(d.coordinates);
+    const visible = d3.geoDistance(center, d.coordinates) < Math.PI / 2;
+    d3.select(this)
+      .attr("cx", point[0])
+      .attr("cy", point[1])
+      .attr("display", visible ? null : "none");
+  });
+
+  state.globeSvg.selectAll(".map-marker-label").each(function positionLabel(d) {
+    const point = state.globeProjection(d.coordinates);
+    const visible =
+      d.code === state.selectedView &&
+      d3.geoDistance(center, d.coordinates) < Math.PI / 2;
+    const placeRight = point[0] < width * 0.68;
+    d3.select(this)
+      .attr("x", point[0] + (placeRight ? 13 : -13))
+      .attr("y", point[1] - 12)
+      .attr("text-anchor", placeRight ? "start" : "end")
+      .attr("display", visible ? null : "none");
+  });
+}
+
+function syncGlobeSelection(recenter = true) {
+  d3.select("#global-view-button").attr(
+    "aria-pressed",
+    String(state.selectedView === "global"),
+  );
+
+  if (!state.globeSvg) return;
+
+  state.globeSvg
+    .selectAll(".map-marker")
+    .classed("is-selected", (d) => d.code === state.selectedView)
+    .attr("r", (d) => (d.code === state.selectedView ? 10 : 7))
+    .attr("aria-pressed", (d) => String(d.code === state.selectedView));
+
+  updateGlobeGeometry();
+  if (recenter) centerGlobeOnSelection();
+}
+
+function centerGlobeOnSelection() {
+  if (!state.globeSvg || !state.globeProjection) return;
+
+  const coordinates = PLACE_COORDINATES.get(state.selectedView);
+  const target = coordinates
+    ? [-coordinates[0], -coordinates[1], 0]
+    : [...PACIFIC_CENTER_ROTATION];
+  const current = state.globeProjection.rotate();
+
+  while (target[0] - current[0] > 180) target[0] -= 360;
+  while (target[0] - current[0] < -180) target[0] += 360;
+
+  const applyRotation = (rotation) => {
+    state.globeProjection.rotate(rotation);
+    state.globeRotation = rotation;
+    updateGlobeGeometry();
+  };
+
+  state.globeSvg.interrupt("recenter");
+  if (prefersReducedMotion.matches) {
+    applyRotation(target);
+    return;
+  }
+
+  const interpolate = d3.interpolateArray(current, target);
+  state.globeSvg
+    .transition("recenter")
+    .duration(650)
+    .ease(d3.easeCubicInOut)
+    .tween("rotate", () => (time) => applyRotation(interpolate(time)));
 }
 
 function setInitialView() {
@@ -209,7 +447,11 @@ function isValidView(view) {
 }
 
 function selectView(view) {
-  if (!isValidView(view) || state.selectedView === view) return;
+  if (!isValidView(view)) return;
+  if (state.selectedView === view) {
+    centerGlobeOnSelection();
+    return;
+  }
 
   state.selectedView = view;
   updateUrl(view);
@@ -235,7 +477,9 @@ function updateUrl(view, replace = false) {
 
 function render() {
   const isGlobal = state.selectedView === "global";
-  const summary = isGlobal ? null : state.summaryByCountry.get(state.selectedView);
+  const summary = isGlobal
+    ? null
+    : state.summaryByCountry.get(state.selectedView);
   const satellite = isGlobal
     ? state.regionalSatellite
     : state.satelliteByCountry.get(state.selectedView);
@@ -252,31 +496,17 @@ function render() {
 }
 
 function syncNavigation() {
-  d3.selectAll(".country-tab")
-    .attr("aria-selected", (d) => String(d.code === state.selectedView))
-    .attr("tabindex", (d) => (d.code === state.selectedView ? "0" : "-1"));
-
   d3.select("#country-select").property("value", state.selectedView);
-  d3.select("#view-panel").attr(
-    "aria-labelledby",
-    `tab-${state.selectedView}`,
-  );
-
-  const activeTab = document.querySelector(
-    `#tab-${CSS.escape(state.selectedView)}`,
-  );
-  activeTab?.scrollIntoView({
-    behavior: prefersReducedMotion.matches ? "auto" : "smooth",
-    block: "nearest",
-    inline: "center",
-  });
+  syncGlobeSelection();
 }
 
 function renderHeading(summary) {
   const isGlobal = !summary;
 
   d3.select("#view-kicker").text(
-    isGlobal ? "Regional overview · 21 places" : `Country view · ${summary.code}`,
+    isGlobal
+      ? "Regional overview · 21 places"
+      : `Country view · ${summary.code}`,
   );
   d3.select("#view-title").text(
     isGlobal ? "A shared direction, with local variation" : summary.country,
@@ -310,7 +540,9 @@ function renderMetrics(summary, satellite, historical) {
         },
         {
           label: "Tide-gauge record",
-          value: validHistorical.length ? String(validHistorical[0].year) : "None",
+          value: validHistorical.length
+            ? String(validHistorical[0].year)
+            : "None",
           detail: validHistorical.length
             ? `first available year; gaps may follow`
             : "no qualifying series in this dataset",
@@ -393,7 +625,7 @@ function renderSatellite(summary, data) {
       ? "A line shows the annual equal-country mean and a band shows the range across 21 countries."
       : `A line shows annual sea-level anomaly for ${summary.country}.`,
     range: isGlobal,
-    directLabel: isGlobal ? "Regional mean" : summary.country,
+    directLabel: isGlobal ? "Satellite mean" : summary.country,
     tooltip: (d) =>
       isGlobal
         ? [
@@ -424,14 +656,6 @@ function renderHistorical(summary, data) {
     return;
   }
 
-  const firstYear = validData[0].year;
-  const lastYear = validData.at(-1).year;
-
-  d3.select("#historical-intro").text(
-    isGlobal
-      ? "The regional historical mean reaches back further than the satellite record, but the countries contributing to it change from year to year."
-      : `${summary.country} has a tide-gauge record from ${firstYear} to ${lastYear}, with missing years left as visible gaps.`,
-  );
   d3.select("#historical-title").text(
     isGlobal
       ? "Regional tide-gauge mean and changing coverage"
@@ -467,6 +691,7 @@ function renderHistorical(summary, data) {
             ? "Regional mean: no observation"
             : `Regional mean: ${formatSignedValue(d.value)} mm`,
           `Countries contributing: ${d.count}`,
+          `Stations contributing: ${d.stationCount}`,
         ];
       }
       return [
@@ -550,16 +775,21 @@ function renderLineChart(selector, data, options) {
     const width = Math.max(300, container.clientWidth || 300);
     state.chartWidths.set(container, width);
     const mobile = width < 560;
-    const height = options.countStrip ? (mobile ? 400 : 500) : mobile ? 340 : 440;
+    const height = options.countStrip
+      ? mobile
+        ? 480
+        : 640
+      : mobile
+        ? 420
+        : 560;
     const margin = {
-      top: 28,
-      right: mobile ? 18 : 116,
-      bottom: options.countStrip ? 84 : 48,
-      left: mobile ? 52 : 66,
+      top: 36,
+      right: mobile ? 22 : 128,
+      bottom: options.countStrip ? 126 : 62,
+      left: mobile ? 58 : 72,
     };
     const plotBottom = height - margin.bottom;
     const plotWidth = width - margin.left - margin.right;
-    const plotHeight = plotBottom - margin.top;
     const valid = data.filter((d) => Number.isFinite(d.value));
     const yValues = valid.map((d) => d.value);
 
@@ -594,7 +824,10 @@ function renderLineChart(selector, data, options) {
       .append("svg")
       .attr("viewBox", `0 0 ${width} ${height}`)
       .attr("role", "img")
-      .attr("aria-labelledby", `${selector.slice(1)}-svg-title ${selector.slice(1)}-svg-desc`);
+      .attr(
+        "aria-labelledby",
+        `${selector.slice(1)}-svg-title ${selector.slice(1)}-svg-desc`,
+      );
 
     svg
       .append("title")
@@ -603,7 +836,9 @@ function renderLineChart(selector, data, options) {
     svg
       .append("desc")
       .attr("id", `${selector.slice(1)}-svg-desc`)
-      .text(`${options.description} Horizontal axis: year. Vertical axis: millimeters.`);
+      .text(
+        `${options.description} Horizontal axis: year. Vertical axis: millimeters.`,
+      );
 
     const yTicks = y.ticks(mobile ? 4 : 6);
     svg
@@ -632,9 +867,9 @@ function renderLineChart(selector, data, options) {
       .append("text")
       .attr("class", "axis-label")
       .attr("x", margin.left)
-      .attr("y", 13)
+      .attr("y", 16)
       .attr("fill", subtle)
-      .attr("font-size", 11)
+      .attr("font-size", 12)
       .text("ANOMALY (MM)");
 
     const xAxis = d3
@@ -682,9 +917,15 @@ function renderLineChart(selector, data, options) {
         .append("text")
         .attr("class", "range-label")
         .attr("x", x(data[Math.floor(data.length * 0.18)].year))
-        .attr("y", y(data[Math.floor(data.length * 0.18)].high) - 8)
+        .attr(
+          "y",
+          Math.max(
+            margin.top + 14,
+            y(data[Math.floor(data.length * 0.18)].high) - 10,
+          ),
+        )
         .attr("fill", options.color)
-        .attr("font-size", mobile ? 10 : 11)
+        .attr("font-size", 12)
         .text("COUNTRY RANGE");
     }
 
@@ -718,11 +959,7 @@ function renderLineChart(selector, data, options) {
       .attr("d", line);
 
     if (!prefersReducedMotion.matches) {
-      linePath
-        .attr("opacity", 0)
-        .transition()
-        .duration(220)
-        .attr("opacity", 1);
+      linePath.attr("opacity", 0).transition().duration(220).attr("opacity", 1);
     }
 
     const lastValid = valid.at(-1);
@@ -733,17 +970,27 @@ function renderLineChart(selector, data, options) {
         .append("text")
         .attr("class", "direct-label")
         .attr("x", labelX)
-        .attr("y", y(lastValid.value) - 10)
+        .attr("y", Math.max(margin.top + 14, y(lastValid.value) - 12))
         .attr("text-anchor", labelAnchor)
         .attr("fill", dark ? options.color : textColor)
-        .attr("font-size", mobile ? 10 : 11)
+        .attr("font-size", 12)
         .attr("font-weight", 700)
         .text(options.directLabel.toUpperCase());
     }
 
-    if (options.countStrip) {
-      drawCountStrip(svg, data, x, width, height, margin, plotBottom, textColor, subtle);
-    }
+    const countStrip = options.countStrip
+      ? drawCountStrip(
+          svg,
+          data,
+          x,
+          width,
+          height,
+          margin,
+          plotBottom,
+          textColor,
+          subtle,
+        )
+      : null;
 
     addChartInteraction({
       container,
@@ -752,7 +999,8 @@ function renderLineChart(selector, data, options) {
       x,
       y,
       margin,
-      plotBottom,
+      interactionBottom: countStrip?.stripBottom || plotBottom,
+      coverageBars: countStrip?.bars || null,
       width,
       color: options.color,
       tooltipContent: options.tooltip,
@@ -764,8 +1012,8 @@ function renderLineChart(selector, data, options) {
 
   if ("ResizeObserver" in window) {
     if (!state.resizeObserver) {
-    state.resizeObserver = new ResizeObserver((entries) => {
-      for (const entry of entries) {
+      state.resizeObserver = new ResizeObserver((entries) => {
+        for (const entry of entries) {
           const observedWidth = Math.round(entry.contentRect.width);
           const previousWidth = Math.round(
             state.chartWidths.get(entry.target) || 0,
@@ -786,7 +1034,9 @@ function renderLineChart(selector, data, options) {
             );
           } else if (chartSelector === "#historical-chart") {
             const historical = selectedSummary
-              ? denseHistorical(state.historicalByCountry.get(state.selectedView))
+              ? denseHistorical(
+                  state.historicalByCountry.get(state.selectedView),
+                )
               : state.regionalHistorical;
             renderHistorical(selectedSummary, historical);
           }
@@ -808,28 +1058,32 @@ function drawCountStrip(
   textColor,
   subtle,
 ) {
-  const stripTop = plotBottom + 41;
-  const stripBottom = height - 15;
+  const stripTop = plotBottom + 50;
+  const stripBottom = height - 20;
   const countScale = d3
     .scaleLinear()
     .domain([0, d3.max(data, (d) => d.count)])
     .range([stripBottom, stripTop]);
-  const barWidth = Math.max(1, (width - margin.left - margin.right) / data.length - 0.5);
+  const barWidth = Math.max(
+    1,
+    (width - margin.left - margin.right) / data.length - 0.5,
+  );
 
   svg
     .append("text")
     .attr("class", "count-label")
     .attr("x", margin.left)
-    .attr("y", stripTop - 9)
+    .attr("y", stripTop - 12)
     .attr("fill", subtle)
-    .attr("font-size", 10)
+    .attr("font-size", 12)
     .text("COUNTRIES CONTRIBUTING");
 
-  svg
+  const bars = svg
     .append("g")
     .selectAll("rect")
     .data(data)
     .join("rect")
+    .attr("class", "coverage-bar")
     .attr("x", (d) => x(d.year) - barWidth / 2)
     .attr("y", (d) => countScale(d.count))
     .attr("width", barWidth)
@@ -846,8 +1100,10 @@ function drawCountStrip(
     .attr("x", width - margin.right + 7)
     .attr("y", countScale(d3.max(data, (d) => d.count)) + 4)
     .attr("fill", textColor)
-    .attr("font-size", 10)
+    .attr("font-size", 12)
     .text(d3.max(data, (d) => d.count));
+
+  return { bars, stripBottom };
 }
 
 function addChartInteraction({
@@ -857,7 +1113,8 @@ function addChartInteraction({
   x,
   y,
   margin,
-  plotBottom,
+  interactionBottom,
+  coverageBars,
   width,
   color,
   tooltipContent,
@@ -872,12 +1129,15 @@ function addChartInteraction({
     .attr("role", "status")
     .attr("aria-live", "polite")
     .style("display", "none");
-  const focus = svg.append("g").style("display", "none").attr("aria-hidden", "true");
+  const focus = svg
+    .append("g")
+    .style("display", "none")
+    .attr("aria-hidden", "true");
 
   focus
     .append("line")
     .attr("y1", margin.top)
-    .attr("y2", plotBottom)
+    .attr("y2", interactionBottom)
     .attr("stroke", textColor)
     .attr("stroke-opacity", 0.48)
     .attr("stroke-dasharray", "3 4");
@@ -892,7 +1152,9 @@ function addChartInteraction({
     activeIndex = Math.max(0, Math.min(data.length - 1, index));
     const datum = data[activeIndex];
     const xPosition = x(datum.year);
-    const yPosition = Number.isFinite(datum.value) ? y(datum.value) : margin.top + 8;
+    const yPosition = Number.isFinite(datum.value)
+      ? y(datum.value)
+      : margin.top + 8;
     const lines = tooltipContent(datum);
 
     focus.style("display", null);
@@ -903,6 +1165,11 @@ function addChartInteraction({
       .attr("cy", yPosition)
       .style("display", Number.isFinite(datum.value) ? null : "none");
 
+    coverageBars?.classed(
+      "is-active",
+      (_, barIndex) => barIndex === activeIndex,
+    );
+
     tooltip
       .style("display", "block")
       .style("left", `${Math.max(80, Math.min(width - 80, xPosition))}px`)
@@ -910,7 +1177,9 @@ function addChartInteraction({
       .html(
         lines
           .map((line, lineIndex) =>
-            lineIndex === 0 ? `<strong>${line}</strong>` : `<span>${line}</span>`,
+            lineIndex === 0
+              ? `<strong>${line}</strong>`
+              : `<span>${line}</span>`,
           )
           .join("<br>"),
       );
@@ -924,6 +1193,7 @@ function addChartInteraction({
   function hide() {
     focus.style("display", "none");
     tooltip.style("display", "none");
+    coverageBars?.classed("is-active", false);
   }
 
   const overlay = svg
@@ -932,11 +1202,14 @@ function addChartInteraction({
     .attr("x", margin.left)
     .attr("y", margin.top)
     .attr("width", width - margin.left - (width - x.range()[1]))
-    .attr("height", plotBottom - margin.top)
+    .attr("height", interactionBottom - margin.top)
     .attr("fill", "transparent")
     .attr("tabindex", 0)
     .attr("role", "group")
-    .attr("aria-label", "Interactive chart. Use left and right arrow keys to inspect years.")
+    .attr(
+      "aria-label",
+      "Interactive chart. Use left and right arrow keys to inspect years.",
+    )
     .on("pointerenter pointermove pointerdown", (event) => {
       const [pointerX] = d3.pointer(event, svg.node());
       show(bisect(data, x.invert(pointerX)));
@@ -968,16 +1241,21 @@ function denseHistorical(records) {
   if (!records?.length) return [];
 
   const byYear = new Map(records.map((d) => [d.year, d]));
-  return d3.range(d3.min(records, (d) => d.year), d3.max(records, (d) => d.year) + 1).map(
-    (year) =>
-      byYear.get(year) || {
-        code: records[0].code,
-        country: records[0].country,
-        year,
-        value: null,
-        stationCount: 0,
-      },
-  );
+  return d3
+    .range(
+      d3.min(records, (d) => d.year),
+      d3.max(records, (d) => d.year) + 1,
+    )
+    .map(
+      (year) =>
+        byYear.get(year) || {
+          code: records[0].code,
+          country: records[0].country,
+          year,
+          value: null,
+          stationCount: 0,
+        },
+    );
 }
 
 function reportedNumber(value) {
@@ -993,10 +1271,7 @@ function reportedCurrency(value) {
 }
 
 function formatCompact(value) {
-  return d3
-    .format(".3~s")(value)
-    .replace("G", "bn")
-    .replace("M", "m");
+  return d3.format(".3~s")(value).replace("G", "bn").replace("M", "m");
 }
 
 function formatCurrency(value) {

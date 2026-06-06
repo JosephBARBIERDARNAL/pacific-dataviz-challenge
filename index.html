@@ -1,31 +1,34 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
       content="An interactive view of satellite and tide-gauge sea-level change across 21 Pacific countries and territories."
-    >
+    />
     <title>Pacific Sea-Level Change</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Aleo:ital,wght@0,400;0,600;1,400&amp;family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&amp;display=swap"
       rel="stylesheet"
-    >
-    <link rel="stylesheet" href="style.css">
+    />
+    <link rel="stylesheet" href="style.css" />
     <script src="https://cdn.jsdelivr.net/npm/d3@7" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/topojson-client@3" defer></script>
     <script src="app.js" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main-content">Skip to the story</a>
 
     <header class="site-header">
-      <a class="wordmark" href="?view=global" data-view-link="global">
-        Pacific sea level
-      </a>
-      <p class="header-note">1947–2025 · 21 places · two records</p>
+      <div class="site-header-inner">
+        <a class="wordmark" href="?view=global" data-view-link="global">
+          Pacific sea level
+        </a>
+        <p class="header-note">1947–2025 · 21 places · two records</p>
+      </div>
     </header>
 
     <main id="main-content">
@@ -42,17 +45,33 @@
           </p>
         </div>
 
-        <nav class="view-navigation" aria-label="Choose a regional or country view">
-          <div class="mobile-select-wrap">
-            <label for="country-select">Choose a view</label>
-            <select id="country-select"></select>
+        <nav
+          class="view-navigation"
+          aria-label="Choose a regional or country view"
+        >
+          <div class="navigation-copy">
+            <p class="eyebrow">Explore the Pacific</p>
+            <h2 class="navigation-title">Choose a country or territory</h2>
+            <p class="navigation-note">
+              Select a marker, drag the globe, or use the complete list.
+            </p>
+            <div class="view-controls">
+              <div class="view-select-wrap">
+                <label for="country-select">Choose a view</label>
+                <select id="country-select"></select>
+              </div>
+              <button
+                id="global-view-button"
+                class="global-view-button"
+                type="button"
+                aria-pressed="true"
+              >
+                Global view
+              </button>
+            </div>
           </div>
-          <div
-            id="country-tabs"
-            class="country-tabs"
-            role="tablist"
-            aria-label="Sea-level view"
-          ></div>
+          <div id="pacific-globe" class="pacific-globe"></div>
+          <p id="map-status" class="map-status" aria-live="polite"></p>
         </nav>
 
         <div id="load-error" class="load-error" role="alert" hidden></div>
@@ -60,8 +79,7 @@
         <div
           id="view-panel"
           class="view-panel"
-          role="tabpanel"
-          aria-labelledby="tab-global"
+          aria-labelledby="view-title"
           aria-live="polite"
         >
           <div class="view-heading">
@@ -72,17 +90,15 @@
             <p id="view-summary" class="view-summary"></p>
           </div>
 
-          <div id="metrics" class="metrics" aria-label="Key sea-level figures"></div>
+          <div
+            id="metrics"
+            class="metrics"
+            aria-label="Key sea-level figures"
+          ></div>
 
           <article class="chart-card chart-card--satellite">
             <header class="chart-header">
-              <div>
-                <p class="chart-series-label">
-                  <span class="series-key series-key--satellite"></span>
-                  Satellite-era record
-                </p>
-                <h3 id="satellite-title">Annual sea-level anomaly</h3>
-              </div>
+              <h3 id="satellite-title">Annual sea-level anomaly</h3>
               <p id="satellite-note" class="chart-note"></p>
             </header>
             <div id="satellite-chart" class="chart" aria-busy="true"></div>
@@ -91,7 +107,10 @@
         </div>
       </section>
 
-      <section class="evidence-section" aria-labelledby="historical-section-title">
+      <section
+        class="evidence-section"
+        aria-labelledby="historical-section-title"
+      >
         <div class="section-heading">
           <div>
             <p class="eyebrow eyebrow--dark">The longer, narrower record</p>
@@ -102,13 +121,7 @@
 
         <article id="historical-card" class="chart-card chart-card--historical">
           <header class="chart-header">
-            <div>
-              <p class="chart-series-label">
-                <span class="series-key series-key--historical"></span>
-                Historical tide-gauge record
-              </p>
-              <h3 id="historical-title">Relative sea-level anomaly</h3>
-            </div>
+            <h3 id="historical-title">Relative sea-level anomaly</h3>
             <p id="historical-note" class="chart-note"></p>
           </header>
           <div id="historical-chart" class="chart"></div>
@@ -119,19 +132,25 @@
           <p class="eyebrow eyebrow--dark">No historical series here</p>
           <h3 id="historical-empty-title"></h3>
           <p>
-            The comparable satellite record still covers this view from 1993
-            to 2023. Absence from the tide-gauge panel means this dataset has no
+            The comparable satellite record still covers this view from 1993 to
+            2023. Absence from the tide-gauge panel means this dataset has no
             qualifying historical country series; it does not mean the sea was
             unchanged.
           </p>
         </aside>
       </section>
 
-      <section id="context-section" class="context-section" aria-labelledby="context-title">
+      <section
+        id="context-section"
+        class="context-section"
+        aria-labelledby="context-title"
+      >
         <div class="section-heading">
           <div>
             <p class="eyebrow">Reported exposure</p>
-            <h2 id="context-title">Sea level meets people and infrastructure</h2>
+            <h2 id="context-title">
+              Sea level meets people and infrastructure
+            </h2>
           </div>
           <p id="context-intro" class="section-intro"></p>
         </div>
@@ -191,55 +210,59 @@
       </section>
 
       <section class="method-section" aria-labelledby="method-title">
-        <div>
-          <p class="eyebrow">Read the lines carefully</p>
-          <h2 id="method-title">Two records, two questions</h2>
-        </div>
-        <div class="method-copy">
-          <p>
-            <strong>Satellite-era series:</strong> annual values from 1993 to
-            2023 are available for all 21 places. The headline change compares
-            the 2019–2023 average with the 1993–1997 average, reducing the
-            influence of any single year.
-          </p>
-          <p>
-            <strong>Historical series:</strong> annual tide-gauge anomalies are
-            relative to each station’s 1993–2000 mean and then averaged to
-            country level. Coverage changes through time, and missing years are
-            shown as gaps.
-          </p>
-          <p>
-            The regional lines are equal-country means for each year. They do
-            not weight countries by coastline, land area, population, or number
-            of tide-gauge stations.
-          </p>
+        <div class="method-inner">
+          <div>
+            <p class="eyebrow">Read the lines carefully</p>
+            <h2 id="method-title">Two records, two questions</h2>
+          </div>
+          <div class="method-copy">
+            <p>
+              <strong>Satellite-era series:</strong> annual values from 1993 to
+              2023 are available for all 21 places. The headline change compares
+              the 2019–2023 average with the 1993–1997 average, reducing the
+              influence of any single year.
+            </p>
+            <p>
+              <strong>Historical series:</strong> annual tide-gauge anomalies
+              are relative to each station’s 1993–2000 mean and then averaged to
+              country level. Coverage changes through time, and missing years
+              are shown as gaps.
+            </p>
+            <p>
+              The regional lines are equal-country means for each year. They do
+              not weight countries by coastline, land area, population, or
+              number of tide-gauge stations.
+            </p>
+          </div>
         </div>
       </section>
     </main>
 
     <footer class="site-footer">
-      <div>
-        <p class="footer-label">Materials</p>
-        <a href="data/sea_level.csv">Satellite-era CSV</a>
-        <a href="data/sea_level_historical.csv">Historical CSV</a>
-        <a href="data/country_summary.csv">Country summary CSV</a>
-        <a href="script/data.R">Data preparation script</a>
-      </div>
-      <div>
-        <p class="footer-label">Temporary references</p>
-        <p>
-          Placeholder citation list for the Pacific Data Hub and Permanent
-          Service for Mean Sea Level. Full dataset versions, access dates, and
-          licenses must be added before publication.
-        </p>
-      </div>
-      <div>
-        <p class="footer-label">Temporary reproduction note</p>
-        <p>
-          Placeholder instructions: serve this directory over HTTP and open
-          <code>index.html</code>. Exact environment and validation steps must
-          be documented before publication.
-        </p>
+      <div class="footer-inner">
+        <div>
+          <p class="footer-label">Materials</p>
+          <a href="data/sea_level.csv">Satellite-era CSV</a>
+          <a href="data/sea_level_historical.csv">Historical CSV</a>
+          <a href="data/country_summary.csv">Country summary CSV</a>
+          <a href="script/data.R">Data preparation script</a>
+        </div>
+        <div>
+          <p class="footer-label">Temporary references</p>
+          <p>
+            Placeholder citation list for the Pacific Data Hub and Permanent
+            Service for Mean Sea Level. Full dataset versions, access dates, and
+            licenses must be added before publication.
+          </p>
+        </div>
+        <div>
+          <p class="footer-label">Temporary reproduction note</p>
+          <p>
+            Placeholder instructions: serve this directory over HTTP and open
+            <code>index.html</code>. Exact environment and validation steps must
+            be documented before publication.
+          </p>
+        </div>
       </div>
     </footer>
   </body>
