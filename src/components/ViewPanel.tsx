@@ -187,9 +187,6 @@ export function ViewPanel({
         </p>
       </section>
 
-      <p className="metrics-heading">
-        1993–2023 satellite change and reported disaster context
-      </p>
       <div id="metrics" className="metrics" aria-label="Key sea-level figures">
         {metrics.map((metric) => (
           <div className="metric" key={metric.label}>
@@ -217,7 +214,7 @@ export function ViewPanel({
             <p className="chart-note">
               {isGlobal
                 ? "Line: equal-country mean. Band: lowest to highest country value each year."
-                : "Annual values in millimeters; the series is not smoothed."}
+                : "Annual values in millimeters."}
             </p>
           </header>
           <LineChart
