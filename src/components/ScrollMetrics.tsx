@@ -1,6 +1,5 @@
 import { useMemo } from "react";
 import * as d3 from "d3";
-import { useScrollProgress } from "../hooks/useScrollProgress";
 import {
   formatCompact,
   formatCurrency,
@@ -16,6 +15,7 @@ interface Metric {
 
 interface ScrollMetricsProps {
   data: SeaLevelData;
+  progress: number;
 }
 
 function easeOutCubic(value: number): number {
@@ -44,13 +44,12 @@ function buildMetrics(data: SeaLevelData): Metric[] {
   ];
 }
 
-export function ScrollMetrics({ data }: ScrollMetricsProps) {
-  const { ref, progress } = useScrollProgress<HTMLDivElement>();
+export function ScrollMetrics({ data, progress }: ScrollMetricsProps) {
   const metrics = useMemo(() => buildMetrics(data), [data]);
   const animatedProgress = easeOutCubic(progress);
 
   return (
-    <section ref={ref} className="metrics-section" aria-label="Key figures">
+    <section className="metrics-section" aria-label="Key figures">
       <div className="metrics">
         {metrics.map((metric) => {
           const value = metric.value * animatedProgress;

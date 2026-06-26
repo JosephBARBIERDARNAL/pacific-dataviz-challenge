@@ -1,6 +1,5 @@
+import { ChartExperience } from "./components/ChartExperience";
 import { Footer } from "./components/Footer";
-import { RadialScrollChart } from "./components/RadialScrollChart";
-import { ScrollMetrics } from "./components/ScrollMetrics";
 import { useSeaLevelData } from "./hooks/useSeaLevelData";
 
 export default function App() {
@@ -27,10 +26,7 @@ export default function App() {
 
         {!error &&
           (data ? (
-            <div className="chart-experience">
-              <ScrollMetrics data={data} />
-              <RadialScrollChart data={data.regionalHistorical} />
-            </div>
+            <ChartExperience data={data} />
           ) : (
             <section className="loading-panel" aria-live="polite">
               <h2>Loading data...</h2>

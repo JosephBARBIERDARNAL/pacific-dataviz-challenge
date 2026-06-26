@@ -499,7 +499,7 @@ a:focus-visible {
 
 .radial-chart {
   position: sticky;
-  top: clamp(10.5rem, 17vh, 13rem);
+  top: clamp(12.5rem, 20vh, 14rem);
   width: min(94vw, 1120px);
   min-height: min(74vh, 720px);
   margin: 0 auto;
@@ -872,7 +872,7 @@ a:focus-visible {
   }
 
   .radial-chart {
-    top: 8.5rem;
+    top: 13.25rem;
     width: 100vw;
     min-height: 26rem;
   }

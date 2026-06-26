@@ -227,7 +227,7 @@ export function drawRadialChart(
 
   function update(progress: number) {
     const finalProgress = prefersReducedMotion.matches ? 1 : progress;
-    const clamped = Math.max(0.001, Math.min(1, finalProgress));
+    const clamped = Math.max(0, Math.min(1, finalProgress));
     const pathPosition = totalLength * clamped;
     const point = (linePath.node() as SVGPathElement).getPointAtLength(
       pathPosition,
@@ -242,6 +242,7 @@ export function drawRadialChart(
       .attr("stroke-dashoffset", totalLength * (1 - clamped))
       .attr("opacity", Math.min(1, clamped * 2));
     marker.attr("cx", point.x).attr("cy", point.y).attr("opacity", clamped);
+    readout.attr("opacity", clamped > 0 ? 1 : 0);
     readout.select(".radial-readout-year").text(datum.year);
     readout
       .select(".radial-readout-value")
@@ -253,6 +254,7 @@ export function drawRadialChart(
       .attr("y", datum.y + Math.sin(labelAngle) * 18)
       .attr("text-anchor", Math.cos(labelAngle) < -0.2 ? "end" : "start")
       .attr("dominant-baseline", "middle")
+      .attr("opacity", clamped > 0 ? 1 : 0)
       .text(pointLabel(datum));
   }
 

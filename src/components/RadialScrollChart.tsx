@@ -1,17 +1,14 @@
 import { useEffect, useRef } from "react";
-import { useScrollProgress } from "../hooks/useScrollProgress";
 import { drawRadialChart, type RadialChartHandle } from "../lib/radialChart";
 import type { ChartPoint } from "../types";
 
 interface RadialScrollChartProps {
   data: ChartPoint[];
+  progress: number;
 }
 
-export function RadialScrollChart({ data }: RadialScrollChartProps) {
-  const { ref: chartRef, progress } = useScrollProgress<HTMLDivElement>({
-    waitForFullVisibility: true,
-    travelScreens: 1.1,
-  });
+export function RadialScrollChart({ data, progress }: RadialScrollChartProps) {
+  const chartRef = useRef<HTMLDivElement>(null);
   const handleRef = useRef<RadialChartHandle | null>(null);
   const progressRef = useRef(progress);
 
