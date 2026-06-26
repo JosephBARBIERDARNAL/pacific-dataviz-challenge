@@ -1,25 +1,17 @@
 import * as d3 from "d3";
 import { DATA_PATHS } from "../constants";
-import type {
-  CountrySummary,
-  HistoricalPoint,
-  SatellitePoint,
-  SeaLevelData,
-} from "../types";
+import type { ChartPoint, CountrySummary, SeaLevelData } from "../types";
 
-function parseSatellite(row: d3.DSVRowString): SatellitePoint {
-  return {
-    code: row.country_code!,
-    country: row.country!,
-    year: +row.year!,
-    value: +row.sea_level_mm!,
-  };
+interface HistoricalRecord {
+  code: string;
+  year: number;
+  value: number | null;
+  stationCount: number;
 }
 
-function parseHistorical(row: d3.DSVRowString): HistoricalPoint {
+function parseHistorical(row: d3.DSVRowString): HistoricalRecord {
   return {
     code: row.country_code!,
-    country: row.country!,
     year: +row.year!,
     value: +row.sea_level_anomaly_mm!,
     stationCount: +row.station_count!,
@@ -28,10 +20,6 @@ function parseHistorical(row: d3.DSVRowString): HistoricalPoint {
 
 function parseSummary(row: d3.DSVRowString): CountrySummary {
   return {
-    code: row.country_code!,
-    country: row.country!,
-    earlyMean: +row.sea_level_1993_1997_mm!,
-    recentMean: +row.sea_level_2019_2023_mm!,
     rise: +row.sea_level_rise_mm!,
     affected: +row.affected_people_2005_2023!,
     losses: +row.loss_usd_2007_2020!,
@@ -39,45 +27,24 @@ function parseSummary(row: d3.DSVRowString): CountrySummary {
 }
 
 export async function loadSeaLevelData(): Promise<SeaLevelData> {
-  const [satellite, historical, summaries] = await Promise.all([
-    d3.csv(DATA_PATHS.satellite, parseSatellite),
+  const [historical, summaries] = await Promise.all([
     d3.csv(DATA_PATHS.historical, parseHistorical),
     d3.csv(DATA_PATHS.summary, parseSummary),
   ]);
 
-  return prepareData(satellite, historical, summaries);
+  return prepareData(historical, summaries);
 }
 
 function prepareData(
-  satellite: SatellitePoint[],
-  historical: HistoricalPoint[],
+  historical: HistoricalRecord[],
   summaries: CountrySummary[],
 ): SeaLevelData {
-  const satelliteByCountry = d3.group(satellite, (d) => d.code);
-  const historicalByCountry = d3.group(historical, (d) => d.code);
-  const summaryByCountry = new Map(summaries.map((d) => [d.code, d]));
-  const countries = summaries
-    .map(({ code, country }) => ({ code, country }))
-    .sort((a, b) => d3.ascending(a.country, b.country));
-
-  const satelliteYears = d3.sort(new Set(satellite.map((d) => d.year)));
-  const regionalSatellite = satelliteYears.map((year) => {
-    const values = satellite.filter((d) => d.year === year).map((d) => d.value);
-    return {
-      year,
-      value: d3.mean(values)!,
-      low: d3.min(values)!,
-      high: d3.max(values)!,
-      count: values.length,
-    };
-  });
-
   const historicalYears = d3.range(
     d3.min(historical, (d) => d.year)!,
     d3.max(historical, (d) => d.year)! + 1,
   );
   const historicalByYear = d3.group(historical, (d) => d.year);
-  const regionalHistorical = historicalYears.map((year) => {
+  const regionalHistorical: ChartPoint[] = historicalYears.map((year) => {
     const records = historicalByYear.get(year) || [];
     return {
       year,
@@ -88,11 +55,7 @@ function prepareData(
   });
 
   return {
-    countries,
-    satelliteByCountry,
-    historicalByCountry,
-    summaryByCountry,
-    regionalSatellite,
+    summaries,
     regionalHistorical,
   };
 }

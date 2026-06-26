@@ -6,7 +6,6 @@ export const COLORS = {
 } as const;
 
 export const DATA_PATHS = {
-  satellite: `${import.meta.env.BASE_URL}data/sea_level.csv`,
   historical: `${import.meta.env.BASE_URL}data/sea_level_historical.csv`,
   summary: `${import.meta.env.BASE_URL}data/country_summary.csv`,
 } as const;
@@ -14,9 +13,6 @@ export const DATA_PATHS = {
 export const ASSET_PATHS = {
   logo: `${import.meta.env.BASE_URL}image/logo.png`,
 } as const;
-
-export const VIEW_QUERY_PARAM = "view";
-export const GLOBAL_VIEW = "global";
 
 export const RECORD_RANGES = {
   historical: {
@@ -50,11 +46,6 @@ export const RECORD_RANGES = {
   },
 } as const;
 
-export const DATA_COVERAGE = {
-  satellitePlaces: 21,
-  historicalPlaces: 12,
-} as const;
-
 export const SCROLL_PROGRESS = {
   defaultTravelScreens: 1,
   defaultPinnedTravelScreens: 1.2,
@@ -62,76 +53,6 @@ export const SCROLL_PROGRESS = {
   lockBufferPx: 300,
   viewportOffset: 0.08,
   viewportSpan: 0.78,
-} as const;
-
-export const LINE_CHART = {
-  minWidth: 300,
-  mobileBreakpoint: 560,
-  height: {
-    countStrip: { mobile: 480, desktop: 640 },
-    prominent: { mobile: 460, desktop: 680 },
-    default: { mobile: 420, desktop: 560 },
-  },
-  margin: {
-    top: 36,
-    right: { mobile: 22, countStrip: 190, default: 128 },
-    bottom: { countStrip: 126, default: 62 },
-    left: { mobile: 58, desktop: 72 },
-  },
-  yPadding: { min: 2, ratio: 0.05 },
-  ticks: { mobile: 4, desktop: 6, xDesktop: 7 },
-  axis: {
-    labelY: 16,
-    labelFontSize: 12,
-    zeroStrokeWidth: 1.4,
-    xTickPadding: 11,
-    yTickPadding: 10,
-  },
-  rangeLabel: {
-    positionRatio: 0.18,
-    yOffset: 10,
-    minOffset: 14,
-    fontSize: 12,
-  },
-  line: {
-    fadeDurationMs: 220,
-    shadowOpacity: 0.65,
-    shadowWidth: 5,
-    strokeWidth: { prominent: 4, default: 3 },
-  },
-  directLabel: {
-    mobileXOffset: -4,
-    desktopXOffset: 10,
-    yOffset: 12,
-    minOffset: 14,
-    fontSize: 12,
-  },
-  countStrip: {
-    topOffset: 50,
-    bottomOffset: 20,
-    minBarWidth: 1,
-    barGap: 0.5,
-    barFillOpacity: 0.8,
-    barStrokeOpacity: 0.65,
-    barStrokeWidth: 0.5,
-    labelYOffset: { mobile: 12, desktop: 8 },
-    labelMinOffset: 12,
-    labelFontSize: 12,
-  },
-  interaction: {
-    fallbackYFromTop: 8,
-    tooltipXPadding: 80,
-    tooltipMinTop: 62,
-    focusCircleRadius: 5,
-    focusStrokeWidth: 1.5,
-    focusStrokeOpacity: 0.48,
-    focusStrokeDasharray: "3 4",
-  },
-  theme: {
-    subtle: { dark: "rgba(255,255,255,0.75)", light: "rgba(26,43,75,0.70)" },
-    grid: { dark: "rgba(255,255,255,0.16)", light: "rgba(26,43,75,0.12)" },
-    zero: { dark: "rgba(255,255,255,0.48)", light: "rgba(26,43,75,0.45)" },
-  },
 } as const;
 
 export const RADIAL_CHART = {

@@ -24,22 +24,20 @@ function easeOutCubic(value: number): number {
 }
 
 function buildMetrics(data: SeaLevelData): Metric[] {
-  const summaries = [...data.summaryByCountry.values()];
-
   return [
     {
       label: `Average ${RECORD_RANGES.satellite.hyphenLabel} change`,
-      value: d3.mean(summaries, (d) => d.rise) ?? 0,
+      value: d3.mean(data.summaries, (d) => d.rise) ?? 0,
       format: (value) => `${formatSignedValue(value)} mm`,
     },
     {
       label: `People directly affected, ${RECORD_RANGES.affected.hyphenLabel}`,
-      value: d3.sum(summaries, (d) => d.affected),
+      value: d3.sum(data.summaries, (d) => d.affected),
       format: formatCompact,
     },
     {
       label: `Reported disaster losses, ${RECORD_RANGES.losses.hyphenLabel}`,
-      value: d3.sum(summaries, (d) => d.losses),
+      value: d3.sum(data.summaries, (d) => d.losses),
       format: formatCurrency,
     },
   ];

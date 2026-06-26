@@ -27,11 +27,13 @@ export function Footer() {
             </a>
           </p>
         </div>
-        <img
-          className="footer-logo"
-          src={ASSET_PATHS.logo}
-          alt="Pacific Dataviz Challenge"
-        />
+        <a href="https://pacificdatavizchallenge.org/" target="_blank">
+          <img
+            className="footer-logo"
+            src={ASSET_PATHS.logo}
+            alt="Pacific Dataviz Challenge"
+          />
+        </a>
       </div>
     </footer>
   );
