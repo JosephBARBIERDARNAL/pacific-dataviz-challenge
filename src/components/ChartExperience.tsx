@@ -10,7 +10,7 @@ interface ChartExperienceProps {
 export function ChartExperience({ data }: ChartExperienceProps) {
   const { ref, progress } = usePinnedElementProgress<HTMLDivElement>({
     targetSelector: ".radial-chart",
-    travelScreens: 1.25,
+    travelScreens: 1,
   });
 
   return (

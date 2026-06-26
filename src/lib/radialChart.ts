@@ -35,6 +35,14 @@ function pointLabel(datum: RadialDatum): string {
   return `${datum.year}: ${formatSignedValue(datum.smoothed)} mm`;
 }
 
+function pathPointAt(
+  path: SVGPathElement,
+  length: number,
+  totalLength: number,
+): DOMPoint {
+  return path.getPointAtLength(Math.max(0, Math.min(totalLength, length)));
+}
+
 export function drawRadialChart(
   container: HTMLElement,
   data: ChartPoint[],
@@ -130,16 +138,18 @@ export function drawRadialChart(
     .curve(d3.curveCatmullRom.alpha(0.5));
 
   const grid = svg.append("g").attr("aria-hidden", "true");
-  const guideYears = [1950, 1975, 2000, 2025];
+  const firstYear = points[0]?.year ?? 1950;
+  const guideYears = Array.from(new Set([firstYear, 1975, 2000, 2025]));
 
   guideYears.forEach((year) => {
     const guideT = t(year);
     const guideAngle = angle(guideT);
     const guideRadius = radius(guideT);
-    const x1 = centerX + Math.cos(guideAngle) * (guideRadius - anomalyBand);
-    const y1 = centerY + Math.sin(guideAngle) * (guideRadius - anomalyBand);
-    const x2 = centerX + Math.cos(guideAngle) * (guideRadius + anomalyBand);
-    const y2 = centerY + Math.sin(guideAngle) * (guideRadius + anomalyBand);
+    const guideLength = anomalyBand / 5;
+    const x1 = centerX + Math.cos(guideAngle) * (guideRadius - guideLength);
+    const y1 = centerY + Math.sin(guideAngle) * (guideRadius - guideLength);
+    const x2 = centerX + Math.cos(guideAngle) * (guideRadius + guideLength);
+    const y2 = centerY + Math.sin(guideAngle) * (guideRadius + guideLength);
 
     grid
       .append("line")
@@ -148,12 +158,18 @@ export function drawRadialChart(
       .attr("x2", x2)
       .attr("y2", y2)
       .attr("stroke", "rgba(255,255,255,0.14)")
-      .attr("stroke-width", 1);
+      .attr("stroke-width", 2);
 
     grid
       .append("text")
-      .attr("x", centerX + Math.cos(guideAngle) * (guideRadius + anomalyBand + 18))
-      .attr("y", centerY + Math.sin(guideAngle) * (guideRadius + anomalyBand + 18))
+      .attr(
+        "x",
+        centerX + Math.cos(guideAngle) * (guideRadius + anomalyBand + 18),
+      )
+      .attr(
+        "y",
+        centerY + Math.sin(guideAngle) * (guideRadius + anomalyBand + 18),
+      )
       .attr("fill", "rgba(255,255,255,0.6)")
       .attr("font-size", mobile ? 10 : 12)
       .attr("font-family", "var(--heading)")
@@ -209,13 +225,15 @@ export function drawRadialChart(
   readout
     .append("text")
     .attr("class", "radial-readout-year")
-    .attr("y", -8)
-    .attr("text-anchor", "middle");
+    .attr("y", 0)
+    .attr("text-anchor", "middle")
+    .attr("dominant-baseline", "middle");
   readout
     .append("text")
     .attr("class", "radial-readout-value")
-    .attr("y", 28)
-    .attr("text-anchor", "middle");
+    .attr("y", 36)
+    .attr("text-anchor", "middle")
+    .attr("dominant-baseline", "middle");
 
   const endLabel = svg
     .append("text")
@@ -229,9 +247,8 @@ export function drawRadialChart(
     const finalProgress = prefersReducedMotion.matches ? 1 : progress;
     const clamped = Math.max(0, Math.min(1, finalProgress));
     const pathPosition = totalLength * clamped;
-    const point = (linePath.node() as SVGPathElement).getPointAtLength(
-      pathPosition,
-    );
+    const path = linePath.node() as SVGPathElement;
+    const point = pathPointAt(path, pathPosition, totalLength);
     const index = Math.min(
       points.length - 1,
       Math.max(0, Math.round((points.length - 1) * clamped)),
@@ -240,21 +257,29 @@ export function drawRadialChart(
 
     linePath
       .attr("stroke-dashoffset", totalLength * (1 - clamped))
-      .attr("opacity", Math.min(1, clamped * 2));
-    marker.attr("cx", point.x).attr("cy", point.y).attr("opacity", clamped);
-    readout.attr("opacity", clamped > 0 ? 1 : 0);
+      .attr("opacity", 1);
+    marker.attr("cx", point.x).attr("cy", point.y).attr("opacity", 1);
+    readout.attr("opacity", 1);
     readout.select(".radial-readout-year").text(datum.year);
     readout
       .select(".radial-readout-value")
       .text(`${formatSignedValue(datum.smoothed)} mm`);
 
-    const labelAngle = datum.angle;
+    const previousPoint = pathPointAt(path, pathPosition - 1, totalLength);
+    const nextPoint = pathPointAt(path, pathPosition + 1, totalLength);
+    const tangentAngle = Math.atan2(
+      nextPoint.y - previousPoint.y,
+      nextPoint.x - previousPoint.x,
+    );
+    const labelX = point.x + Math.cos(tangentAngle) * 16;
+    const labelY = point.y + Math.sin(tangentAngle) * 16;
+
     endLabel
-      .attr("x", datum.x + Math.cos(labelAngle) * 18)
-      .attr("y", datum.y + Math.sin(labelAngle) * 18)
-      .attr("text-anchor", Math.cos(labelAngle) < -0.2 ? "end" : "start")
+      .attr("x", labelX)
+      .attr("y", labelY)
+      .attr("text-anchor", Math.cos(tangentAngle) < -0.2 ? "end" : "start")
       .attr("dominant-baseline", "middle")
-      .attr("opacity", clamped > 0 ? 1 : 0)
+      .attr("opacity", 1)
       .text(pointLabel(datum));
   }
 
