@@ -12,7 +12,7 @@
   --white-08: rgba(255, 255, 255, 0.08);
   --heading: "Bricolage Grotesque", sans-serif;
   --prose: "Aleo", serif;
-  --content-width: min(50vw, 1100px);
+  --content-width: min(88vw, 1160px);
   --header-width: min(94vw, 1500px);
 }
 
@@ -208,8 +208,10 @@ h3,
 }
 
 .hero {
-  min-height: calc(100vh - 4.5rem);
-  padding: clamp(7rem, 12vw, 12rem) 0 5rem;
+  display: flex;
+  min-height: 94vh;
+  padding: 0;
+  align-items: center;
   overflow: hidden;
   background: var(--navy);
   color: var(--white);
@@ -244,10 +246,11 @@ p {
 
 h1 {
   margin-bottom: 0;
-  font-size: clamp(2rem, 6vw, 5rem);
+  max-width: 10ch;
+  font-size: clamp(4.4rem, 12vw, 11rem);
   font-weight: 500;
   letter-spacing: 0em;
-  line-height: 0.9;
+  line-height: 0.82;
 }
 
 h2 {
@@ -323,7 +326,8 @@ a:focus-visible {
 .metrics {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
-  margin: 0.65rem 0 0;
+  width: var(--content-width);
+  margin: 0 auto;
   border-top: 1px solid var(--white-16);
   border-bottom: 1px solid var(--white-16);
 }
@@ -355,7 +359,7 @@ a:focus-visible {
 .metric-value {
   display: block;
   color: var(--satellite);
-  font-size: clamp(2.25rem, 3vw, 3rem);
+  font-size: clamp(2.45rem, 4vw, 4.75rem);
   font-weight: 500;
   letter-spacing: -0.055em;
   line-height: 0.9;
@@ -462,6 +466,106 @@ a:focus-visible {
   padding: 1rem;
   border: 1px solid var(--satellite);
   font-family: var(--heading);
+}
+
+.metrics-section,
+.radial-story {
+  background: var(--navy);
+  color: var(--white);
+}
+
+.metrics-section {
+  padding: clamp(2rem, 4vw, 4rem) 0 clamp(1.5rem, 3vw, 3rem);
+}
+
+.radial-story {
+  min-height: 170vh;
+  padding: 0 0 clamp(5rem, 10vw, 9rem);
+}
+
+.radial-copy {
+  width: var(--content-width);
+  margin-inline: auto;
+}
+
+.radial-copy h2 {
+  max-width: 13ch;
+}
+
+.radial-chart {
+  position: sticky;
+  top: 3vh;
+  width: min(94vw, 1120px);
+  min-height: min(88vh, 860px);
+  margin: clamp(1.5rem, 4vw, 3.5rem) auto 0;
+}
+
+.radial-chart svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.radial-readout-year,
+.radial-readout-value,
+.radial-end-label {
+  font-family: var(--heading);
+}
+
+.radial-readout-year {
+  fill: var(--white);
+  font-size: clamp(2rem, 5vw, 4.5rem);
+  font-weight: 500;
+}
+
+.radial-readout-value {
+  fill: var(--satellite);
+  font-size: clamp(1rem, 2vw, 1.6rem);
+  font-weight: 700;
+}
+
+.method-section,
+.loading-panel {
+  background: var(--white);
+  color: var(--navy);
+}
+
+.loading-panel {
+  min-height: 40vh;
+  padding: clamp(4rem, 9vw, 8rem) 0;
+}
+
+.loading-panel h2 {
+  width: var(--content-width);
+  margin-inline: auto;
+}
+
+.method-section {
+  padding: clamp(5rem, 9vw, 8rem) 0;
+}
+
+.method-inner {
+  width: var(--content-width);
+  margin-inline: auto;
+}
+
+.method-inner h2 {
+  max-width: 12ch;
+}
+
+.method-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.5rem, 3vw, 3rem);
+  margin-top: clamp(2rem, 4vw, 3.5rem);
+  border-top: 1px solid var(--ink-16);
+}
+
+.method-grid p {
+  margin: 0;
+  padding-top: 1.25rem;
+  color: var(--ink-70);
 }
 
 .impacts-section {
@@ -743,11 +847,11 @@ a:focus-visible {
 
   .hero {
     min-height: 100vh;
-    padding-top: 6rem;
+    padding: 0;
   }
 
   h1 {
-    font-size: clamp(3rem, 15vw, 5rem);
+    font-size: clamp(3.3rem, 18vw, 6.5rem);
   }
 
   .measure-summary {
@@ -773,6 +877,19 @@ a:focus-visible {
 
   .metric-value {
     font-size: clamp(2rem, 11vw, 3.1rem);
+  }
+
+  .radial-story {
+    min-height: 150vh;
+  }
+
+  .radial-chart {
+    top: 7vh;
+    min-height: 34rem;
+  }
+
+  .method-grid {
+    grid-template-columns: 1fr;
   }
 
   .chart-header {

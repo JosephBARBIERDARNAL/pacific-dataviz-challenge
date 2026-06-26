@@ -1,59 +1,41 @@
-import { useEffect, useState } from "react";
 import { Footer } from "./components/Footer";
-import { Header } from "./components/Header";
-import { ImpactsSection } from "./components/ImpactsSection";
-import { ViewPanel } from "./components/ViewPanel";
-import { prefersReducedMotion } from "./constants";
+import { RadialScrollChart } from "./components/RadialScrollChart";
+import { ScrollMetrics } from "./components/ScrollMetrics";
 import { useSeaLevelData } from "./hooks/useSeaLevelData";
-import { useView } from "./hooks/useView";
-import { denseHistorical } from "./lib/denseHistorical";
-import type { ChartRecord, View } from "./types";
 
-/**
- * Briefly fades the view panel while switching views (matching the
- * original 90ms "is-changing" animation), skipped under reduced motion.
- */
-function useViewTransition(selectedView: View) {
-  const [displayView, setDisplayView] = useState(selectedView);
-  const [isChanging, setIsChanging] = useState(false);
-
-  useEffect(() => {
-    if (selectedView === displayView) return;
-    if (prefersReducedMotion.matches) {
-      setDisplayView(selectedView);
-      return;
-    }
-    setIsChanging(true);
-    const timer = window.setTimeout(() => {
-      setDisplayView(selectedView);
-      setIsChanging(false);
-    }, 90);
-    return () => window.clearTimeout(timer);
-  }, [selectedView, displayView]);
-
-  return { displayView, isChanging };
+function MethodSection() {
+  return (
+    <section className="method-section" aria-labelledby="method-title">
+      <div className="method-inner">
+        <p className="eyebrow eyebrow--dark">Method and data</p>
+        <h2 id="method-title">What this story measures</h2>
+        <div className="method-grid">
+          <p>
+            The chart shows annual sea-level anomaly in millimeters for the
+            Pacific region, built from tide-gauge observations. Each station is
+            measured relative to its own 1993-2000 baseline before the regional
+            series is assembled.
+          </p>
+          <p>
+            The visible line is smoothed with a centered five-year average to
+            make the long-term direction easier to read. The source data remain
+            annual observations, and the number of contributing countries and
+            stations changes through time.
+          </p>
+          <p>
+            The top figures summarize the 21 Pacific countries and territories
+            in the project data. Disaster totals include all recorded disasters,
+            not only coastal events, so they provide context rather than a
+            direct attribution to sea-level rise.
+          </p>
+        </div>
+      </div>
+    </section>
+  );
 }
 
 export default function App() {
   const { data, error } = useSeaLevelData();
-  const { selectedView, selectView } = useView(data);
-  const { displayView, isChanging } = useViewTransition(selectedView);
-  const [selectedRecord, setSelectedRecord] =
-    useState<ChartRecord>("historical");
-
-  const isGlobal = displayView === "global";
-  const summary =
-    data && !isGlobal ? (data.summaryByCountry.get(displayView) ?? null) : null;
-  const satellite = data
-    ? isGlobal
-      ? data.regionalSatellite
-      : (data.satelliteByCountry.get(displayView) ?? [])
-    : [];
-  const historical = data
-    ? isGlobal
-      ? data.regionalHistorical
-      : denseHistorical(data.historicalByCountry.get(displayView))
-    : [];
 
   return (
     <>
@@ -61,50 +43,31 @@ export default function App() {
         Skip to the story
       </a>
 
-      <Header
-        countries={data?.countries ?? []}
-        selectedView={selectedView}
-        onSelect={selectView}
-        selectedRecord={selectedRecord}
-        onSelectRecord={setSelectedRecord}
-      />
-
       <main id="main-content">
         <section className="hero" aria-labelledby="page-title">
           <div className="hero-intro">
-            <p className="eyebrow">Water is rising</p>
             <h1 id="page-title">A changing shoreline across the Pacific</h1>
           </div>
-
-          {error && (
-            <div id="load-error" className="load-error" role="alert">
-              {error}
-            </div>
-          )}
-
-          {!error &&
-            (data ? (
-              <ViewPanel
-                data={data}
-                summary={summary}
-                satellite={satellite}
-                historical={historical}
-                selectedRecord={selectedRecord}
-                isChanging={isChanging}
-              />
-            ) : (
-              <div
-                id="view-panel"
-                className="view-panel"
-                aria-labelledby="view-title"
-                aria-live="polite"
-              >
-                <h2 id="view-title">Loading data…</h2>
-              </div>
-            ))}
         </section>
 
-        <ImpactsSection />
+        {error && (
+          <div id="load-error" className="load-error" role="alert">
+            {error}
+          </div>
+        )}
+
+        {!error &&
+          (data ? (
+            <>
+              <ScrollMetrics data={data} />
+              <RadialScrollChart data={data.regionalHistorical} />
+              <MethodSection />
+            </>
+          ) : (
+            <section className="loading-panel" aria-live="polite">
+              <h2>Loading data...</h2>
+            </section>
+          ))}
       </main>
 
       <Footer />
