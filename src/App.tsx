@@ -3,37 +3,6 @@ import { RadialScrollChart } from "./components/RadialScrollChart";
 import { ScrollMetrics } from "./components/ScrollMetrics";
 import { useSeaLevelData } from "./hooks/useSeaLevelData";
 
-function MethodSection() {
-  return (
-    <section className="method-section" aria-labelledby="method-title">
-      <div className="method-inner">
-        <p className="eyebrow eyebrow--dark">Method and data</p>
-        <h2 id="method-title">What this story measures</h2>
-        <div className="method-grid">
-          <p>
-            The chart shows annual sea-level anomaly in millimeters for the
-            Pacific region, built from tide-gauge observations. Each station is
-            measured relative to its own 1993-2000 baseline before the regional
-            series is assembled.
-          </p>
-          <p>
-            The visible line is smoothed with a centered five-year average to
-            make the long-term direction easier to read. The source data remain
-            annual observations, and the number of contributing countries and
-            stations changes through time.
-          </p>
-          <p>
-            The top figures summarize the 21 Pacific countries and territories
-            in the project data. Disaster totals include all recorded disasters,
-            not only coastal events, so they provide context rather than a
-            direct attribution to sea-level rise.
-          </p>
-        </div>
-      </div>
-    </section>
-  );
-}
-
 export default function App() {
   const { data, error } = useSeaLevelData();
 
@@ -58,11 +27,10 @@ export default function App() {
 
         {!error &&
           (data ? (
-            <>
+            <div className="chart-experience">
               <ScrollMetrics data={data} />
               <RadialScrollChart data={data.regionalHistorical} />
-              <MethodSection />
-            </>
+            </div>
           ) : (
             <section className="loading-panel" aria-live="polite">
               <h2>Loading data...</h2>

@@ -468,19 +468,28 @@ a:focus-visible {
   font-family: var(--heading);
 }
 
+.chart-experience,
 .metrics-section,
 .radial-story {
   background: var(--navy);
   color: var(--white);
 }
 
+.chart-experience {
+  position: relative;
+}
+
 .metrics-section {
-  padding: clamp(2rem, 4vw, 4rem) 0 clamp(1.5rem, 3vw, 3rem);
+  position: sticky;
+  z-index: 20;
+  top: 0;
+  padding: clamp(1rem, 2vw, 1.75rem) 0;
+  box-shadow: 0 1.25rem 2rem rgba(8, 18, 37, 0.18);
 }
 
 .radial-story {
-  min-height: 170vh;
-  padding: 0 0 clamp(5rem, 10vw, 9rem);
+  min-height: 220vh;
+  padding: clamp(1.25rem, 3vw, 2.5rem) 0 clamp(5rem, 10vw, 9rem);
 }
 
 .radial-copy {
@@ -488,16 +497,12 @@ a:focus-visible {
   margin-inline: auto;
 }
 
-.radial-copy h2 {
-  max-width: 13ch;
-}
-
 .radial-chart {
   position: sticky;
-  top: 3vh;
+  top: clamp(10.5rem, 17vh, 13rem);
   width: min(94vw, 1120px);
-  min-height: min(88vh, 860px);
-  margin: clamp(1.5rem, 4vw, 3.5rem) auto 0;
+  min-height: min(74vh, 720px);
+  margin: 0 auto;
 }
 
 .radial-chart svg {
@@ -525,7 +530,6 @@ a:focus-visible {
   font-weight: 700;
 }
 
-.method-section,
 .loading-panel {
   background: var(--white);
   color: var(--navy);
@@ -539,33 +543,6 @@ a:focus-visible {
 .loading-panel h2 {
   width: var(--content-width);
   margin-inline: auto;
-}
-
-.method-section {
-  padding: clamp(5rem, 9vw, 8rem) 0;
-}
-
-.method-inner {
-  width: var(--content-width);
-  margin-inline: auto;
-}
-
-.method-inner h2 {
-  max-width: 12ch;
-}
-
-.method-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(1.5rem, 3vw, 3rem);
-  margin-top: clamp(2rem, 4vw, 3.5rem);
-  border-top: 1px solid var(--ink-16);
-}
-
-.method-grid p {
-  margin: 0;
-  padding-top: 1.25rem;
-  color: var(--ink-70);
 }
 
 .impacts-section {
@@ -858,38 +835,46 @@ a:focus-visible {
     margin-top: 2.5rem;
   }
 
+  .metrics-section {
+    padding: 0.55rem 0;
+  }
+
   .metrics {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .metric,
   .metric:not(:first-child),
   .metric:nth-child(3) {
-    min-height: 8rem;
-    padding: 1rem 0;
-    border-right: 0;
-    border-bottom: 1px solid var(--white-16);
-  }
-
-  .metric:last-child {
+    min-height: 5.7rem;
+    padding: 0.65rem 0.5rem;
+    border-right: 1px solid var(--white-16);
     border-bottom: 0;
   }
 
+  .metric:last-child {
+    border-right: 0;
+  }
+
   .metric-value {
-    font-size: clamp(2rem, 11vw, 3.1rem);
+    font-size: clamp(1.35rem, 7vw, 2rem);
+  }
+
+  .metric-label {
+    margin-top: 0.55rem;
+    font-size: 0.52rem;
+    line-height: 1.25;
   }
 
   .radial-story {
-    min-height: 150vh;
+    min-height: 190vh;
+    padding-top: 1rem;
   }
 
   .radial-chart {
-    top: 7vh;
-    min-height: 34rem;
-  }
-
-  .method-grid {
-    grid-template-columns: 1fr;
+    top: 8.5rem;
+    width: 100vw;
+    min-height: 26rem;
   }
 
   .chart-header {

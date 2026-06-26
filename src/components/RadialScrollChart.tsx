@@ -8,8 +8,10 @@ interface RadialScrollChartProps {
 }
 
 export function RadialScrollChart({ data }: RadialScrollChartProps) {
-  const { ref: sectionRef, progress } = useScrollProgress<HTMLDivElement>();
-  const chartRef = useRef<HTMLDivElement>(null);
+  const { ref: chartRef, progress } = useScrollProgress<HTMLDivElement>({
+    waitForFullVisibility: true,
+    travelScreens: 1.1,
+  });
   const handleRef = useRef<RadialChartHandle | null>(null);
   const progressRef = useRef(progress);
 
@@ -51,14 +53,9 @@ export function RadialScrollChart({ data }: RadialScrollChartProps) {
   }, [progress]);
 
   return (
-    <section
-      ref={sectionRef}
-      className="radial-story"
-      aria-labelledby="radial-title"
-    >
+    <section className="radial-story" aria-label="Tide-gauge record, 1947-2025">
       <div className="radial-copy">
         <p className="chart-source">Tide-gauge record · 1947-2025</p>
-        <h2 id="radial-title">The regional line bends upward over time</h2>
       </div>
       <div id="radial-sea-level-chart" className="radial-chart" ref={chartRef} />
     </section>

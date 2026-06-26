@@ -1,12 +1,20 @@
 import { useEffect, useRef, useState } from "react";
 import { prefersReducedMotion } from "../constants";
 
+interface ScrollProgressOptions {
+  waitForFullVisibility?: boolean;
+  travelScreens?: number;
+}
+
 function clamp(value: number): number {
   return Math.max(0, Math.min(1, value));
 }
 
-export function useScrollProgress<T extends HTMLElement>() {
+export function useScrollProgress<T extends HTMLElement>(
+  options: ScrollProgressOptions = {},
+) {
   const ref = useRef<T>(null);
+  const startScrollYRef = useRef<number | null>(null);
   const [progress, setProgress] = useState(
     prefersReducedMotion.matches ? 1 : 0,
   );
@@ -26,6 +34,30 @@ export function useScrollProgress<T extends HTMLElement>() {
 
       const rect = element.getBoundingClientRect();
       const viewportHeight = window.innerHeight || 1;
+
+      if (options.waitForFullVisibility) {
+        const fullyVisible = rect.top >= 0 && rect.bottom <= viewportHeight;
+        if (!fullyVisible && startScrollYRef.current == null) {
+          setProgress(0);
+          return;
+        }
+
+        if (fullyVisible && startScrollYRef.current == null) {
+          startScrollYRef.current = window.scrollY;
+        }
+
+        const startScrollY = startScrollYRef.current ?? window.scrollY;
+        if (window.scrollY < startScrollY) {
+          startScrollYRef.current = null;
+          setProgress(0);
+          return;
+        }
+
+        const travel = viewportHeight * (options.travelScreens ?? 1);
+        setProgress(clamp((window.scrollY - startScrollY) / travel));
+        return;
+      }
+
       const raw = (viewportHeight - rect.top) / (viewportHeight + rect.height);
       setProgress(clamp((raw - 0.08) / 0.78));
     };
@@ -44,7 +76,7 @@ export function useScrollProgress<T extends HTMLElement>() {
       window.removeEventListener("scroll", requestUpdate);
       window.removeEventListener("resize", requestUpdate);
     };
-  }, []);
+  }, [options.travelScreens, options.waitForFullVisibility]);
 
   return { ref, progress };
 }
