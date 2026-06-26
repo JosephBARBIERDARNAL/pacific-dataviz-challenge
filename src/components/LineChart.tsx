@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { RESIZE_OBSERVER } from "../constants";
 import { drawLineChart, type LineChartOptions } from "../lib/lineChart";
 import type { ChartPoint } from "../types";
 
@@ -16,11 +17,15 @@ export function LineChart({ id, data, options }: LineChartProps) {
     if (!container) return;
 
     let cleanup = drawLineChart(container, data, options);
-    let previousWidth = Math.round(container.clientWidth);
+    let previousWidth =
+      Math.round(container.clientWidth / RESIZE_OBSERVER.widthPrecision) *
+      RESIZE_OBSERVER.widthPrecision;
 
     const observer = new ResizeObserver((entries) => {
       for (const entry of entries) {
-        const observedWidth = Math.round(entry.contentRect.width);
+        const observedWidth =
+          Math.round(entry.contentRect.width / RESIZE_OBSERVER.widthPrecision) *
+          RESIZE_OBSERVER.widthPrecision;
         if (observedWidth === previousWidth) continue;
         previousWidth = observedWidth;
         cleanup();

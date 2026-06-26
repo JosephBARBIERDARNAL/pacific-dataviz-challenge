@@ -1,5 +1,10 @@
 import * as d3 from "d3";
-import { COLORS, prefersReducedMotion } from "../constants";
+import {
+  COLORS,
+  RADIAL_CHART,
+  RECORD_RANGES,
+  prefersReducedMotion,
+} from "../constants";
 import type { ChartPoint } from "../types";
 import { formatSignedValue } from "./format";
 
@@ -21,7 +26,11 @@ export interface RadialChartHandle {
   cleanup: () => void;
 }
 
-function rollingMean(data: ChartPoint[], index: number, span = 5): number {
+function rollingMean(
+  data: ChartPoint[],
+  index: number,
+  span = RADIAL_CHART.rollingMeanSpan,
+): number {
   const half = Math.floor(span / 2);
   const values = data
     .slice(Math.max(0, index - half), Math.min(data.length, index + half + 1))
@@ -47,15 +56,35 @@ export function drawRadialChart(
   container: HTMLElement,
   data: ChartPoint[],
 ): RadialChartHandle {
-  const width = Math.max(320, container.clientWidth || 320);
-  const mobile = width < 680;
-  const height = mobile ? Math.max(520, width * 1.16) : Math.min(860, width);
+  const width = Math.max(
+    RADIAL_CHART.minWidth,
+    container.clientWidth || RADIAL_CHART.minWidth,
+  );
+  const mobile = width < RADIAL_CHART.mobileBreakpoint;
+  const height = mobile
+    ? Math.max(
+        RADIAL_CHART.height.mobileMin,
+        width * RADIAL_CHART.height.mobileWidthRatio,
+      )
+    : Math.min(RADIAL_CHART.height.desktopMax, width);
   const size = Math.min(width, height);
   const centerX = width / 2;
   const centerY = height / 2;
-  const innerRadius = size * (mobile ? 0.13 : 0.12);
-  const outerRadius = size * (mobile ? 0.34 : 0.36);
-  const anomalyBand = size * (mobile ? 0.08 : 0.085);
+  const innerRadius =
+    size *
+    (mobile
+      ? RADIAL_CHART.radius.inner.mobile
+      : RADIAL_CHART.radius.inner.desktop);
+  const outerRadius =
+    size *
+    (mobile
+      ? RADIAL_CHART.radius.outer.mobile
+      : RADIAL_CHART.radius.outer.desktop);
+  const anomalyBand =
+    size *
+    (mobile
+      ? RADIAL_CHART.radius.anomalyBand.mobile
+      : RADIAL_CHART.radius.anomalyBand.desktop);
 
   const valid = data.filter((d) => Number.isFinite(d.value));
   const smoothed = valid.map((d, index) => ({
@@ -78,7 +107,10 @@ export function drawRadialChart(
   const angle = d3
     .scaleLinear()
     .domain([0, 1])
-    .range([(-115 * Math.PI) / 180, (620 * Math.PI) / 180]);
+    .range([
+      (RADIAL_CHART.angleDegrees.start * Math.PI) / 180,
+      (RADIAL_CHART.angleDegrees.end * Math.PI) / 180,
+    ]);
   const radius = d3
     .scaleLinear()
     .domain([0, 1])
@@ -128,24 +160,26 @@ export function drawRadialChart(
     .append("desc")
     .attr("id", `${idBase}-desc`)
     .text(
-      "A radial spiral shows the five-year smoothed regional tide-gauge sea-level anomaly from the late 1940s through 2025.",
+      `A radial spiral shows the ${RADIAL_CHART.rollingMeanSpan}-year smoothed regional tide-gauge sea-level anomaly from the late 1940s through ${RECORD_RANGES.historical.end}.`,
     );
 
   const line = d3
     .line<RadialDatum>()
     .x((d) => d.x)
     .y((d) => d.y)
-    .curve(d3.curveCatmullRom.alpha(0.5));
+    .curve(d3.curveCatmullRom.alpha(RADIAL_CHART.curveAlpha));
 
   const grid = svg.append("g").attr("aria-hidden", "true");
-  const firstYear = points[0]?.year ?? 1950;
-  const guideYears = Array.from(new Set([firstYear, 1975, 2000, 2025]));
+  const firstYear = points[0]?.year ?? RADIAL_CHART.fallbackFirstYear;
+  const guideYears = Array.from(
+    new Set([firstYear, ...RADIAL_CHART.guideYears]),
+  );
 
   guideYears.forEach((year) => {
     const guideT = t(year);
     const guideAngle = angle(guideT);
     const guideRadius = radius(guideT);
-    const guideLength = anomalyBand / 5;
+    const guideLength = anomalyBand / RADIAL_CHART.guideLengthDivisor;
     const x1 = centerX + Math.cos(guideAngle) * (guideRadius - guideLength);
     const y1 = centerY + Math.sin(guideAngle) * (guideRadius - guideLength);
     const x2 = centerX + Math.cos(guideAngle) * (guideRadius + guideLength);
@@ -157,21 +191,30 @@ export function drawRadialChart(
       .attr("y1", y1)
       .attr("x2", x2)
       .attr("y2", y2)
-      .attr("stroke", "rgba(255,255,255,0.14)")
-      .attr("stroke-width", 2);
+      .attr("stroke", RADIAL_CHART.colors.guideStroke)
+      .attr("stroke-width", RADIAL_CHART.guideStrokeWidth);
 
     grid
       .append("text")
       .attr(
         "x",
-        centerX + Math.cos(guideAngle) * (guideRadius + anomalyBand + 18),
+        centerX +
+          Math.cos(guideAngle) *
+            (guideRadius + anomalyBand + RADIAL_CHART.guideLabelOffset),
       )
       .attr(
         "y",
-        centerY + Math.sin(guideAngle) * (guideRadius + anomalyBand + 18),
+        centerY +
+          Math.sin(guideAngle) *
+            (guideRadius + anomalyBand + RADIAL_CHART.guideLabelOffset),
       )
-      .attr("fill", "rgba(255,255,255,0.6)")
-      .attr("font-size", mobile ? 10 : 12)
+      .attr("fill", RADIAL_CHART.colors.guideText)
+      .attr(
+        "font-size",
+        mobile
+          ? RADIAL_CHART.guideFontSize.mobile
+          : RADIAL_CHART.guideFontSize.desktop,
+      )
       .attr("font-family", "var(--heading)")
       .attr("text-anchor", "middle")
       .attr("dominant-baseline", "middle")
@@ -183,17 +226,17 @@ export function drawRadialChart(
     .datum(baselinePoints)
     .attr("d", line)
     .attr("fill", "none")
-    .attr("stroke", "rgba(255,255,255,0.2)")
-    .attr("stroke-width", 1.5)
-    .attr("stroke-dasharray", "4 7");
+    .attr("stroke", RADIAL_CHART.colors.baselineStroke)
+    .attr("stroke-width", RADIAL_CHART.baselineStrokeWidth)
+    .attr("stroke-dasharray", RADIAL_CHART.baselineDasharray);
 
   grid
     .append("circle")
     .attr("cx", centerX)
     .attr("cy", centerY)
-    .attr("r", innerRadius - 18)
-    .attr("fill", "rgba(255,255,255,0.035)")
-    .attr("stroke", "rgba(255,255,255,0.12)");
+    .attr("r", innerRadius - RADIAL_CHART.centerCircleInset)
+    .attr("fill", RADIAL_CHART.colors.centerFill)
+    .attr("stroke", RADIAL_CHART.colors.centerStroke);
 
   const linePath = svg
     .append("path")
@@ -201,7 +244,12 @@ export function drawRadialChart(
     .attr("d", line)
     .attr("fill", "none")
     .attr("stroke", COLORS.historical)
-    .attr("stroke-width", mobile ? 4 : 5.5)
+    .attr(
+      "stroke-width",
+      mobile
+        ? RADIAL_CHART.lineStrokeWidth.mobile
+        : RADIAL_CHART.lineStrokeWidth.desktop,
+    )
     .attr("stroke-linejoin", "round")
     .attr("stroke-linecap", "round");
 
@@ -212,10 +260,15 @@ export function drawRadialChart(
 
   const marker = svg
     .append("circle")
-    .attr("r", mobile ? 5 : 6.5)
+    .attr(
+      "r",
+      mobile
+        ? RADIAL_CHART.markerRadius.mobile
+        : RADIAL_CHART.markerRadius.desktop,
+    )
     .attr("fill", COLORS.white)
     .attr("stroke", COLORS.historical)
-    .attr("stroke-width", 3);
+    .attr("stroke-width", RADIAL_CHART.markerStrokeWidth);
 
   const readout = svg
     .append("g")
@@ -231,7 +284,7 @@ export function drawRadialChart(
   readout
     .append("text")
     .attr("class", "radial-readout-value")
-    .attr("y", 36)
+    .attr("y", RADIAL_CHART.readoutValueY)
     .attr("text-anchor", "middle")
     .attr("dominant-baseline", "middle");
 
@@ -240,7 +293,12 @@ export function drawRadialChart(
     .attr("class", "radial-end-label")
     .attr("fill", COLORS.white)
     .attr("font-family", "var(--heading)")
-    .attr("font-size", mobile ? 12 : 14)
+    .attr(
+      "font-size",
+      mobile
+        ? RADIAL_CHART.endLabelFontSize.mobile
+        : RADIAL_CHART.endLabelFontSize.desktop,
+    )
     .attr("font-weight", 700);
 
   function update(progress: number) {
@@ -265,19 +323,34 @@ export function drawRadialChart(
       .select(".radial-readout-value")
       .text(`${formatSignedValue(datum.smoothed)} mm`);
 
-    const previousPoint = pathPointAt(path, pathPosition - 1, totalLength);
-    const nextPoint = pathPointAt(path, pathPosition + 1, totalLength);
+    const previousPoint = pathPointAt(
+      path,
+      pathPosition - RADIAL_CHART.tangentSampleOffset,
+      totalLength,
+    );
+    const nextPoint = pathPointAt(
+      path,
+      pathPosition + RADIAL_CHART.tangentSampleOffset,
+      totalLength,
+    );
     const tangentAngle = Math.atan2(
       nextPoint.y - previousPoint.y,
       nextPoint.x - previousPoint.x,
     );
-    const labelX = point.x + Math.cos(tangentAngle) * 16;
-    const labelY = point.y + Math.sin(tangentAngle) * 16;
+    const labelX =
+      point.x + Math.cos(tangentAngle) * RADIAL_CHART.endLabelOffset;
+    const labelY =
+      point.y + Math.sin(tangentAngle) * RADIAL_CHART.endLabelOffset;
 
     endLabel
       .attr("x", labelX)
       .attr("y", labelY)
-      .attr("text-anchor", Math.cos(tangentAngle) < -0.2 ? "end" : "start")
+      .attr(
+        "text-anchor",
+        Math.cos(tangentAngle) < RADIAL_CHART.leftAnchorThreshold
+          ? "end"
+          : "start",
+      )
       .attr("dominant-baseline", "middle")
       .attr("opacity", 1)
       .text(pointLabel(datum));

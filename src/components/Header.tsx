@@ -1,3 +1,4 @@
+import { GLOBAL_VIEW, RECORD_RANGES, VIEW_QUERY_PARAM } from "../constants";
 import type { ChartRecord, CountryOption, View } from "../types";
 
 interface HeaderProps {
@@ -20,10 +21,10 @@ export function Header({
       <div className="site-header-inner">
         <a
           className="wordmark"
-          href="?view=global"
+          href={`?${VIEW_QUERY_PARAM}=${GLOBAL_VIEW}`}
           onClick={(event) => {
             event.preventDefault();
-            onSelect("global");
+            onSelect(GLOBAL_VIEW);
           }}
         >
           Pacific sea level
@@ -34,15 +35,15 @@ export function Header({
           <button
             className="header-control-button"
             type="button"
-            aria-pressed={selectedView === "global"}
-            onClick={() => onSelect("global")}
+            aria-pressed={selectedView === GLOBAL_VIEW}
+            onClick={() => onSelect(GLOBAL_VIEW)}
           >
             Global
           </button>
           <label className="header-select-wrap">
             <span className="sr-only">Choose a country or territory</span>
             <select
-              value={selectedView === "global" ? "" : selectedView}
+              value={selectedView === GLOBAL_VIEW ? "" : selectedView}
               disabled={countries.length === 0}
               onChange={(event) => onSelect(event.target.value)}
             >
@@ -71,7 +72,7 @@ export function Header({
             onClick={() => onSelectRecord("historical")}
           >
             Tide gauges
-            <span>1947–2025</span>
+            <span>{RECORD_RANGES.historical.label}</span>
           </button>
           <button
             className="record-button record-button--satellite"
@@ -80,7 +81,7 @@ export function Header({
             onClick={() => onSelectRecord("satellite")}
           >
             Satellite
-            <span>1993–2023</span>
+            <span>{RECORD_RANGES.satellite.label}</span>
           </button>
         </div>
       </div>

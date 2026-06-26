@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import * as d3 from "d3";
+import { RECORD_RANGES } from "../constants";
 import {
   formatCompact,
   formatCurrency,
@@ -27,17 +28,17 @@ function buildMetrics(data: SeaLevelData): Metric[] {
 
   return [
     {
-      label: "Average 1993-2023 change",
+      label: `Average ${RECORD_RANGES.satellite.hyphenLabel} change`,
       value: d3.mean(summaries, (d) => d.rise) ?? 0,
       format: (value) => `${formatSignedValue(value)} mm`,
     },
     {
-      label: "People directly affected, 2005-2023",
+      label: `People directly affected, ${RECORD_RANGES.affected.hyphenLabel}`,
       value: d3.sum(summaries, (d) => d.affected),
       format: formatCompact,
     },
     {
-      label: "Reported disaster losses, 2007-2020",
+      label: `Reported disaster losses, ${RECORD_RANGES.losses.hyphenLabel}`,
       value: d3.sum(summaries, (d) => d.losses),
       format: formatCurrency,
     },

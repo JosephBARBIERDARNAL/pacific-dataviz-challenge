@@ -1,5 +1,5 @@
 import * as d3 from "d3";
-import { COLORS, prefersReducedMotion } from "../constants";
+import { COLORS, LINE_CHART, prefersReducedMotion } from "../constants";
 import type { ChartPoint } from "../types";
 import { formatSignedValue } from "./format";
 
@@ -31,24 +31,35 @@ export function drawLineChart(
   data: ChartPoint[],
   options: LineChartOptions,
 ): () => void {
-  const width = Math.max(300, container.clientWidth || 300);
-  const mobile = width < 560;
+  const width = Math.max(
+    LINE_CHART.minWidth,
+    container.clientWidth || LINE_CHART.minWidth,
+  );
+  const mobile = width < LINE_CHART.mobileBreakpoint;
   const height = options.countStrip
     ? mobile
-      ? 480
-      : 640
+      ? LINE_CHART.height.countStrip.mobile
+      : LINE_CHART.height.countStrip.desktop
     : options.prominent
       ? mobile
-        ? 460
-        : 680
+        ? LINE_CHART.height.prominent.mobile
+        : LINE_CHART.height.prominent.desktop
       : mobile
-        ? 420
-        : 560;
+        ? LINE_CHART.height.default.mobile
+        : LINE_CHART.height.default.desktop;
   const margin: Margin = {
-    top: 36,
-    right: mobile ? 22 : options.countStrip ? 190 : 128,
-    bottom: options.countStrip ? 126 : 62,
-    left: mobile ? 58 : 72,
+    top: LINE_CHART.margin.top,
+    right: mobile
+      ? LINE_CHART.margin.right.mobile
+      : options.countStrip
+        ? LINE_CHART.margin.right.countStrip
+        : LINE_CHART.margin.right.default,
+    bottom: options.countStrip
+      ? LINE_CHART.margin.bottom.countStrip
+      : LINE_CHART.margin.bottom.default,
+    left: mobile
+      ? LINE_CHART.margin.left.mobile
+      : LINE_CHART.margin.left.desktop,
   };
   const plotBottom = height - margin.bottom;
   const plotWidth = width - margin.left - margin.right;
@@ -64,7 +75,10 @@ export function drawLineChart(
     number,
     number,
   ];
-  const yPadding = Math.max(8, (yExtent[1] - yExtent[0]) * 0.05);
+  const yPadding = Math.max(
+    LINE_CHART.yPadding.min,
+    (yExtent[1] - yExtent[0]) * LINE_CHART.yPadding.ratio,
+  );
   const x = d3
     .scaleLinear()
     .domain(d3.extent(data, (d) => d.year) as [number, number])
@@ -76,9 +90,15 @@ export function drawLineChart(
 
   const dark = options.theme === "dark";
   const textColor = dark ? COLORS.white : COLORS.navy;
-  const subtle = dark ? "rgba(255,255,255,0.75)" : "rgba(26,43,75,0.70)";
-  const gridColor = dark ? "rgba(255,255,255,0.16)" : "rgba(26,43,75,0.12)";
-  const zeroColor = dark ? "rgba(255,255,255,0.48)" : "rgba(26,43,75,0.45)";
+  const subtle = dark
+    ? LINE_CHART.theme.subtle.dark
+    : LINE_CHART.theme.subtle.light;
+  const gridColor = dark
+    ? LINE_CHART.theme.grid.dark
+    : LINE_CHART.theme.grid.light;
+  const zeroColor = dark
+    ? LINE_CHART.theme.zero.dark
+    : LINE_CHART.theme.zero.light;
 
   d3.select(container).selectAll("*").remove();
   d3.select(container).attr("aria-busy", "false");
@@ -99,7 +119,9 @@ export function drawLineChart(
       `${options.description} Horizontal axis: year. Vertical axis: millimeters.`,
     );
 
-  const yTicks = y.ticks(mobile ? 4 : 6);
+  const yTicks = y.ticks(
+    mobile ? LINE_CHART.ticks.mobile : LINE_CHART.ticks.desktop,
+  );
   svg
     .append("g")
     .attr("class", "grid")
@@ -120,29 +142,29 @@ export function drawLineChart(
     .attr("y1", y(0))
     .attr("y2", y(0))
     .attr("stroke", zeroColor)
-    .attr("stroke-width", 1.4);
+    .attr("stroke-width", LINE_CHART.axis.zeroStrokeWidth);
 
   svg
     .append("text")
     .attr("class", "axis-label")
     .attr("x", margin.left)
-    .attr("y", 16)
+    .attr("y", LINE_CHART.axis.labelY)
     .attr("fill", subtle)
-    .attr("font-size", 12)
+    .attr("font-size", LINE_CHART.axis.labelFontSize)
     .text("ANOMALY (MM)");
 
   const xAxis = d3
     .axisBottom(x)
-    .ticks(mobile ? 4 : 7)
+    .ticks(mobile ? LINE_CHART.ticks.mobile : LINE_CHART.ticks.xDesktop)
     .tickFormat(d3.format("d"))
     .tickSize(0)
-    .tickPadding(11);
+    .tickPadding(LINE_CHART.axis.xTickPadding);
   const yAxis = d3
     .axisLeft(y)
     .tickValues(yTicks)
     .tickFormat((d) => formatSignedValue(d.valueOf()))
     .tickSize(0)
-    .tickPadding(10);
+    .tickPadding(LINE_CHART.axis.yTickPadding);
 
   svg
     .append("g")
@@ -172,14 +194,21 @@ export function drawLineChart(
       .attr("fill", options.color)
       .attr("fill-opacity", 0.13);
 
-    const labelDatum = data[Math.floor(data.length * 0.18)];
+    const labelDatum =
+      data[Math.floor(data.length * LINE_CHART.rangeLabel.positionRatio)];
     svg
       .append("text")
       .attr("class", "range-label")
       .attr("x", x(labelDatum.year))
-      .attr("y", Math.max(margin.top + 14, y(labelDatum.high!) - 10))
+      .attr(
+        "y",
+        Math.max(
+          margin.top + LINE_CHART.rangeLabel.minOffset,
+          y(labelDatum.high!) - LINE_CHART.rangeLabel.yOffset,
+        ),
+      )
       .attr("fill", options.color)
-      .attr("font-size", 12)
+      .attr("font-size", LINE_CHART.rangeLabel.fontSize)
       .text("COUNTRY RANGE");
   }
 
@@ -195,8 +224,8 @@ export function drawLineChart(
       .datum(data)
       .attr("fill", "none")
       .attr("stroke", COLORS.navy)
-      .attr("stroke-opacity", 0.65)
-      .attr("stroke-width", 5)
+      .attr("stroke-opacity", LINE_CHART.line.shadowOpacity)
+      .attr("stroke-width", LINE_CHART.line.shadowWidth)
       .attr("stroke-linejoin", "round")
       .attr("stroke-linecap", "round")
       .attr("d", line);
@@ -207,27 +236,44 @@ export function drawLineChart(
     .datum(data)
     .attr("fill", "none")
     .attr("stroke", options.color)
-    .attr("stroke-width", options.prominent ? 4 : 3)
+    .attr(
+      "stroke-width",
+      options.prominent
+        ? LINE_CHART.line.strokeWidth.prominent
+        : LINE_CHART.line.strokeWidth.default,
+    )
     .attr("stroke-linejoin", "round")
     .attr("stroke-linecap", "round")
     .attr("d", line);
 
   if (!prefersReducedMotion.matches) {
-    linePath.attr("opacity", 0).transition().duration(220).attr("opacity", 1);
+    linePath
+      .attr("opacity", 0)
+      .transition()
+      .duration(LINE_CHART.line.fadeDurationMs)
+      .attr("opacity", 1);
   }
 
   const lastValid = valid.at(-1);
   if (lastValid) {
-    const labelX = mobile ? x(lastValid.year) - 4 : x(lastValid.year) + 10;
+    const labelX = mobile
+      ? x(lastValid.year) + LINE_CHART.directLabel.mobileXOffset
+      : x(lastValid.year) + LINE_CHART.directLabel.desktopXOffset;
     const labelAnchor = mobile ? "end" : "start";
     svg
       .append("text")
       .attr("class", "direct-label")
       .attr("x", labelX)
-      .attr("y", Math.max(margin.top + 14, y(lastValid.value as number) - 12))
+      .attr(
+        "y",
+        Math.max(
+          margin.top + LINE_CHART.directLabel.minOffset,
+          y(lastValid.value as number) - LINE_CHART.directLabel.yOffset,
+        ),
+      )
       .attr("text-anchor", labelAnchor)
       .attr("fill", dark ? options.color : textColor)
-      .attr("font-size", 12)
+      .attr("font-size", LINE_CHART.directLabel.fontSize)
       .attr("font-weight", 700)
       .text(options.directLabel.toUpperCase());
   }
@@ -286,16 +332,17 @@ function drawCountStrip(
   color: string,
   mobile: boolean,
 ): { bars: CoverageBars; stripBottom: number } {
-  const stripTop = plotBottom + 50;
-  const stripBottom = height - 20;
+  const stripTop = plotBottom + LINE_CHART.countStrip.topOffset;
+  const stripBottom = height - LINE_CHART.countStrip.bottomOffset;
   const maxCount = d3.max(data, (d) => d.count ?? 0) ?? 0;
   const countScale = d3
     .scaleLinear()
     .domain([0, maxCount])
     .range([stripBottom, stripTop]);
   const barWidth = Math.max(
-    1,
-    (width - margin.left - margin.right) / data.length - 0.5,
+    LINE_CHART.countStrip.minBarWidth,
+    (width - margin.left - margin.right) / data.length -
+      LINE_CHART.countStrip.barGap,
   );
 
   const bars = svg
@@ -309,10 +356,14 @@ function drawCountStrip(
     .attr("width", barWidth)
     .attr("height", (d) => stripBottom - countScale(d.count ?? 0))
     .attr("fill", COLORS.historical)
-    .attr("fill-opacity", (d) => (d.count ? 0.8 : 0))
+    .attr("fill-opacity", (d) =>
+      d.count ? LINE_CHART.countStrip.barFillOpacity : 0,
+    )
     .attr("stroke", COLORS.navy)
-    .attr("stroke-opacity", (d) => (d.count ? 0.65 : 0))
-    .attr("stroke-width", 0.5);
+    .attr("stroke-opacity", (d) =>
+      d.count ? LINE_CHART.countStrip.barStrokeOpacity : 0,
+    )
+    .attr("stroke-width", LINE_CHART.countStrip.barStrokeWidth);
 
   const lastCountDatum = data
     .slice()
@@ -325,15 +376,22 @@ function drawCountStrip(
       .attr("class", "count-label")
       .attr(
         "x",
-        mobile ? x(lastCountDatum.year) - 4 : x(lastCountDatum.year) + 10,
+        mobile
+          ? x(lastCountDatum.year) + LINE_CHART.directLabel.mobileXOffset
+          : x(lastCountDatum.year) + LINE_CHART.directLabel.desktopXOffset,
       )
       .attr(
         "y",
-        mobile ? stripTop - 12 : Math.max(stripTop + 12, countScale(count) - 8),
+        mobile
+          ? stripTop - LINE_CHART.countStrip.labelYOffset.mobile
+          : Math.max(
+              stripTop + LINE_CHART.countStrip.labelMinOffset,
+              countScale(count) - LINE_CHART.countStrip.labelYOffset.desktop,
+            ),
       )
       .attr("text-anchor", mobile ? "end" : "start")
       .attr("fill", color)
-      .attr("font-size", 12)
+      .attr("font-size", LINE_CHART.countStrip.labelFontSize)
       .attr("font-weight", 700)
       .text("COUNTRIES CONTRIBUTING TO MEAN");
   }
@@ -389,14 +447,14 @@ function addChartInteraction({
     .attr("y1", margin.top)
     .attr("y2", interactionBottom)
     .attr("stroke", textColor)
-    .attr("stroke-opacity", 0.48)
-    .attr("stroke-dasharray", "3 4");
+    .attr("stroke-opacity", LINE_CHART.interaction.focusStrokeOpacity)
+    .attr("stroke-dasharray", LINE_CHART.interaction.focusStrokeDasharray);
   focus
     .append("circle")
-    .attr("r", 5)
+    .attr("r", LINE_CHART.interaction.focusCircleRadius)
     .attr("fill", color)
     .attr("stroke", textColor)
-    .attr("stroke-width", 1.5);
+    .attr("stroke-width", LINE_CHART.interaction.focusStrokeWidth);
 
   function show(index: number): void {
     activeIndex = Math.max(0, Math.min(data.length - 1, index));
@@ -404,7 +462,7 @@ function addChartInteraction({
     const xPosition = x(datum.year);
     const yPosition = Number.isFinite(datum.value)
       ? y(datum.value as number)
-      : margin.top + 8;
+      : margin.top + LINE_CHART.interaction.fallbackYFromTop;
     const lines = tooltipContent(datum);
 
     focus.style("display", null);
@@ -423,8 +481,17 @@ function addChartInteraction({
 
     tooltip
       .style("display", "block")
-      .style("left", `${Math.max(80, Math.min(width - 80, xPosition))}px`)
-      .style("top", `${Math.max(62, yPosition)}px`)
+      .style(
+        "left",
+        `${Math.max(
+          LINE_CHART.interaction.tooltipXPadding,
+          Math.min(width - LINE_CHART.interaction.tooltipXPadding, xPosition),
+        )}px`,
+      )
+      .style(
+        "top",
+        `${Math.max(LINE_CHART.interaction.tooltipMinTop, yPosition)}px`,
+      )
       .html(
         lines
           .map((line, lineIndex) =>

@@ -1,3 +1,5 @@
+import { ASSET_PATHS } from "../constants";
+
 export function Footer() {
   return (
     <footer className="site-footer">
@@ -27,7 +29,7 @@ export function Footer() {
         </div>
         <img
           className="footer-logo"
-          src={`${import.meta.env.BASE_URL}image/logo.png`}
+          src={ASSET_PATHS.logo}
           alt="Pacific Dataviz Challenge"
         />
       </div>

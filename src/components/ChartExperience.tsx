@@ -1,3 +1,4 @@
+import { SCROLL_PROGRESS } from "../constants";
 import { usePinnedElementProgress } from "../hooks/useScrollProgress";
 import type { SeaLevelData } from "../types";
 import { RadialScrollChart } from "./RadialScrollChart";
@@ -9,8 +10,9 @@ interface ChartExperienceProps {
 
 export function ChartExperience({ data }: ChartExperienceProps) {
   const { ref, progress } = usePinnedElementProgress<HTMLDivElement>({
+    scrollContainerSelector: ".radial-story",
     targetSelector: ".radial-chart",
-    travelScreens: 1,
+    travelScreens: SCROLL_PROGRESS.radialPinnedTravelScreens,
   });
 
   return (

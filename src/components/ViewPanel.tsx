@@ -1,6 +1,6 @@
 import * as d3 from "d3";
 import { useMemo } from "react";
-import { COLORS } from "../constants";
+import { COLORS, DATA_COVERAGE, RECORD_RANGES } from "../constants";
 import {
   formatCompact,
   formatCurrency,
@@ -46,15 +46,15 @@ function buildMetrics(
   const allSummaries = [...data.summaryByCountry.values()];
   return [
     {
-      label: "Average 1993–2023 change",
+      label: `Average ${RECORD_RANGES.satellite.label} change`,
       value: `${formatSignedValue(d3.mean(allSummaries, (d) => d.rise)!)} mm`,
     },
     {
-      label: "People directly affected, 2005–2023",
+      label: `People directly affected, ${RECORD_RANGES.affected.label}`,
       value: formatCompact(d3.sum(allSummaries, (d) => d.affected)),
     },
     {
-      label: "Reported disaster losses, 2007–2020",
+      label: `Reported disaster losses, ${RECORD_RANGES.losses.label}`,
       value: formatCurrency(d3.sum(allSummaries, (d) => d.losses)),
     },
   ];
@@ -87,10 +87,10 @@ export function ViewPanel({
       theme: "dark",
       color: COLORS.satellite,
       title: isGlobal
-        ? "Pacific regional satellite-era sea-level anomaly, 1993 to 2023"
-        : `${summary.country} satellite-era sea-level anomaly, 1993 to 2023`,
+        ? `Pacific regional satellite-era sea-level anomaly, ${RECORD_RANGES.satellite.start} to ${RECORD_RANGES.satellite.end}`
+        : `${summary.country} satellite-era sea-level anomaly, ${RECORD_RANGES.satellite.start} to ${RECORD_RANGES.satellite.end}`,
       description: isGlobal
-        ? "A line shows the annual equal-country mean and a band shows the range across 21 countries."
+        ? `A line shows the annual equal-country mean and a band shows the range across ${DATA_COVERAGE.satellitePlaces} countries.`
         : `A line shows annual sea-level anomaly for ${summary.country}.`,
       range: isGlobal,
       prominent: true,
@@ -155,16 +155,18 @@ export function ViewPanel({
         <p className="measure-description">
           {showingSatellite
             ? isGlobal
-              ? "A consistent 1993–2023 record across 21 places. The line is the equal-country annual mean; the shaded band shows the full range between countries."
-              : `A consistent annual record for ${summary.country} from 1993 to 2023. Values are sea-level differences from the dataset’s reference level, measured in millimeters.`
+              ? `A consistent ${RECORD_RANGES.satellite.label} record across ${DATA_COVERAGE.satellitePlaces} places. The line is the equal-country annual mean; the shaded band shows the full range between countries.`
+              : `A consistent annual record for ${summary.country} from ${RECORD_RANGES.satellite.start} to ${RECORD_RANGES.satellite.end}. Values are sea-level differences from the dataset’s reference level, measured in millimeters.`
             : isGlobal
-              ? "A longer but selective station record from 1947 to 2025. Each station is measured relative to its own 1993–2000 mean, and the number of contributing countries changes over time."
-              : `Available station observations for ${summary.country}, measured relative to each station’s 1993–2000 mean. Missing years are left as gaps rather than estimated.`}
+              ? `A longer but selective station record from ${RECORD_RANGES.historical.start} to ${RECORD_RANGES.historical.end}. Each station is measured relative to its own ${RECORD_RANGES.satelliteBaseline.label} mean, and the number of contributing countries changes over time.`
+              : `Available station observations for ${summary.country}, measured relative to each station’s ${RECORD_RANGES.satelliteBaseline.label} mean. Missing years are left as gaps rather than estimated.`}
         </p>
         <p className="record-comparison">
-          Satellite data are consistent across all 21 places; tide gauges reach
-          further back but cover only 12 places and vary by station and year.
-          The two records should be compared, not joined into one line.
+          Satellite data are consistent across all{" "}
+          {DATA_COVERAGE.satellitePlaces} places; tide gauges reach further
+          back but cover only {DATA_COVERAGE.historicalPlaces} places and vary
+          by station and year. The two records should be compared, not joined
+          into one line.
         </p>
       </section>
 
@@ -185,7 +187,9 @@ export function ViewPanel({
         <article className="chart-card chart-card--satellite">
           <header className="chart-header">
             <div>
-              <p className="chart-source">Satellite record · 1993–2023</p>
+              <p className="chart-source">
+                Satellite record · {RECORD_RANGES.satellite.label}
+              </p>
               <h3 id="active-chart-title">
                 {isGlobal
                   ? "Regional mean and inter-country range"
@@ -208,7 +212,9 @@ export function ViewPanel({
         <article className="chart-card chart-card--historical">
           <header className="chart-header">
             <div>
-              <p className="chart-source">Tide-gauge record · 1947–2025</p>
+              <p className="chart-source">
+                Tide-gauge record · {RECORD_RANGES.historical.label}
+              </p>
               <h3 id="active-chart-title">
                 {isGlobal
                   ? "Regional mean with changing coverage"
@@ -223,7 +229,7 @@ export function ViewPanel({
           />
           <p className="chart-caption">
             {isGlobal
-              ? "The regional mean changes composition over time. A year based on one country is not directly equivalent to a later year based on 12."
+              ? `The regional mean changes composition over time. A year based on one country is not directly equivalent to a later year based on ${DATA_COVERAGE.historicalPlaces}.`
               : "Station coverage and baseline differ from the satellite record, so this line should not be treated as its earlier continuation."}
           </p>
         </article>
@@ -234,7 +240,8 @@ export function ViewPanel({
             {`${summary.country} has no qualifying station record in this dataset.`}
           </h3>
           <p>
-            The satellite record still covers this place from 1993 to 2023.
+            The satellite record still covers this place from{" "}
+            {RECORD_RANGES.satellite.start} to {RECORD_RANGES.satellite.end}.
             Missing tide-gauge coverage does not mean sea level was unchanged.
           </p>
         </aside>

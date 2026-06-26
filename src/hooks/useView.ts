@@ -1,15 +1,16 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import { GLOBAL_VIEW, VIEW_QUERY_PARAM } from "../constants";
 import type { SeaLevelData, View } from "../types";
 
 function getViewFromUrl(): View {
-  const value = new URL(window.location.href).searchParams.get("view");
-  if (!value) return "global";
-  return value.toLowerCase() === "global" ? "global" : value.toUpperCase();
+  const value = new URL(window.location.href).searchParams.get(VIEW_QUERY_PARAM);
+  if (!value) return GLOBAL_VIEW;
+  return value.toLowerCase() === GLOBAL_VIEW ? GLOBAL_VIEW : value.toUpperCase();
 }
 
 function updateUrl(view: View, replace = false): void {
   const url = new URL(window.location.href);
-  url.searchParams.set("view", view);
+  url.searchParams.set(VIEW_QUERY_PARAM, view);
   const method = replace ? "replaceState" : "pushState";
   window.history[method]({ view }, "", url);
 }
@@ -20,13 +21,13 @@ interface ViewState {
 }
 
 export function useView(data: SeaLevelData | null): ViewState {
-  const [selectedView, setSelectedView] = useState<View>("global");
+  const [selectedView, setSelectedView] = useState<View>(GLOBAL_VIEW);
   const selectedViewRef = useRef(selectedView);
   selectedViewRef.current = selectedView;
 
   const isValidView = useCallback(
     (view: View) =>
-      view === "global" || (data?.summaryByCountry.has(view) ?? false),
+      view === GLOBAL_VIEW || (data?.summaryByCountry.has(view) ?? false),
     [data],
   );
 
@@ -36,13 +37,13 @@ export function useView(data: SeaLevelData | null): ViewState {
     if (!data) return;
 
     const requested = getViewFromUrl();
-    const resolved = isValidView(requested) ? requested : "global";
+    const resolved = isValidView(requested) ? requested : GLOBAL_VIEW;
     setSelectedView(resolved);
     if (requested !== resolved) updateUrl(resolved, true);
 
     const onPopState = () => {
       const view = getViewFromUrl();
-      setSelectedView(isValidView(view) ? view : "global");
+      setSelectedView(isValidView(view) ? view : GLOBAL_VIEW);
     };
     window.addEventListener("popstate", onPopState);
     return () => window.removeEventListener("popstate", onPopState);

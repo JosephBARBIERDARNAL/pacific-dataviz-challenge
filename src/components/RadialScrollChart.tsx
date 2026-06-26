@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { RECORD_RANGES, RESIZE_OBSERVER } from "../constants";
 import { drawRadialChart, type RadialChartHandle } from "../lib/radialChart";
 import type { ChartPoint } from "../types";
 
@@ -27,10 +28,14 @@ export function RadialScrollChart({ data, progress }: RadialScrollChartProps) {
     };
 
     draw();
-    let previousWidth = Math.round(container.clientWidth);
+    let previousWidth =
+      Math.round(container.clientWidth / RESIZE_OBSERVER.widthPrecision) *
+      RESIZE_OBSERVER.widthPrecision;
     const observer = new ResizeObserver((entries) => {
       for (const entry of entries) {
-        const width = Math.round(entry.contentRect.width);
+        const width =
+          Math.round(entry.contentRect.width / RESIZE_OBSERVER.widthPrecision) *
+          RESIZE_OBSERVER.widthPrecision;
         if (width === previousWidth) continue;
         previousWidth = width;
         draw();
@@ -50,9 +55,14 @@ export function RadialScrollChart({ data, progress }: RadialScrollChartProps) {
   }, [progress]);
 
   return (
-    <section className="radial-story" aria-label="Tide-gauge record, 1947-2025">
+    <section
+      className="radial-story"
+      aria-label={`Tide-gauge record, ${RECORD_RANGES.historical.hyphenLabel}`}
+    >
       <div className="radial-copy">
-        <p className="chart-source">Tide-gauge record · 1947-2025</p>
+        <p className="chart-source">
+          Tide-gauge record · {RECORD_RANGES.historical.hyphenLabel}
+        </p>
       </div>
       <div id="radial-sea-level-chart" className="radial-chart" ref={chartRef} />
     </section>
