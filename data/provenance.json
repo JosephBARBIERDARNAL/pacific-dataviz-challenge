@@ -1,0 +1,10 @@
+{
+  "generated_at_utc": "2026-08-31 19:07:30 UTC",
+  "pacific_data_hub": "https://stats-nsi-stable.pacificdata.org/rest/data/SPC,DF_CLIMATE_CHANGE,1.0/A.SEA_LVL./all?dimensionAtObservation=AllDimensions&detail=full&format=csvfile",
+  "psmsl_archive": "https://psmsl.org/data/obtaining/rlr.annual.data/rlr_annual.zip",
+  "candidate_station_count": 28,
+  "candidate_station_ids": [539, 540, 528, 1370, 1925, 513, 1217, 1838, 1254, 1303, 1607, 1608, 1609, 1610, 1860, 1739, 1804, 1452, 1839, 1373, 1861, 1841, 1327, 1805, 2356, 1397, 2242, 1843],
+  "retained_station_count": 23,
+  "retained_station_ids": [513, 539, 540, 1217, 1303, 1327, 1370, 1373, 1397, 1452, 1607, 1608, 1610, 1739, 1804, 1805, 1838, 1839, 1841, 1843, 1860, 1861, 2356]
+}
+
