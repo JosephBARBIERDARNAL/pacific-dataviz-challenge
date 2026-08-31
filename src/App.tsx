@@ -14,7 +14,14 @@ export default function App() {
       <main id="main-content">
         <section className="hero" aria-labelledby="page-title">
           <div className="hero-intro">
-            <h1 id="page-title">A changing shoreline across the Pacific</h1>
+            <p className="hero-kicker">Pacific sea-level change</p>
+            <h1 id="page-title">The rise is widespread. The long record is uneven.</h1>
+            <p className="hero-deck">
+              Across 21 Pacific countries and territories, the 2019–2023
+              sea-level anomaly was 8–18 cm higher than in 1993–1997. The
+              median increase was 10 cm.
+            </p>
+            <p className="hero-prompt">Scroll to compare countries and trace the historical record.</p>
           </div>
         </section>
 

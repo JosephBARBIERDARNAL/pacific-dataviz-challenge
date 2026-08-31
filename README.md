@@ -1,121 +1,135 @@
 # Pacific Dataviz Challenge (2026)
 
-An interactive data story about sea-level change across the Pacific. The
-radial chart focuses on a selected Pacific tide-gauge record; the headline
-figures provide country-level and disaster-risk context for 21 Pacific
-countries and territories.
+An interactive data story about a widespread sea-level signal and the uneven
+historical measurement record across the Pacific.
+
+The official Pacific Data Hub comparison is the analytical backbone: across 21
+countries and territories, the 2019–2023 sea-level anomaly is 8–18 cm higher
+than the 1993–1997 period mean. A selected PSMSL tide-gauge record then provides
+longer historical context while making its changing country and station coverage
+visible.
 
 Built with React, TypeScript, D3.js, and Vite.
 
+## Submission statement
+
+Regional sea-level figures can hide both the breadth of recent change and the
+uneven evidence behind the long record. This dataviz responds by first comparing
+all 21 countries and territories in the official dataset on a common basis, then
+showing the selected historical tide-gauge record alongside its changing
+measurement coverage. It separates the widespread recent signal from the limits
+of the longer regional summary instead of presenting one false-precision number.
+
 ## Development
 
-Requires [Bun](https://bun.sh), Node-compatible tooling, and R for regenerating
-the data files.
+Requires Bun and Node-compatible tooling. R is required only to regenerate the
+data files.
 
 ```bash
 bun install
-bun run dev        # start the Vite dev server
+bun run dev        # start the Vite development server
+bun run check:data # verify data coverage and missing-value invariants
 bun run typecheck  # run TypeScript project checks
 bun run lint       # run ESLint with zero warnings allowed
 bun run build      # typecheck and build production assets into dist/
-bun run validate   # run typecheck, lint, and build together
+bun run validate   # run data checks, typecheck, lint, and build
 bun run preview    # preview the production build locally
 ```
 
 ## Data sources
 
-The generated CSVs are prepared by [`script/data.R`](script/data.R) and are
-not edited manually. The script retrieves:
+The generated CSVs are prepared by [`script/data.R`](script/data.R) and are not
+edited manually.
 
-- country-level indicators from the
-  [Pacific Data Hub SDMX data service](https://stats-nsi-stable.pacificdata.org/rest/data);
-- annual tide-gauge records from the
-  [Permanent Service for Mean Sea Level Revised Local Reference archive](https://psmsl.org/data/obtaining/rlr.annual.data/rlr_annual.zip).
+- Official challenge data: [Pacific Data Hub sea-level anomalies](https://stats-nsi-stable.pacificdata.org/rest/data/SPC,DF_CLIMATE_CHANGE,1.0/A.SEA_LVL./all?dimensionAtObservation=AllDimensions&detail=full&format=csvfile)
+- Historical context: [Permanent Service for Mean Sea Level Revised Local Reference annual data](https://psmsl.org/data/obtaining/)
+- [Pacific Data Hub terms of use](https://pacificdata.org/terms-use)
+- [PSMSL referencing guidance](https://psmsl.org/data/obtaining/reference.php)
 
-The historical tide-gauge series uses the following PSMSL station IDs:
+Pacific Data Hub data was accessed on 31 August 2026. The PSMSL archive is the
+24 August 2026 database extract and is cited as: Permanent Service for Mean Sea
+Level (PSMSL), 2026, “Tide Gauge Data”; and Holgate et al. (2013), “New Data
+Systems and Products at the Permanent Service for Mean Sea Level,” *Journal of
+Coastal Research* 29(3), 493–504,
+[doi:10.2112/JCOASTRES-D-12-00175.1](https://doi.org/10.2112/JCOASTRES-D-12-00175.1).
+The deployed story and footer link to the same source material.
 
-`539, 540, 528, 1370, 1925, 513, 1217, 1838, 1254, 1303, 1607, 1608,
-1609, 1610, 1860, 1739, 1804, 1452, 1839, 1373, 1861, 1841, 1327, 1805,
-2356, 1397, 2242, 1843`.
+## Official 21-country comparison
+
+The country chart uses `public/data/country_summary.csv`.
+
+1. Pacific Data Hub annual sea-level anomaly values, published in 0.1 m
+   increments, are converted for calculation and displayed in centimetres.
+2. A mean is calculated for 1993–1997 and for 2019–2023 for each country or
+   territory.
+3. The chart shows the recent period mean minus the early period mean.
+4. All 21 resulting changes are positive: 8–18 cm, with a median of 10 cm.
+
+The comparison is shown from a zero baseline and ordered by value. It is the
+primary evidence for the story's claim that the recent increase is widespread.
 
 ## Historical tide-gauge method
 
-The radial chart uses `public/data/sea_level_historical.csv`.
+The spiral uses `public/data/sea_level_historical.csv`. The preparation starts
+with a curated, non-exhaustive list of 28 PSMSL stations representing 12
+countries and territories. The list is not a statistical sample of the Pacific;
+it is retained in `script/data.R` so the selection is explicit and reproducible.
 
-1. Each selected station is read from the PSMSL annual archive. Missing PSMSL
-   values (`-99999`) are excluded.
+1. Missing PSMSL values (`-99999`) are excluded.
 2. A station is retained only when it has at least two observations during
-   1993–2000. Its station anomaly is the annual value minus that station's
-   mean during the available 1993–2000 baseline period.
-3. When more than one selected station represents a country in a year, the
-   station anomalies are averaged to create one country-year value.
-4. The app averages the available country-year values for each year. This is
-   an unweighted mean of available countries, not a population-weighted,
-   coastline-weighted, or station-count-weighted regional estimate.
-5. The app also carries the number of countries and stations contributing to
-   each year. These counts are shown in the chart readout because coverage is
-   not constant.
+   1993–2000. Its anomaly is the annual value minus that station's mean during
+   the available 1993–2000 baseline period.
+3. Multiple stations for the same country and year are averaged into one
+   country-year value.
+4. The app calculates an unweighted mean of the available country-year values
+   for each year. It is not population-, coastline-, or station-weighted.
+5. A centered five-year mean is used for the spiral. The center readout also
+   gives the annual mean and the contributing country and station count.
 
-The historical file covers 1947–2025, but it does not represent all 21
-countries in every year. Coverage ranges from 1–12 countries and 1–19 stations
-per year. The 2025 endpoint contains only two countries, so it must not be
-interpreted as equally comparable to years with broader coverage.
+The raw generated file covers 1947–2025. The displayed story ends in 2023
+because coverage falls to seven countries in 2024 and two in 2025. Coverage in
+the displayed period still varies from 1–12 countries and 1–19 stations, so the
+spiral is explicitly presented as historical context rather than a fixed
+regional index. The coverage strip and accessible annual table expose that
+limitation directly.
 
-The radial encoding is deliberately disclosed in the chart itself:
+The radial encoding is:
 
-- angle and baseline radius advance through time from 1947 to 2025;
-- the dashed spiral is the zero-anomaly reference for that time position;
-- the colored line's radial offset from the dashed spiral is the anomaly in
-  millimeters;
-- the offset is linearly scaled across the observed anomaly range;
-- the line uses a centered five-year rolling mean for display, with a clipped
-  window at the beginning and end of the record.
+- angle and baseline radius advance through time;
+- the dashed spiral is the zero-anomaly reference;
+- the colored line's radial offset is the centered five-year mean anomaly;
+- the offset uses a symmetric linear millimetre scale;
+- a 100 mm scale key is drawn inside the chart.
 
-The rolling mean changes only the displayed line and readout. The generated
-annual observations remain available in the CSV and are not replaced by the
-smoothing operation.
+## Disaster data and missing values
 
-## Headline metrics
+The generation script still preserves the official affected-person and economic
+loss extracts for reproducibility. They are not combined with the sea-level
+visualization because the records cover different periods and disaster types and
+do not establish causality.
 
-The three sticky headline figures come from
-`public/data/country_summary.csv`, which contains country-level context for 21
-Pacific countries and territories:
+Missing country-level reports remain missing. In particular, absence of a loss
+record is not converted into a reported zero. `bun run check:data` enforces this
+invariant.
 
-- typical country sea-level change: median of country changes between the
-  1993–1997 and 2019–2023 period means;
-- people recorded as affected by disasters: cumulative 2005–2023 totals;
-- reported disaster losses: cumulative 2007–2020 totals in USD.
+## Accessibility and responsive behavior
 
-The satellite-era sea-level metric is separate from the tide-gauge series in
-the radial chart. The disaster metrics include all recorded disaster types,
-not only coastal or sea-level events, and are contextual indicators rather
-than evidence that sea-level rise directly caused those impacts.
+- The country comparison includes direct text labels and values.
+- The SVG has a title and detailed description.
+- Annual historical values and coverage are available in an HTML table.
+- Reduced motion and short landscape viewports reveal the finished chart without
+  the extended sticky-scroll region.
+- Focus styles and a skip link support keyboard navigation.
 
-`public/data/sea_level.csv` contains the satellite-era record used by the
-country summary preparation. The final story does not offer a satellite versus
-tide-gauge chart choice; it uses the tide-gauge record as its main visual.
-
-## Known limitations
-
-- The radial record is based on selected tide gauges, not a complete spatial
-  sample of the Pacific.
-- Station baselines are local and may differ from one another in measurement
-  history and physical setting.
-- Changing country and station coverage can change the composition of the
-  yearly regional mean.
-- The five-year smoothing improves readability in the radial layout but can
-  hide short-term variability.
-- Disaster totals are not attributed to sea-level rise.
+Before publishing UI changes, check 320, 375, 768, and 1440 px widths; a short
+mobile landscape viewport; 200% zoom; keyboard navigation; and
+`prefers-reduced-motion`. Confirm that labels do not clip or create horizontal
+overflow and that the chart marker/readout agree through the full scroll.
 
 ## Validation
 
-Before submission, run:
+Run the complete submission gate:
 
 ```bash
 bun run validate
 ```
-
-For UI changes, also check desktop, tablet, and mobile layouts; scroll from the
-first through the final chart year; verify that the marker, readout, and
-coverage counts agree; test `prefers-reduced-motion`; and confirm that labels
-do not clip or create horizontal overflow.

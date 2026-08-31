@@ -3,7 +3,7 @@ import {
   COLORS,
   RADIAL_CHART,
   RECORD_RANGES,
-  prefersReducedMotion,
+  prefersStaticChart,
 } from "../constants";
 import type { ChartPoint } from "../types";
 import { formatSignedValue } from "./format";
@@ -38,10 +38,6 @@ function rollingMean(
     .filter((value): value is number => Number.isFinite(value));
 
   return d3.mean(values) ?? (data[index].value as number);
-}
-
-function pointLabel(datum: RadialDatum): string {
-  return `${datum.year}: ${formatSignedValue(datum.smoothed)} mm`;
 }
 
 function coverageLabel(datum: RadialDatum): string {
@@ -161,12 +157,12 @@ export function drawRadialChart(
   svg
     .append("title")
     .attr("id", `${idBase}-title`)
-    .text("Pacific regional tide-gauge sea-level anomaly");
+    .text("Selected Pacific tide-gauge sea-level context");
   svg
     .append("desc")
     .attr("id", `${idBase}-desc`)
     .text(
-      `A radial spiral shows the ${RADIAL_CHART.rollingMeanSpan}-year smoothed regional tide-gauge sea-level anomaly from the late 1940s through ${RECORD_RANGES.historical.end}.`,
+      `A radial spiral shows a ${RADIAL_CHART.rollingMeanSpan}-year smoothed mean of available Pacific tide-gauge country records from 1947 through ${RECORD_RANGES.historical.end}. Country coverage changes over time, so the series is historical context rather than a fixed regional index.`,
     );
 
   const line = d3
@@ -244,6 +240,38 @@ export function drawRadialChart(
     .attr("fill", RADIAL_CHART.colors.centerFill)
     .attr("stroke", RADIAL_CHART.colors.centerStroke);
 
+  const scaleGuideValue = 100;
+  const scaleGuideLength = Math.abs(anomaly(scaleGuideValue) - anomaly(0));
+  const scaleGuide = grid
+    .append("g")
+    .attr("transform", `translate(${mobile ? 20 : 34},${height - (mobile ? 24 : 34)})`);
+  scaleGuide
+    .append("line")
+    .attr("x1", 0)
+    .attr("x2", scaleGuideLength)
+    .attr("stroke", COLORS.historical)
+    .attr("stroke-width", 3);
+  scaleGuide
+    .selectAll("line.radial-scale-tick")
+    .data([0, scaleGuideLength])
+    .join("line")
+    .attr("class", "radial-scale-tick")
+    .attr("x1", (d) => d)
+    .attr("x2", (d) => d)
+    .attr("y1", -5)
+    .attr("y2", 5)
+    .attr("stroke", COLORS.historical)
+    .attr("stroke-width", 2);
+  scaleGuide
+    .append("text")
+    .attr("x", scaleGuideLength / 2)
+    .attr("y", -10)
+    .attr("fill", RADIAL_CHART.colors.guideText)
+    .attr("font-family", "var(--heading)")
+    .attr("font-size", mobile ? 10 : 12)
+    .attr("text-anchor", "middle")
+    .text(`${scaleGuideValue} mm radial offset`);
+
   const linePath = svg
     .append("path")
     .datum(points)
@@ -305,26 +333,19 @@ export function drawRadialChart(
     .attr("dominant-baseline", "middle");
   readout
     .append("text")
+    .attr("class", "radial-readout-annual")
+    .attr("y", RADIAL_CHART.readoutAnnualY)
+    .attr("text-anchor", "middle")
+    .attr("dominant-baseline", "middle");
+  readout
+    .append("text")
     .attr("class", "radial-readout-coverage")
     .attr("y", RADIAL_CHART.readoutCoverageY)
     .attr("text-anchor", "middle")
     .attr("dominant-baseline", "middle");
 
-  const endLabel = svg
-    .append("text")
-    .attr("class", "radial-end-label")
-    .attr("fill", COLORS.white)
-    .attr("font-family", "var(--heading)")
-    .attr(
-      "font-size",
-      mobile
-        ? RADIAL_CHART.endLabelFontSize.mobile
-        : RADIAL_CHART.endLabelFontSize.desktop,
-    )
-    .attr("font-weight", 700);
-
   function update(progress: number) {
-    const finalProgress = prefersReducedMotion.matches ? 1 : progress;
+    const finalProgress = prefersStaticChart.matches ? 1 : progress;
     const clamped = Math.max(0, Math.min(1, finalProgress));
     const pathPosition = totalLength * clamped;
     const path = linePath.node() as SVGPathElement;
@@ -343,43 +364,14 @@ export function drawRadialChart(
     readout.select(".radial-readout-year").text(datum.year);
     readout
       .select(".radial-readout-value")
-      .text(`${formatSignedValue(datum.smoothed)} mm`);
+      .text(`${formatSignedValue(datum.smoothed)} mm · 5-year mean`);
+    readout
+      .select(".radial-readout-annual")
+      .text(`${formatSignedValue(datum.value)} mm · annual mean`);
     readout.select(".radial-readout-coverage").text(coverageLabel(datum));
-
-    const previousPoint = pathPointAt(
-      path,
-      pathPosition - RADIAL_CHART.tangentSampleOffset,
-      totalLength,
-    );
-    const nextPoint = pathPointAt(
-      path,
-      pathPosition + RADIAL_CHART.tangentSampleOffset,
-      totalLength,
-    );
-    const tangentAngle = Math.atan2(
-      nextPoint.y - previousPoint.y,
-      nextPoint.x - previousPoint.x,
-    );
-    const labelX =
-      point.x + Math.cos(tangentAngle) * RADIAL_CHART.endLabelOffset;
-    const labelY =
-      point.y + Math.sin(tangentAngle) * RADIAL_CHART.endLabelOffset;
-
-    endLabel
-      .attr("x", labelX)
-      .attr("y", labelY)
-      .attr(
-        "text-anchor",
-        Math.cos(tangentAngle) < RADIAL_CHART.leftAnchorThreshold
-          ? "end"
-          : "start",
-      )
-      .attr("dominant-baseline", "middle")
-      .attr("opacity", 1)
-      .text(pointLabel(datum));
   }
 
-  update(prefersReducedMotion.matches ? 1 : 0);
+  update(prefersStaticChart.matches ? 1 : 0);
 
   return {
     update,

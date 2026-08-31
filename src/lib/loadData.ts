@@ -1,5 +1,5 @@
 import * as d3 from "d3";
-import { DATA_PATHS } from "../constants";
+import { DATA_PATHS, RECORD_RANGES } from "../constants";
 import type { ChartPoint, CountrySummary, SeaLevelData } from "../types";
 
 interface HistoricalRecord {
@@ -20,9 +20,11 @@ function parseHistorical(row: d3.DSVRowString): HistoricalRecord {
 
 function parseSummary(row: d3.DSVRowString): CountrySummary {
   return {
+    code: row.country_code!,
+    country: row.country!,
+    early: +row.sea_level_1993_1997_mm!,
+    recent: +row.sea_level_2019_2023_mm!,
     rise: +row.sea_level_rise_mm!,
-    affected: +row.affected_people_2005_2023!,
-    losses: +row.loss_usd_2007_2020!,
   };
 }
 
@@ -39,11 +41,14 @@ function prepareData(
   historical: HistoricalRecord[],
   summaries: CountrySummary[],
 ): SeaLevelData {
-  const historicalYears = d3.range(
-    d3.min(historical, (d) => d.year)!,
-    d3.max(historical, (d) => d.year)! + 1,
+  const storyHistorical = historical.filter(
+    (record) => record.year <= RECORD_RANGES.historical.end,
   );
-  const historicalByYear = d3.group(historical, (d) => d.year);
+  const historicalYears = d3.range(
+    d3.min(storyHistorical, (d) => d.year)!,
+    d3.max(storyHistorical, (d) => d.year)! + 1,
+  );
+  const historicalByYear = d3.group(storyHistorical, (d) => d.year);
   const regionalHistorical: ChartPoint[] = historicalYears.map((year) => {
     const records = historicalByYear.get(year) || [];
     return {

@@ -1,6 +1,5 @@
 export const COLORS = {
   navy: "#1a2b4b",
-  satellite: "#65d2d9",
   historical: "rgb(196, 150, 105)",
   white: "#ffffff",
 } as const;
@@ -17,42 +16,15 @@ export const ASSET_PATHS = {
 export const RECORD_RANGES = {
   historical: {
     start: 1947,
-    end: 2025,
-    label: "1947–2025",
-    hyphenLabel: "1947-2025",
-  },
-  satellite: {
-    start: 1993,
     end: 2023,
-    label: "1993–2023",
-    hyphenLabel: "1993-2023",
-  },
-  satelliteBaseline: {
-    start: 1993,
-    end: 2000,
-    label: "1993–2000",
-  },
-  affected: {
-    start: 2005,
-    end: 2023,
-    label: "2005–2023",
-    hyphenLabel: "2005-2023",
-  },
-  losses: {
-    start: 2007,
-    end: 2020,
-    label: "2007–2020",
-    hyphenLabel: "2007-2020",
+    hyphenLabel: "1947-2023",
   },
 } as const;
 
 export const SCROLL_PROGRESS = {
-  defaultTravelScreens: 1,
   defaultPinnedTravelScreens: 1.2,
-  radialPinnedTravelScreens: 5,
+  radialPinnedTravelScreens: 3,
   lockBufferPx: 300,
-  viewportOffset: 0.08,
-  viewportSpan: 0.78,
 } as const;
 
 export const RADIAL_CHART = {
@@ -72,7 +44,7 @@ export const RADIAL_CHART = {
   rollingMeanSpan: 5,
   curveAlpha: 0.5,
   fallbackFirstYear: 1950,
-  guideYears: [1975, 2000, 2025],
+  guideYears: [1975, 2000, 2023],
   guideLengthDivisor: 7,
   guideLabelOffset: -35,
   guideStrokeWidth: 2,
@@ -84,11 +56,8 @@ export const RADIAL_CHART = {
   markerRadius: { mobile: 5, desktop: 6.5 },
   markerStrokeWidth: 3,
   readoutValueY: 36,
-  readoutCoverageY: 58,
-  endLabelFontSize: { mobile: 12, desktop: 14 },
-  endLabelOffset: 16,
-  tangentSampleOffset: 1,
-  leftAnchorThreshold: -0.2,
+  readoutAnnualY: 58,
+  readoutCoverageY: 78,
   colors: {
     guideStroke: "rgba(255,255,255,0.14)",
     guideText: "rgba(255,255,255,0.6)",
@@ -102,6 +71,7 @@ export const RESIZE_OBSERVER = {
   widthPrecision: 1,
 } as const;
 
-const REDUCED_MOTION_QUERY = "(prefers-reduced-motion: reduce)";
+const STATIC_CHART_QUERY =
+  "(prefers-reduced-motion: reduce), (max-height: 600px) and (orientation: landscape)";
 
-export const prefersReducedMotion = window.matchMedia(REDUCED_MOTION_QUERY);
+export const prefersStaticChart = window.matchMedia(STATIC_CHART_QUERY);

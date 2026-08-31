@@ -12,6 +12,7 @@ export function RadialScrollChart({ data, progress }: RadialScrollChartProps) {
   const chartRef = useRef<HTMLDivElement>(null);
   const handleRef = useRef<RadialChartHandle | null>(null);
   const progressRef = useRef(progress);
+  const maximumCountryCount = Math.max(...data.map((datum) => datum.count ?? 0), 1);
 
   useEffect(() => {
     progressRef.current = progress;
@@ -55,44 +56,103 @@ export function RadialScrollChart({ data, progress }: RadialScrollChartProps) {
   }, [progress]);
 
   return (
-    <section
-      className="radial-story"
-      aria-labelledby="radial-chart-heading"
-      aria-describedby="radial-chart-note"
-    >
-      <div className="radial-copy">
-        <p className="chart-source">
-          Selected tide-gauge record · {RECORD_RANGES.historical.hyphenLabel}
-        </p>
-        <h2 id="radial-chart-heading">The tide-gauge record spirals forward</h2>
-        <p id="radial-chart-note" className="chart-note">
-          Time advances around the spiral. The colored line shows a centered
-          five-year mean anomaly in millimeters; its distance from the dashed
-          spiral is measured relative to each station&apos;s 1993-2000 baseline.
-          The dashed spiral is the zero-anomaly reference, not a second series.
-        </p>
-        <p className="chart-note">
-          Coverage varies from 1-12 countries and 1-19 stations per year.
-          Read the live coverage below the year before comparing periods; 2025
-          includes only two countries.
-        </p>
-        <div className="radial-legend" aria-label="Chart key">
-          <span>
-            <i className="legend-swatch legend-line" aria-hidden="true" />
-            Smoothed anomaly
-          </span>
-          <span>
-            <i className="legend-swatch legend-baseline" aria-hidden="true" />
-            Zero anomaly / time
-          </span>
-          <span>Radial offset is linearly scaled in millimeters</span>
+    <>
+      <section
+        className="radial-story"
+        aria-labelledby="radial-chart-heading"
+        aria-describedby="radial-chart-note"
+      >
+        <div className="radial-copy">
+          <p className="chart-source">
+            Selected tide-gauge context · {RECORD_RANGES.historical.hyphenLabel}
+          </p>
+          <h2 id="radial-chart-heading">
+            The long record rises—but its coverage keeps changing
+          </h2>
+          <p id="radial-chart-note" className="chart-note">
+            Time advances around the spiral. The colored line comes from a
+            curated, non-exhaustive set of tide gauges and is an unweighted mean
+            of the available country records, smoothed with a centered five-year
+            window. Its distance from the dashed line shows the anomaly relative
+            to each station&apos;s 1993–2000 baseline.
+          </p>
+          <p className="chart-note">
+            The contributing locations are not constant, so this is historical
+            context rather than a like-for-like regional index. The story ends in
+            2023; the available 2024–2025 observations are excluded because their
+            coverage drops sharply.
+          </p>
+          <div className="radial-legend" aria-label="Chart key">
+            <span>
+              <i className="legend-swatch legend-line" aria-hidden="true" />
+              Five-year mean
+            </span>
+            <span>
+              <i className="legend-swatch legend-baseline" aria-hidden="true" />
+              Zero anomaly
+            </span>
+            <span>
+              Center readout also shows the annual mean and that year&apos;s coverage
+            </span>
+            <span>A 100 mm key shows the radial offset scale</span>
+          </div>
+          <div className="coverage-panel" aria-labelledby="coverage-heading">
+            <div className="coverage-heading-row">
+              <h3 id="coverage-heading">Countries contributing each year</h3>
+              <span>1–{maximumCountryCount} of 12 represented countries</span>
+            </div>
+            <div className="coverage-bars" aria-hidden="true">
+              {data.map((datum) => (
+                <i
+                  key={datum.year}
+                  style={{
+                    height: `${((datum.count ?? 0) / maximumCountryCount) * 100}%`,
+                  }}
+                />
+              ))}
+            </div>
+            <div className="coverage-years" aria-hidden="true">
+              <span>{data[0]?.year}</span>
+              <span>1985</span>
+              <span>{data.at(-1)?.year}</span>
+            </div>
+          </div>
         </div>
-      </div>
-      <div
-        id="radial-sea-level-chart"
-        className="radial-chart"
-        ref={chartRef}
-      />
-    </section>
+        <div
+          id="radial-sea-level-chart"
+          className="radial-chart"
+          ref={chartRef}
+        />
+      </section>
+      <details className="historical-data-table">
+        <summary>View annual values and measurement coverage</summary>
+        <div className="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>Year</th>
+                <th>Annual mean anomaly</th>
+                <th>Countries</th>
+                <th>Stations</th>
+              </tr>
+            </thead>
+            <tbody>
+              {data.map((datum) => (
+                <tr key={datum.year}>
+                  <th scope="row">{datum.year}</th>
+                  <td>
+                    {datum.value == null
+                      ? "Not available"
+                      : `${Math.round(datum.value)} mm`}
+                  </td>
+                  <td>{datum.count ?? 0}</td>
+                  <td>{datum.stationCount ?? 0}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </details>
+    </>
   );
 }

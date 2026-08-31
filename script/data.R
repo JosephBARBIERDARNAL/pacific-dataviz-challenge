@@ -317,8 +317,8 @@ summary <- merge(
   by = c("country_code", "country"),
   all.x = TRUE
 )
-summary$affected_people_2005_2023[is.na(summary$affected_people_2005_2023)] <- 0
-summary$loss_usd_2007_2020[is.na(summary$loss_usd_2007_2020)] <- 0
+# Keep missing reports as missing. Absence of a source row is not evidence of
+# zero affected people or zero economic loss.
 summary <- summary[order(-summary$sea_level_rise_mm), ]
 
 utils::write.csv(

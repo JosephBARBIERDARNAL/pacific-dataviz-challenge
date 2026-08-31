@@ -1,7 +1,7 @@
 library(tidyverse)
 
-data_dir <- "data"
-chart_dir <- "charts"
+data_dir <- file.path("public", "data")
+chart_dir <- file.path("script", "charts")
 dir.create(chart_dir, showWarnings = FALSE, recursive = TRUE)
 
 sea_historical <- read.csv(file.path(data_dir, "sea_level_historical.csv"))
