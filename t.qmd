@@ -1,7 +1,0 @@
----
-format:
-   typst:
-      keep-typ: true
----
-
-## test

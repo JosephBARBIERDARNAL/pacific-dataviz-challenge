@@ -42,17 +42,24 @@ export function CountryChangeChart({ data }: CountryChangeChartProps) {
           <div><strong>{extent[0]}–{extent[1]} cm</strong><span>observed range</span></div>
         </div>
 
-        <div className="country-chart" aria-label="Sea-level anomaly increase by country and territory">
+        <div
+          className="country-chart"
+          role="list"
+          aria-label="Sea-level anomaly increase by country and territory"
+        >
           <div className="country-axis" aria-hidden="true">
-            <span />
             <span className="country-axis-scale">
               <span>0</span><span>10</span><span>20 cm</span>
             </span>
             <span />
           </div>
           {sorted.map((datum) => (
-            <div className="country-row" key={datum.code}>
-              <span className="country-name">{datum.country}</span>
+            <div
+              className="country-row"
+              key={datum.code}
+              role="listitem"
+              aria-label={`${datum.country}: +${toCentimeters(datum.rise)} centimetres`}
+            >
               <span className="country-bar-track" aria-hidden="true">
                 <span
                   className="country-bar"

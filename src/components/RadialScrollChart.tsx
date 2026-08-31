@@ -105,15 +105,40 @@ export function RadialScrollChart({ data, progress }: RadialScrollChartProps) {
               <h3 id="coverage-heading">Countries contributing each year</h3>
               <span>1–{maximumCountryCount} of 12 represented countries</span>
             </div>
-            <div className="coverage-bars" aria-hidden="true">
-              {data.map((datum) => (
-                <i
-                  key={datum.year}
-                  style={{
-                    height: `${((datum.count ?? 0) / maximumCountryCount) * 100}%`,
-                  }}
-                />
-              ))}
+            <div
+              className="coverage-bars"
+              role="list"
+              aria-label="Annual tide-gauge coverage"
+            >
+              {data.map((datum) => {
+                const countryCount = datum.count ?? 0;
+                const stationCount = datum.stationCount ?? 0;
+                const countryLabel = countryCount === 1 ? "country" : "countries";
+                const stationLabel = stationCount === 1 ? "station" : "stations";
+
+                return (
+                  <span
+                    key={datum.year}
+                    className="coverage-bar"
+                    role="listitem"
+                    tabIndex={0}
+                    aria-label={`${datum.year}: ${countryCount} ${countryLabel}, ${stationCount} ${stationLabel}`}
+                    style={{
+                      height: `${(countryCount / maximumCountryCount) * 100}%`,
+                    }}
+                  >
+                    <span className="coverage-tooltip" role="tooltip">
+                      <strong>{datum.year}</strong>
+                      <span>
+                        {countryCount} {countryLabel}
+                      </span>
+                      <span>
+                        {stationCount} {stationLabel}
+                      </span>
+                    </span>
+                  </span>
+                );
+              })}
             </div>
             <div className="coverage-years" aria-hidden="true">
               <span>{data[0]?.year}</span>
