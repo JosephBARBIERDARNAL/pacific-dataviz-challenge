@@ -11,31 +11,6 @@ visible.
 
 Built with React, TypeScript, D3.js, and Vite.
 
-## Submission statement
-
-Regional sea-level figures can hide both the breadth of recent change and the
-uneven evidence behind the long record. This dataviz responds by first comparing
-all 21 countries and territories in the official dataset on a common basis, then
-showing the selected historical tide-gauge record alongside its changing
-measurement coverage. It separates the widespread recent signal from the limits
-of the longer regional summary instead of presenting one false-precision number.
-
-## Development
-
-Requires Bun and Node-compatible tooling. R is required only to regenerate the
-data files.
-
-```bash
-bun install
-bun run dev        # start the Vite development server
-bun run check:data # verify data coverage and missing-value invariants
-bun run typecheck  # run TypeScript project checks
-bun run lint       # run ESLint with zero warnings allowed
-bun run build      # typecheck and build production assets into dist/
-bun run validate   # run data checks, typecheck, lint, and build
-bun run preview    # preview the production build locally
-```
-
 ## Data sources
 
 The generated CSVs are prepared by [`script/data.R`](script/data.R) and are not
@@ -46,13 +21,7 @@ edited manually.
 - [Pacific Data Hub terms of use](https://pacificdata.org/terms-use)
 - [PSMSL referencing guidance](https://psmsl.org/data/obtaining/reference.php)
 
-Pacific Data Hub data was accessed on 31 August 2026. The PSMSL archive is the
-24 August 2026 database extract and is cited as: Permanent Service for Mean Sea
-Level (PSMSL), 2026, “Tide Gauge Data”; and Holgate et al. (2013), “New Data
-Systems and Products at the Permanent Service for Mean Sea Level,” *Journal of
-Coastal Research* 29(3), 493–504,
-[doi:10.2112/JCOASTRES-D-12-00175.1](https://doi.org/10.2112/JCOASTRES-D-12-00175.1).
-The deployed story and footer link to the same source material.
+Pacific Data Hub data was accessed on 31 August 2026. The PSMSL archive is the 24 August 2026 database extract and is cited as: Permanent Service for Mean Sea Level (PSMSL), 2026, “Tide Gauge Data”; and Holgate et al. (2013), “New Data Systems and Products at the Permanent Service for Mean Sea Level,” _Journal of Coastal Research_ 29(3), 493–504, [doi:10.2112/JCOASTRES-D-12-00175.1](https://doi.org/10.2112/JCOASTRES-D-12-00175.1). The deployed story and footer link to the same source material.
 
 ## Official 21-country comparison
 
@@ -70,28 +39,15 @@ primary evidence for the story's claim that the recent increase is widespread.
 
 ## Historical tide-gauge method
 
-The spiral uses `public/data/sea_level_historical.csv`. The preparation starts
-with a curated, non-exhaustive list of 28 PSMSL stations representing 12
-countries and territories. The list is not a statistical sample of the Pacific;
-it is retained in `script/data.R` so the selection is explicit and reproducible.
+The spiral uses `public/data/sea_level_historical.csv`. The preparation starts with a curated, non-exhaustive list of 28 PSMSL stations representing 12 countries and territories. The list is not a statistical sample of the Pacific; it is retained in `script/data.R` so the selection is explicit and reproducible.
 
 1. Missing PSMSL values (`-99999`) are excluded.
-2. A station is retained only when it has at least two observations during
-   1993–2000. Its anomaly is the annual value minus that station's mean during
-   the available 1993–2000 baseline period.
-3. Multiple stations for the same country and year are averaged into one
-   country-year value.
-4. The app calculates an unweighted mean of the available country-year values
-   for each year. It is not population-, coastline-, or station-weighted.
-5. A centered five-year mean is used for the spiral. The center readout also
-   gives the annual mean and the contributing country and station count.
+2. A station is retained only when it has at least two observations during 1993–2000. Its anomaly is the annual value minus that station's mean during the available 1993–2000 baseline period.
+3. Multiple stations for the same country and year are averaged into one country-year value.
+4. The app calculates an unweighted mean of the available country-year values for each year. It is not population-, coastline-, or station-weighted.
+5. A centered five-year mean is used for the spiral. The center readout also gives the annual mean and the contributing country and station count.
 
-The raw generated file covers 1947–2025. The displayed story ends in 2023
-because coverage falls to seven countries in 2024 and two in 2025. Coverage in
-the displayed period still varies from 1–12 countries and 1–19 stations, so the
-spiral is explicitly presented as historical context rather than a fixed
-regional index. The coverage strip and accessible annual table expose that
-limitation directly.
+The raw generated file covers 1947–2025. The displayed story ends in 2023 because coverage falls to seven countries in 2024 and two in 2025. Coverage in the displayed period still varies from 1–12 countries and 1–19 stations, so the spiral is explicitly presented as historical context rather than a fixed regional index. The coverage strip and accessible annual table expose that limitation directly.
 
 The radial encoding is:
 
@@ -103,33 +59,6 @@ The radial encoding is:
 
 ## Disaster data and missing values
 
-The generation script still preserves the official affected-person and economic
-loss extracts for reproducibility. They are not combined with the sea-level
-visualization because the records cover different periods and disaster types and
-do not establish causality.
+The generation script still preserves the official affected-person and economic loss extracts for reproducibility. They are not combined with the sea-level visualization because the records cover different periods and disaster types and do not establish causality.
 
-Missing country-level reports remain missing. In particular, absence of a loss
-record is not converted into a reported zero. `bun run check:data` enforces this
-invariant.
-
-## Accessibility and responsive behavior
-
-- The country comparison includes direct text labels and values.
-- The SVG has a title and detailed description.
-- Annual historical values and coverage are available in an HTML table.
-- Reduced motion and short landscape viewports reveal the finished chart without
-  the extended sticky-scroll region.
-- Focus styles and a skip link support keyboard navigation.
-
-Before publishing UI changes, check 320, 375, 768, and 1440 px widths; a short
-mobile landscape viewport; 200% zoom; keyboard navigation; and
-`prefers-reduced-motion`. Confirm that labels do not clip or create horizontal
-overflow and that the chart marker/readout agree through the full scroll.
-
-## Validation
-
-Run the complete submission gate:
-
-```bash
-bun run validate
-```
+Missing country-level reports remain missing. In particular, absence of a loss record is not converted into a reported zero. `bun run check:data` enforces this invariant.
