@@ -27,6 +27,18 @@ export function Footer() {
             </a>{" "}
           </p>
           <p>
+            Historical context:{" "}
+            <a
+              href="https://psmsl.org/data/obtaining/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Permanent Service for Mean Sea Level (PSMSL), Tide Gauge Data
+            </a>{" "}
+            (Revised Local Reference annual data; access and method are in the
+            data notes.)
+          </p>
+          <p>
             Author:{" "}
             <a
               href="https://barbierjoseph.com/"

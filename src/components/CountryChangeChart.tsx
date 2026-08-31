@@ -52,6 +52,7 @@ export function CountryChangeChart({ data }: CountryChangeChartProps) {
               <span>0</span><span>10</span><span>20 cm</span>
             </span>
             <span />
+            <span />
           </div>
           {sorted.map((datum) => (
             <div
@@ -60,6 +61,7 @@ export function CountryChangeChart({ data }: CountryChangeChartProps) {
               role="listitem"
               aria-label={`${datum.country}: +${toCentimeters(datum.rise)} centimetres`}
             >
+              <span className="country-name">{datum.country}</span>
               <span className="country-bar-track" aria-hidden="true">
                 <span
                   className="country-bar"

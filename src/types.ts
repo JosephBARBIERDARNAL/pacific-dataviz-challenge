@@ -16,4 +16,6 @@ export interface ChartPoint {
   value: number | null;
   count?: number;
   stationCount?: number;
+  countries?: string[];
+  stationIds?: string[];
 }

@@ -96,6 +96,7 @@
 "CK","Cook Islands",2022,166.428571428572,1
 "CK","Cook Islands",2023,122.428571428572,1
 "CK","Cook Islands",2024,107.428571428572,1
+"CK","Cook Islands",2025,52.4285714285716,1
 "FJ","Fiji",1973,-92.5,1
 "FJ","Fiji",1976,-50.5,1
 "FJ","Fiji",1977,-103.5,1
@@ -138,7 +139,8 @@
 "FJ","Fiji",2022,242.145833333333,2
 "FJ","Fiji",2023,177.645833333333,2
 "FJ","Fiji",2024,133.145833333333,2
-"PF","French Polynesia",1977,-80.125,1
+"FJ","Fiji",2025,123.145833333333,2
+"PF","French Polynesia",1977,-81.125,1
 "PF","French Polynesia",1978,-66.125,1
 "PF","French Polynesia",1979,-54.125,1
 "PF","French Polynesia",1980,-40.125,1
@@ -146,20 +148,20 @@
 "PF","French Polynesia",1982,-8.125,1
 "PF","French Polynesia",1983,-101.125,1
 "PF","French Polynesia",1984,-8.125,1
-"PF","French Polynesia",1985,12.875,1
+"PF","French Polynesia",1985,13.875,1
 "PF","French Polynesia",1986,-0.125,1
-"PF","French Polynesia",1987,-34.125,1
+"PF","French Polynesia",1987,-33.125,1
 "PF","French Polynesia",1988,-25.125,1
-"PF","French Polynesia",1989,-23.125,1
+"PF","French Polynesia",1989,-24.125,1
 "PF","French Polynesia",1990,-10.125,1
 "PF","French Polynesia",1991,-16.125,1
 "PF","French Polynesia",1992,-7.125,1
 "PF","French Polynesia",1993,2.875,1
 "PF","French Polynesia",1994,-22.125,1
 "PF","French Polynesia",1995,7.875,1
-"PF","French Polynesia",1996,10.875,1
+"PF","French Polynesia",1996,9.875,1
 "PF","French Polynesia",1997,-21.125,1
-"PF","French Polynesia",1998,-55.125,1
+"PF","French Polynesia",1998,-54.125,1
 "PF","French Polynesia",1999,66.875,1
 "PF","French Polynesia",2000,9.875,1
 "PF","French Polynesia",2001,0.875,1
@@ -167,18 +169,23 @@
 "PF","French Polynesia",2003,30.875,1
 "PF","French Polynesia",2004,32.875,1
 "PF","French Polynesia",2005,-6.125,1
-"PF","French Polynesia",2006,44.875,1
+"PF","French Polynesia",2006,45.875,1
 "PF","French Polynesia",2008,-4.125,1
 "PF","French Polynesia",2009,2.875,1
 "PF","French Polynesia",2010,-21.125,1
 "PF","French Polynesia",2011,20.875,1
-"PF","French Polynesia",2012,18.875,1
+"PF","French Polynesia",2012,17.875,1
 "PF","French Polynesia",2013,8.875,1
 "PF","French Polynesia",2014,62.875,1
 "PF","French Polynesia",2015,101.875,1
 "PF","French Polynesia",2016,83.875,1
 "PF","French Polynesia",2017,55.875,1
-"PF","French Polynesia",2018,70.875,1
+"PF","French Polynesia",2019,48.875,1
+"PF","French Polynesia",2020,52.875,1
+"PF","French Polynesia",2021,96.875,1
+"PF","French Polynesia",2022,67.875,1
+"PF","French Polynesia",2023,56.875,1
+"PF","French Polynesia",2024,53.875,1
 "GU","Guam",1948,-17.3999999999996,1
 "GU","Guam",1949,-17.3999999999996,1
 "GU","Guam",1950,-6.39999999999964,1
@@ -285,6 +292,7 @@
 "KI","Kiribati",2022,108.666666666667,1
 "KI","Kiribati",2023,164.666666666667,1
 "KI","Kiribati",2024,66.666666666667,1
+"KI","Kiribati",2025,95.666666666667,1
 "MH","Marshall Islands",1947,-49.875,1
 "MH","Marshall Islands",1948,-47.875,1
 "MH","Marshall Islands",1949,-53.875,1
@@ -362,7 +370,7 @@
 "MH","Marshall Islands",2022,100.125,1
 "MH","Marshall Islands",2023,87.125,1
 "MH","Marshall Islands",2024,72.5625,2
-"MH","Marshall Islands",2025,122.125,1
+"MH","Marshall Islands",2025,122.0625,2
 "FM","Micronesia",1976,-94.875,1
 "FM","Micronesia",1977,-29.875,1
 "FM","Micronesia",1978,7.125,1
@@ -469,6 +477,7 @@
 "SB","Solomon Islands",2020,80,1
 "SB","Solomon Islands",2022,227,1
 "SB","Solomon Islands",2023,127,1
+"SB","Solomon Islands",2025,151,1
 "TV","Tuvalu",1978,-13.1428571428569,1
 "TV","Tuvalu",1982,31.8571428571431,1
 "TV","Tuvalu",1983,-229.142857142857,1
@@ -509,6 +518,7 @@
 "TV","Tuvalu",2020,144.142857142857,1
 "TV","Tuvalu",2021,128.142857142857,1
 "TV","Tuvalu",2022,132.142857142857,1
+"TV","Tuvalu",2025,112.142857142857,1
 "VU","Vanuatu",1994,-35.5714285714284,1
 "VU","Vanuatu",1995,-28.5714285714284,1
 "VU","Vanuatu",1996,46.4285714285716,1
@@ -540,3 +550,4 @@
 "VU","Vanuatu",2022,154.428571428572,1
 "VU","Vanuatu",2023,103.428571428572,1
 "VU","Vanuatu",2024,20.4285714285716,1
+"VU","Vanuatu",2025,103.428571428572,1

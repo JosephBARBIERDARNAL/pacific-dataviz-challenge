@@ -2,6 +2,8 @@ import { useEffect, useRef } from "react";
 import { RECORD_RANGES, RESIZE_OBSERVER } from "../constants";
 import { drawRadialChart, type RadialChartHandle } from "../lib/radialChart";
 import type { ChartPoint } from "../types";
+import { formatSignedValue } from "../lib/format";
+import { HistoricalTrendChart } from "./HistoricalTrendChart";
 
 interface RadialScrollChartProps {
   data: ChartPoint[];
@@ -75,20 +77,20 @@ export function RadialScrollChart({ data, progress }: RadialScrollChartProps) {
           <p id="radial-chart-note" className="chart-note">
             The colored line comes from a curated, non-exhaustive set of tide
             gauges and is an unweighted mean of the available country records,
-            smoothed with a centered five-year window. Its distance from the
+            smoothed with an up-to-five-year centered window. Its distance from the
             dashed line shows the anomaly relative to each station&apos;s
             1993–2000 baseline.
           </p>
           <p className="chart-note">
             The contributing locations are not constant, so this is historical
-            context rather than a like-for-like regional index. The story ends
-            in 2023; the available 2024–2025 observations are excluded because
-            their coverage drops sharply.
+            context rather than a like-for-like regional index. It includes the
+            latest available 2025 observations; inspect the coverage before
+            comparing any two years.
           </p>
           <div className="radial-legend" aria-label="Chart key">
             <span>
               <i className="legend-swatch legend-line" aria-hidden="true" />
-              Five-year mean
+              Up-to-five-year mean
             </span>
             <span>
               <i className="legend-swatch legend-baseline" aria-hidden="true" />
@@ -146,6 +148,89 @@ export function RadialScrollChart({ data, progress }: RadialScrollChartProps) {
               <span>{data.at(-1)?.year}</span>
             </div>
           </div>
+          <HistoricalTrendChart data={data} />
+          <details className="historical-data-table">
+            <summary>Inspect the annual values, coverage, and contributing locations</summary>
+            <div className="table-scroll">
+              <table>
+                <thead>
+                  <tr>
+                    <th scope="col">Year</th>
+                    <th scope="col">Annual mean</th>
+                    <th scope="col">Countries</th>
+                    <th scope="col">Stations</th>
+                    <th scope="col">Contributing countries</th>
+                    <th scope="col">Station IDs</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {data.map((datum) => (
+                    <tr key={datum.year}>
+                      <th scope="row">{datum.year}</th>
+                      <td>{formatSignedValue(datum.value ?? 0)} mm</td>
+                      <td>{datum.count}</td>
+                      <td>{datum.stationCount}</td>
+                      <td>{datum.countries?.join(", ")}</td>
+                      <td>{datum.stationIds?.join(", ")}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </details>
+          <details className="data-notes">
+            <summary>Methods, sources, and data downloads</summary>
+            <div className="data-notes-content">
+              <p>
+                The country comparison uses Pacific Data Hub annual sea-level
+                anomalies. It compares the 1993–1997 and 2019–2023 period means
+                for all 21 covered countries and territories.
+              </p>
+              <p>
+                Historical context uses Permanent Service for Mean Sea Level
+                (PSMSL) Revised Local Reference annual data: 28 candidate stations
+                in 12 countries and territories, of which 23 meet the baseline
+                rule. Each station is expressed relative to its available 1993–2000
+                mean; stations are averaged within a country, then countries are
+                averaged without weighting. The candidate station IDs are 539, 540,
+                528, 1370, 1925, 513, 1217, 1838, 1254, 1303, 1607, 1608, 1609,
+                1610, 1860, 1739, 1804, 1452, 1839, 1373, 1861, 1841, 1327, 1805,
+                2356, 1397, 2242, and 1843.
+              </p>
+              <p>
+                The full method and provenance are documented in the project
+                repository and the downloadable provenance record.
+              </p>
+              <p className="data-links">
+                <a href={`${import.meta.env.BASE_URL}data/country_summary.csv`}>
+                  Download country comparison CSV
+                </a>
+                <a href={`${import.meta.env.BASE_URL}data/sea_level_historical.csv`}>
+                  Download historical context CSV
+                </a>
+                <a href={`${import.meta.env.BASE_URL}data/historical_station_coverage.csv`}>
+                  Download annual station coverage CSV
+                </a>
+                <a href={`${import.meta.env.BASE_URL}data/provenance.json`}>
+                  Download provenance record
+                </a>
+                <a
+                  href="https://stats-nsi-stable.pacificdata.org/rest/data/SPC,DF_CLIMATE_CHANGE,1.0/A.SEA_LVL./all?dimensionAtObservation=AllDimensions&amp;detail=full&amp;format=csvfile"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Pacific Data Hub source
+                </a>
+                <a
+                  href="https://psmsl.org/data/obtaining/reference.php"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  PSMSL citation guidance
+                </a>
+              </p>
+            </div>
+          </details>
         </div>
         <div
           id="radial-sea-level-chart"

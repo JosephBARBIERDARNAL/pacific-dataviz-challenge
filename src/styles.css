@@ -219,7 +219,7 @@ a:focus-visible {
 .country-axis,
 .country-row {
   display: grid;
-  grid-template-columns: minmax(10rem, 1fr) 5.5rem;
+  grid-template-columns: minmax(9.5rem, 12rem) minmax(10rem, 1fr) 5.5rem;
   gap: 1rem;
   align-items: center;
 }
@@ -245,6 +245,13 @@ a:focus-visible {
 .country-value {
   color: #397d86;
   text-align: right;
+}
+
+.country-name {
+  font-family: var(--heading);
+  font-size: 0.82rem;
+  font-weight: 600;
+  line-height: 1.1;
 }
 
 .country-bar-track {
@@ -516,6 +523,79 @@ a:focus-visible {
   font-size: 0.8rem;
 }
 
+.historical-trend {
+  max-width: 56rem;
+  margin: 2rem 0 0;
+  padding-top: 1rem;
+  border-top: 1px solid var(--white-16);
+}
+
+.historical-trend figcaption {
+  display: grid;
+  gap: 0.2rem;
+  max-width: 34rem;
+  color: var(--white-75);
+  font-family: var(--heading);
+  font-size: 0.75rem;
+  line-height: 1.35;
+}
+
+.historical-trend figcaption strong {
+  color: var(--white);
+  font-size: 0.82rem;
+}
+
+.historical-trend svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-top: 0.8rem;
+  overflow: visible;
+}
+
+.trend-grid,
+.trend-zero {
+  stroke: var(--white-16);
+  stroke-width: 1;
+}
+
+.trend-zero {
+  stroke: var(--white-75);
+  stroke-dasharray: 3 4;
+}
+
+.trend-line {
+  fill: none;
+  stroke: rgb(196, 150, 105);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 3;
+}
+
+.trend-axis-label,
+.trend-end-label {
+  fill: var(--white-75);
+  font-family: var(--heading);
+  font-size: 11px;
+  text-anchor: end;
+  dominant-baseline: middle;
+}
+
+.trend-year {
+  text-anchor: middle;
+}
+
+.trend-endpoint {
+  fill: var(--white);
+  stroke: rgb(196, 150, 105);
+  stroke-width: 2;
+}
+
+.trend-end-label {
+  fill: var(--white);
+  font-weight: 700;
+}
+
 .historical-data-table summary {
   padding: 1rem 0;
   cursor: pointer;
@@ -544,6 +624,50 @@ a:focus-visible {
 .historical-data-table th:first-child,
 .historical-data-table td:first-child {
   text-align: left;
+}
+
+.historical-data-table td:last-child {
+  min-width: 20rem;
+  text-align: left;
+}
+
+.data-notes {
+  max-width: 56rem;
+  margin-top: 1.25rem;
+  border-top: 1px solid var(--white-16);
+  border-bottom: 1px solid var(--white-16);
+}
+
+.data-notes summary {
+  padding: 1rem 0;
+  cursor: pointer;
+  font-family: var(--heading);
+  font-size: 0.84rem;
+  font-weight: 600;
+}
+
+.data-notes-content {
+  max-width: 50rem;
+  padding: 0 0 1.1rem;
+  color: var(--white-75);
+  font-size: 0.8rem;
+}
+
+.data-notes-content p:last-child {
+  margin-bottom: 0;
+}
+
+.data-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 1rem;
+  font-family: var(--heading);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.data-links a {
+  color: var(--white);
 }
 
 .story-conclusion {
@@ -663,10 +787,11 @@ a:focus-visible {
 
   .country-axis,
   .country-row {
-    grid-template-columns: minmax(6rem, 1fr) 4.2rem;
+    grid-template-columns: minmax(6rem, 7.5rem) minmax(5rem, 1fr) 4.2rem;
     gap: 0.55rem;
   }
 
+  .country-name,
   .country-value {
     font-size: 0.78rem;
   }
@@ -702,6 +827,10 @@ a:focus-visible {
     top: 1rem;
     width: 100vw;
     min-height: 32rem;
+  }
+
+  .historical-data-table td:last-child {
+    min-width: 15rem;
   }
 }
 

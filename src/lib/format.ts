@@ -5,11 +5,3 @@ const formatSigned = d3.format("+,.0f");
 export function formatSignedValue(value: number): string {
   return value === 0 ? "0" : formatSigned(value);
 }
-
-export function formatCompact(value: number): string {
-  return d3.format(".3~s")(value).replace("G", "bn").replace("M", "m");
-}
-
-export function formatCurrency(value: number): string {
-  return `$${formatCompact(value)}`;
-}

@@ -6,6 +6,7 @@ export const COLORS = {
 
 export const DATA_PATHS = {
   historical: `${import.meta.env.BASE_URL}data/sea_level_historical.csv`,
+  stationCoverage: `${import.meta.env.BASE_URL}data/historical_station_coverage.csv`,
   summary: `${import.meta.env.BASE_URL}data/country_summary.csv`,
 } as const;
 
@@ -16,8 +17,8 @@ export const ASSET_PATHS = {
 export const RECORD_RANGES = {
   historical: {
     start: 1947,
-    end: 2023,
-    hyphenLabel: "1947-2023",
+    end: 2025,
+    hyphenLabel: "1947-2025",
   },
 } as const;
 
@@ -44,7 +45,7 @@ export const RADIAL_CHART = {
   rollingMeanSpan: 5,
   curveAlpha: 0.5,
   fallbackFirstYear: 1950,
-  guideYears: [1975, 2000, 2023],
+  guideYears: [1975, 2000, 2025],
   guideLengthDivisor: 7,
   guideLabelOffset: -35,
   guideStrokeWidth: 2,

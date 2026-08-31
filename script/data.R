@@ -46,10 +46,7 @@ fetch <- function(flow, version, key) {
   utils::read.csv(path, stringsAsFactors = FALSE, check.names = FALSE)
 }
 
-clean <- function(x, value_name, multiplier = 1, unit = NULL) {
-  if (!is.null(unit)) {
-    x <- x[x$UNIT_MEASURE == unit, ]
-  }
+clean <- function(x, value_name, multiplier = 1) {
   value <- suppressWarnings(as.numeric(x$OBS_VALUE)) * multiplier
   year <- suppressWarnings(as.integer(substr(x$TIME_PERIOD, 1, 4)))
   code <- as.character(x$GEO_PICT)
@@ -190,7 +187,18 @@ fetch_historical_sea_level <- function() {
   )
   names(count)[4] <- "station_count"
   out <- merge(level, count, by = c("country_code", "country", "year"))
-  out[order(out$country, out$year), ]
+  station_coverage <- stats::aggregate(
+    station_id ~ country_code + country + year,
+    records,
+    function(x) paste(sort(unique(x)), collapse = ",")
+  )
+  names(station_coverage)[4] <- "station_ids"
+  list(
+    level = out[order(out$country, out$year), ],
+    station_coverage = station_coverage[order(station_coverage$year, station_coverage$country), ],
+    candidate_station_ids = stations$station_id,
+    retained_station_ids = sort(unique(records$station_id))
+  )
 }
 
 period_mean <- function(x, years, value, name) {
@@ -204,40 +212,15 @@ period_mean <- function(x, years, value, name) {
   out
 }
 
-period_sum <- function(x, years, value, name) {
-  x <- x[x$year %in% years, ]
-  out <- stats::aggregate(
-    x[[value]],
-    by = list(country_code = x$country_code, country = x$country),
-    sum
-  )
-  names(out)[3] <- name
-  out
-}
-
 sea_level <- clean(
   fetch("DF_CLIMATE_CHANGE", "1.0", "A.SEA_LVL."),
   "sea_level_mm",
   1000
 )
 
-sea_level_historical <- fetch_historical_sea_level()
-
-disaster_affected <- clean(
-  fetch("DF_SDG_11", "3.0", "A.VC_DSR_AFFCT........."),
-  "affected_people"
-)
-
-disaster_losses <- clean(
-  fetch("DF_SDG_11", "3.0", "A.VC_DSR_AALT...._T....."),
-  "loss_usd",
-  unit = "USD"
-)
-
-population_growth <- clean(
-  fetch("DF_NMDI_POP", "1.0", "A..NMDI0002._T._T._T.."),
-  "population_growth_pct"
-)
+historical_data <- fetch_historical_sea_level()
+sea_level_historical <- historical_data$level
+station_coverage <- historical_data$station_coverage
 
 utils::write.csv(
   sea_level,
@@ -250,21 +233,10 @@ utils::write.csv(
   row.names = FALSE
 )
 utils::write.csv(
-  disaster_affected,
-  file.path(data_dir, "disaster_affected.csv"),
+  station_coverage,
+  file.path(data_dir, "historical_station_coverage.csv"),
   row.names = FALSE
 )
-utils::write.csv(
-  disaster_losses,
-  file.path(data_dir, "disaster_losses.csv"),
-  row.names = FALSE
-)
-utils::write.csv(
-  population_growth,
-  file.path(data_dir, "population_growth.csv"),
-  row.names = FALSE
-)
-
 early <- period_mean(
   sea_level,
   1993:1997,
@@ -277,48 +249,9 @@ recent <- period_mean(
   "sea_level_mm",
   "sea_level_2019_2023_mm"
 )
-affected <- period_sum(
-  disaster_affected,
-  2005:2023,
-  "affected_people",
-  "affected_people_2005_2023"
-)
-losses <- period_sum(
-  disaster_losses,
-  2007:2020,
-  "loss_usd",
-  "loss_usd_2007_2020"
-)
-growth <- period_mean(
-  population_growth,
-  2020:2025,
-  "population_growth_pct",
-  "population_growth_2020_2025_pct"
-)
-
 summary <- merge(early, recent, by = c("country_code", "country"))
 summary$sea_level_rise_mm <- summary$sea_level_2019_2023_mm -
   summary$sea_level_1993_1997_mm
-summary <- merge(
-  summary,
-  affected,
-  by = c("country_code", "country"),
-  all.x = TRUE
-)
-summary <- merge(
-  summary,
-  losses,
-  by = c("country_code", "country"),
-  all.x = TRUE
-)
-summary <- merge(
-  summary,
-  growth,
-  by = c("country_code", "country"),
-  all.x = TRUE
-)
-# Keep missing reports as missing. Absence of a source row is not evidence of
-# zero affected people or zero economic loss.
 summary <- summary[order(-summary$sea_level_rise_mm), ]
 
 utils::write.csv(
@@ -326,3 +259,17 @@ utils::write.csv(
   file.path(data_dir, "country_summary.csv"),
   row.names = FALSE
 )
+
+generated_at <- format(Sys.time(), tz = "UTC", usetz = TRUE)
+provenance <- paste0(
+  "{\n",
+  "  \"generated_at_utc\": \"", generated_at, "\",\n",
+  "  \"pacific_data_hub\": \"https://stats-nsi-stable.pacificdata.org/rest/data/SPC,DF_CLIMATE_CHANGE,1.0/A.SEA_LVL./all?dimensionAtObservation=AllDimensions&detail=full&format=csvfile\",\n",
+  "  \"psmsl_archive\": \"https://psmsl.org/data/obtaining/rlr.annual.data/rlr_annual.zip\",\n",
+  "  \"candidate_station_count\": ", length(historical_data$candidate_station_ids), ",\n",
+  "  \"candidate_station_ids\": [", paste(historical_data$candidate_station_ids, collapse = ", "), "],\n",
+  "  \"retained_station_count\": ", length(historical_data$retained_station_ids), ",\n",
+  "  \"retained_station_ids\": [", paste(historical_data$retained_station_ids, collapse = ", "), "]\n",
+  "}\n"
+)
+writeLines(provenance, file.path(data_dir, "provenance.json"))

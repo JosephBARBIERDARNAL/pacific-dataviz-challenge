@@ -46,27 +46,5 @@ p2 <- ggplot(rise, aes(country, sea_level_rise_mm)) +
   ) +
   theme_simple
 
-affected <- summary[
-  order(summary$affected_people_2005_2023, decreasing = TRUE),
-]
-affected <- head(affected, 12)
-affected$country <- factor(affected$country, levels = rev(affected$country))
-
-p3 <- ggplot(
-  affected,
-  aes(country, affected_people_2005_2023)
-) +
-  geom_col(fill = "#5A7F40") +
-  coord_flip() +
-  scale_y_continuous(labels = scales::comma) +
-  labs(
-    title = "People directly affected by disasters",
-    subtitle = "Cumulative reported total, 2005-2023",
-    x = NULL,
-    y = "People"
-  ) +
-  theme_simple
-
 save(p1, "01_historical_sea_level_by_country.png")
 save(p2, "02_sea_level_rise_by_country.png")
-save(p3, "03_disaster_affected_people.png")
