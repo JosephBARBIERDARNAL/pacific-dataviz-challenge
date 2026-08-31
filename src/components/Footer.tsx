@@ -27,36 +27,6 @@ export function Footer() {
             </a>{" "}
           </p>
           <p>
-            Historical context:{" "}
-            <a
-              href="https://psmsl.org/data/obtaining/"
-              target="_blank"
-              rel="noreferrer"
-            >
-              PSMSL Revised Local Reference annual data
-            </a>
-          </p>
-          <p>
-            Terms and citation:{" "}
-            <a
-              href="https://pacificdata.org/terms-use"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Pacific Data Hub
-            </a>{" "}
-            and{" "}
-            <a
-              href="https://psmsl.org/data/obtaining/reference.php"
-              target="_blank"
-              rel="noreferrer"
-            >
-              PSMSL referencing guidance
-            </a>
-            . Pacific Data Hub accessed 31 August 2026; PSMSL database extract
-            dated 24 August 2026.
-          </p>
-          <p>
             Author:{" "}
             <a
               href="https://barbierjoseph.com/"

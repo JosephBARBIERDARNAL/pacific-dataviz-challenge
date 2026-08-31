@@ -12,7 +12,10 @@ export function RadialScrollChart({ data, progress }: RadialScrollChartProps) {
   const chartRef = useRef<HTMLDivElement>(null);
   const handleRef = useRef<RadialChartHandle | null>(null);
   const progressRef = useRef(progress);
-  const maximumCountryCount = Math.max(...data.map((datum) => datum.count ?? 0), 1);
+  const maximumCountryCount = Math.max(
+    ...data.map((datum) => datum.count ?? 0),
+    1,
+  );
 
   useEffect(() => {
     progressRef.current = progress;
@@ -70,17 +73,17 @@ export function RadialScrollChart({ data, progress }: RadialScrollChartProps) {
             The long record rises—but its coverage keeps changing
           </h2>
           <p id="radial-chart-note" className="chart-note">
-            Time advances around the spiral. The colored line comes from a
-            curated, non-exhaustive set of tide gauges and is an unweighted mean
-            of the available country records, smoothed with a centered five-year
-            window. Its distance from the dashed line shows the anomaly relative
-            to each station&apos;s 1993–2000 baseline.
+            The colored line comes from a curated, non-exhaustive set of tide
+            gauges and is an unweighted mean of the available country records,
+            smoothed with a centered five-year window. Its distance from the
+            dashed line shows the anomaly relative to each station&apos;s
+            1993–2000 baseline.
           </p>
           <p className="chart-note">
             The contributing locations are not constant, so this is historical
-            context rather than a like-for-like regional index. The story ends in
-            2023; the available 2024–2025 observations are excluded because their
-            coverage drops sharply.
+            context rather than a like-for-like regional index. The story ends
+            in 2023; the available 2024–2025 observations are excluded because
+            their coverage drops sharply.
           </p>
           <div className="radial-legend" aria-label="Chart key">
             <span>
@@ -92,7 +95,8 @@ export function RadialScrollChart({ data, progress }: RadialScrollChartProps) {
               Zero anomaly
             </span>
             <span>
-              Center readout also shows the annual mean and that year&apos;s coverage
+              Center readout also shows the annual mean and that year&apos;s
+              coverage
             </span>
             <span>A 100 mm key shows the radial offset scale</span>
           </div>
@@ -124,35 +128,6 @@ export function RadialScrollChart({ data, progress }: RadialScrollChartProps) {
           ref={chartRef}
         />
       </section>
-      <details className="historical-data-table">
-        <summary>View annual values and measurement coverage</summary>
-        <div className="table-scroll">
-          <table>
-            <thead>
-              <tr>
-                <th>Year</th>
-                <th>Annual mean anomaly</th>
-                <th>Countries</th>
-                <th>Stations</th>
-              </tr>
-            </thead>
-            <tbody>
-              {data.map((datum) => (
-                <tr key={datum.year}>
-                  <th scope="row">{datum.year}</th>
-                  <td>
-                    {datum.value == null
-                      ? "Not available"
-                      : `${Math.round(datum.value)} mm`}
-                  </td>
-                  <td>{datum.count ?? 0}</td>
-                  <td>{datum.stationCount ?? 0}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </details>
     </>
   );
 }
