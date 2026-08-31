@@ -161,6 +161,18 @@ a:focus-visible {
   text-transform: uppercase;
 }
 
+.metric-detail,
+.chart-note {
+  display: block;
+  color: var(--white-75);
+  font-size: 0.78rem;
+  line-height: 1.35;
+}
+
+.metric-detail {
+  margin-top: 0.35rem;
+}
+
 .metric-value {
   display: block;
   color: var(--satellite);
@@ -187,6 +199,50 @@ a:focus-visible {
   font-weight: 700;
   letter-spacing: 0.09em;
   text-transform: uppercase;
+}
+
+.chart-note {
+  max-width: 34rem;
+  margin: 0;
+}
+
+.radial-copy h2 {
+  max-width: 18ch;
+  margin-bottom: 0.75rem;
+}
+
+.chart-note + .chart-note {
+  margin-top: 0.55rem;
+}
+
+.radial-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.25rem;
+  max-width: 56rem;
+  margin-top: 1rem;
+  color: var(--white-75);
+  font-family: var(--heading);
+  font-size: 0.72rem;
+  line-height: 1.35;
+}
+
+.radial-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.legend-swatch {
+  display: inline-block;
+  width: 1.4rem;
+  border-top: 3px solid rgb(196, 150, 105);
+}
+
+.legend-baseline {
+  border-top-width: 2px;
+  border-top-style: dashed;
+  border-top-color: var(--white-75);
 }
 
 .radial-chart {
@@ -220,6 +276,14 @@ a:focus-visible {
   fill: var(--satellite);
   font-size: clamp(1rem, 2vw, 1.6rem);
   font-weight: 700;
+}
+
+.radial-readout-coverage {
+  fill: var(--white-75);
+  font-family: var(--heading);
+  font-size: clamp(0.65rem, 1.1vw, 0.85rem);
+  font-weight: 600;
+  letter-spacing: 0.03em;
 }
 
 .loading-panel {
@@ -352,6 +416,24 @@ a:focus-visible {
     line-height: 1.25;
   }
 
+  .metric-detail {
+    margin-top: 0.3rem;
+    font-size: 0.58rem;
+    line-height: 1.2;
+  }
+
+  .chart-note {
+    font-size: 0.72rem;
+  }
+
+  .radial-copy h2 {
+    max-width: 14ch;
+  }
+
+  .radial-legend {
+    font-size: 0.65rem;
+  }
+
   .radial-story {
     min-height: 190vh;
     padding-top: 1rem;
@@ -360,7 +442,7 @@ a:focus-visible {
   .radial-chart {
     top: 13.25rem;
     width: 100vw;
-    min-height: 26rem;
+    min-height: 32rem;
   }
 }
 

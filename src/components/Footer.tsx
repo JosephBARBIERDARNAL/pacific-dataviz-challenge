@@ -17,6 +17,20 @@ export function Footer() {
             </a>
           </p>
           <p>
+            Data sources:{" "}
+            <a
+              href="https://stats-nsi-stable.pacificdata.org/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Pacific Data Hub
+            </a>{" "}
+            and{" "}
+            <a href="https://psmsl.org/" target="_blank" rel="noreferrer">
+              PSMSL
+            </a>
+          </p>
+          <p>
             Author:{" "}
             <a
               href="https://barbierjoseph.com/"

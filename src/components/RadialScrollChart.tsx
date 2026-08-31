@@ -57,14 +57,42 @@ export function RadialScrollChart({ data, progress }: RadialScrollChartProps) {
   return (
     <section
       className="radial-story"
-      aria-label={`Tide-gauge record, ${RECORD_RANGES.historical.hyphenLabel}`}
+      aria-labelledby="radial-chart-heading"
+      aria-describedby="radial-chart-note"
     >
       <div className="radial-copy">
         <p className="chart-source">
-          Tide-gauge record · {RECORD_RANGES.historical.hyphenLabel}
+          Selected tide-gauge record · {RECORD_RANGES.historical.hyphenLabel}
         </p>
+        <h2 id="radial-chart-heading">The tide-gauge record spirals forward</h2>
+        <p id="radial-chart-note" className="chart-note">
+          Time advances around the spiral. The colored line shows a centered
+          five-year mean anomaly in millimeters; its distance from the dashed
+          spiral is measured relative to each station&apos;s 1993-2000 baseline.
+          The dashed spiral is the zero-anomaly reference, not a second series.
+        </p>
+        <p className="chart-note">
+          Coverage varies from 1-12 countries and 1-19 stations per year.
+          Read the live coverage below the year before comparing periods; 2025
+          includes only two countries.
+        </p>
+        <div className="radial-legend" aria-label="Chart key">
+          <span>
+            <i className="legend-swatch legend-line" aria-hidden="true" />
+            Smoothed anomaly
+          </span>
+          <span>
+            <i className="legend-swatch legend-baseline" aria-hidden="true" />
+            Zero anomaly / time
+          </span>
+          <span>Radial offset is linearly scaled in millimeters</span>
+        </div>
       </div>
-      <div id="radial-sea-level-chart" className="radial-chart" ref={chartRef} />
+      <div
+        id="radial-sea-level-chart"
+        className="radial-chart"
+        ref={chartRef}
+      />
     </section>
   );
 }

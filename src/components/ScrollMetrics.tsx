@@ -10,6 +10,7 @@ import type { SeaLevelData } from "../types";
 
 interface Metric {
   label: string;
+  detail?: string;
   value: number;
   format: (value: number) => string;
 }
@@ -24,19 +25,29 @@ function easeOutCubic(value: number): number {
 }
 
 function buildMetrics(data: SeaLevelData): Metric[] {
+  const riseValues = data.summaries
+    .map((summary) => summary.rise)
+    .filter((value) => Number.isFinite(value));
+  const medianRise = d3.median(riseValues) ?? 0;
+  const minimumRise = d3.min(riseValues) ?? 0;
+  const maximumRise = d3.max(riseValues) ?? 0;
+
   return [
     {
-      label: `Average ${RECORD_RANGES.satellite.hyphenLabel} change`,
-      value: d3.mean(data.summaries, (d) => d.rise) ?? 0,
+      label: `Typical country change, ${RECORD_RANGES.satellite.hyphenLabel}`,
+      detail: `Median of ${riseValues.length} countries · range ${minimumRise}-${maximumRise} mm`,
+      value: medianRise,
       format: (value) => `${formatSignedValue(value)} mm`,
     },
     {
-      label: `People directly affected, ${RECORD_RANGES.affected.hyphenLabel}`,
+      label: `People recorded as affected by disasters, ${RECORD_RANGES.affected.hyphenLabel}`,
+      detail: "All reported disaster types; not attributed to sea-level rise",
       value: d3.sum(data.summaries, (d) => d.affected),
       format: formatCompact,
     },
     {
       label: `Reported disaster losses, ${RECORD_RANGES.losses.hyphenLabel}`,
+      detail: "All reported disaster types; not attributed to sea-level rise",
       value: d3.sum(data.summaries, (d) => d.losses),
       format: formatCurrency,
     },
@@ -56,6 +67,7 @@ export function ScrollMetrics({ data, progress }: ScrollMetricsProps) {
             <div className="metric" key={metric.label}>
               <span className="metric-value">{metric.format(value)}</span>
               <span className="metric-label">{metric.label}</span>
+              {metric.detail && <span className="metric-detail">{metric.detail}</span>}
             </div>
           );
         })}

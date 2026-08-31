@@ -56,7 +56,6 @@ export const SCROLL_PROGRESS = {
 } as const;
 
 export const RADIAL_CHART = {
-  rollingMeanSpan: 5,
   minWidth: 320,
   mobileBreakpoint: 680,
   height: {
@@ -70,6 +69,7 @@ export const RADIAL_CHART = {
     anomalyBand: { mobile: 0.08, desktop: 0.085 },
   },
   angleDegrees: { start: -115, end: 620 },
+  rollingMeanSpan: 5,
   curveAlpha: 0.5,
   fallbackFirstYear: 1950,
   guideYears: [1975, 2000, 2025],
@@ -84,6 +84,7 @@ export const RADIAL_CHART = {
   markerRadius: { mobile: 5, desktop: 6.5 },
   markerStrokeWidth: 3,
   readoutValueY: 36,
+  readoutCoverageY: 58,
   endLabelFontSize: { mobile: 12, desktop: 14 },
   endLabelOffset: 16,
   tangentSampleOffset: 1,

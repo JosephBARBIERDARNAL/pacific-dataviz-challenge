@@ -27,7 +27,6 @@ export function useScrollProgress<T extends HTMLElement>(
 
   useEffect(() => {
     if (prefersReducedMotion.matches) {
-      setProgress(1);
       return;
     }
 
@@ -109,7 +108,6 @@ export function usePinnedElementProgress<T extends HTMLElement>({
 
   useEffect(() => {
     if (prefersReducedMotion.matches) {
-      setProgress(1);
       return;
     }
 
@@ -181,12 +179,12 @@ export function usePinnedElementProgress<T extends HTMLElement>({
     window.addEventListener("scroll", requestUpdate, { passive: true });
     window.addEventListener("resize", handleResize);
 
+    const cleanupRoot = ref.current;
     return () => {
       if (frame) window.cancelAnimationFrame(frame);
-      const root = ref.current;
       const scrollContainer = scrollContainerSelector
-        ? root?.querySelector<HTMLElement>(scrollContainerSelector)
-        : root;
+        ? cleanupRoot?.querySelector<HTMLElement>(scrollContainerSelector)
+        : cleanupRoot;
       if (scrollContainer && originalMinHeightRef.current != null) {
         scrollContainer.style.minHeight = originalMinHeightRef.current;
       }

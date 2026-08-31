@@ -44,6 +44,12 @@ function pointLabel(datum: RadialDatum): string {
   return `${datum.year}: ${formatSignedValue(datum.smoothed)} mm`;
 }
 
+function coverageLabel(datum: RadialDatum): string {
+  const countryLabel = datum.count === 1 ? "country" : "countries";
+  const stationLabel = datum.stationCount === 1 ? "station" : "stations";
+  return `${datum.count} ${countryLabel} · ${datum.stationCount} ${stationLabel}`;
+}
+
 function pathPointAt(
   path: SVGPathElement,
   length: number,
@@ -254,6 +260,16 @@ export function drawRadialChart(
     .attr("stroke-linecap", "round");
 
   const totalLength = (linePath.node() as SVGPathElement).getTotalLength();
+  const pointProgress = points.reduce<number[]>((progresses, point, index) => {
+    if (index === 0) return [0];
+    const previous = points[index - 1];
+    const segmentLength = Math.hypot(point.x - previous.x, point.y - previous.y);
+    return [...progresses, progresses[index - 1] + segmentLength];
+  }, []);
+  const totalPointLength = pointProgress.at(-1) || 1;
+  const normalizedPointProgress = pointProgress.map(
+    (value) => value / totalPointLength,
+  );
   linePath
     .attr("stroke-dasharray", totalLength)
     .attr("stroke-dashoffset", totalLength);
@@ -287,6 +303,12 @@ export function drawRadialChart(
     .attr("y", RADIAL_CHART.readoutValueY)
     .attr("text-anchor", "middle")
     .attr("dominant-baseline", "middle");
+  readout
+    .append("text")
+    .attr("class", "radial-readout-coverage")
+    .attr("y", RADIAL_CHART.readoutCoverageY)
+    .attr("text-anchor", "middle")
+    .attr("dominant-baseline", "middle");
 
   const endLabel = svg
     .append("text")
@@ -309,7 +331,7 @@ export function drawRadialChart(
     const point = pathPointAt(path, pathPosition, totalLength);
     const index = Math.min(
       points.length - 1,
-      Math.max(0, Math.round((points.length - 1) * clamped)),
+      Math.max(0, d3.bisectRight(normalizedPointProgress, clamped) - 1),
     );
     const datum = points[index];
 
@@ -322,6 +344,7 @@ export function drawRadialChart(
     readout
       .select(".radial-readout-value")
       .text(`${formatSignedValue(datum.smoothed)} mm`);
+    readout.select(".radial-readout-coverage").text(coverageLabel(datum));
 
     const previousPoint = pathPointAt(
       path,
