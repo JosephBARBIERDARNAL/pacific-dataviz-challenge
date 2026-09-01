@@ -91,8 +91,7 @@ export function CountryChangeChart({ data }: CountryChangeChartProps) {
 
         <p className="chart-caption">
           Source: Pacific Data Hub, Sea level anomalies. Published annual values
-          use 0.1 m increments; period-mean changes are shown in centimetres and
-          reduce the influence of a single year.
+          use 0.1 m increments.
         </p>
       </div>
     </section>

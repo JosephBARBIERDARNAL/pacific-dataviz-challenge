@@ -16,12 +16,12 @@ export default function App() {
           <div className="hero-intro">
             <p className="hero-kicker">Pacific sea-level change</p>
             <h1 id="page-title">
-              The rise is <span className="text-highlight">widespread</span>. The long record is uneven.
+              The rise is <span className="text-highlight">widespread</span>.
+              The long record is uneven.
             </h1>
             <p className="hero-deck">
               Across 21 Pacific countries and territories, the 2019–2023
-              sea-level anomaly was 8–18 cm higher than in 1993–1997. The median
-              increase was <span className="text-highlight">10 cm</span>.
+              sea-level anomaly was 8–18 cm higher than in 1993–1997.
             </p>
           </div>
         </section>
