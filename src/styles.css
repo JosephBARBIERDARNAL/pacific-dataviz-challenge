@@ -93,7 +93,7 @@ a:focus-visible {
 
 .hero {
   display: flex;
-  min-height: 94vh;
+  min-height: 100vh;
   padding: 0;
   align-items: center;
   overflow-x: clip;
