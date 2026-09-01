@@ -11,7 +11,7 @@ interface ChartExperienceProps {
 export function ChartExperience({ data }: ChartExperienceProps) {
   const { ref, progress } = usePinnedElementProgress<HTMLDivElement>({
     scrollContainerSelector: ".radial-story",
-    targetSelector: ".radial-chart",
+    targetSelector: ".radial-stage",
     travelScreens: SCROLL_PROGRESS.radialPinnedTravelScreens,
   });
 

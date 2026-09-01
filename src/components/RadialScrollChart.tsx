@@ -4,6 +4,16 @@ import { drawRadialChart, type RadialChartHandle } from "../lib/radialChart";
 import type { ChartPoint } from "../types";
 import { HistoricalTrendChart } from "./HistoricalTrendChart";
 
+const IMPACT_PARAGRAPHS = [
+  "Higher seas let storm surges and king tides reach farther inland. Across Pacific islands, repeated flooding can damage homes, roads, schools, ports, and cultural sites, while saltwater threatens freshwater supplies and productive land. When these impacts become chronic, they can disrupt livelihoods and make relocation more likely.",
+  "The costs also accumulate in household budgets and public finances: repairs, insurance, emergency response, and maintaining essential services all become more expensive. Investment in resilient infrastructure, coastal ecosystems, and early-warning systems can reduce those risks and help communities protect access to work, services, and finance.",
+] as const;
+
+const IMPACT_TEXT_LENGTH = IMPACT_PARAGRAPHS.reduce(
+  (length, paragraph) => length + paragraph.length,
+  0,
+);
+
 interface RadialScrollChartProps {
   data: ChartPoint[];
   progress: number;
@@ -13,6 +23,15 @@ export function RadialScrollChart({ data, progress }: RadialScrollChartProps) {
   const chartRef = useRef<HTMLDivElement>(null);
   const handleRef = useRef<RadialChartHandle | null>(null);
   const progressRef = useRef(progress);
+  const visibleImpactTextLength = Math.round(IMPACT_TEXT_LENGTH * progress);
+  const firstParagraphLength = Math.min(
+    visibleImpactTextLength,
+    IMPACT_PARAGRAPHS[0].length,
+  );
+  const secondParagraphLength = Math.max(
+    0,
+    visibleImpactTextLength - IMPACT_PARAGRAPHS[0].length,
+  );
 
   useEffect(() => {
     progressRef.current = progress;
@@ -62,11 +81,21 @@ export function RadialScrollChart({ data, progress }: RadialScrollChartProps) {
         aria-labelledby="radial-chart-heading"
         aria-describedby="radial-chart-note"
       >
-        <div
-          id="radial-sea-level-chart"
-          className="radial-chart"
-          ref={chartRef}
-        />
+        <div className="radial-stage">
+          <div
+            id="radial-sea-level-chart"
+            className="radial-chart"
+            ref={chartRef}
+          />
+          <aside className="radial-impact">
+            {firstParagraphLength > 0 && (
+              <p>{IMPACT_PARAGRAPHS[0].slice(0, firstParagraphLength)}</p>
+            )}
+            {secondParagraphLength > 0 && (
+              <p>{IMPACT_PARAGRAPHS[1].slice(0, secondParagraphLength)}</p>
+            )}
+          </aside>
+        </div>
       </section>
       <section
         className="radial-context"

@@ -308,6 +308,18 @@ a:focus-visible {
   overflow-x: clip;
 }
 
+.radial-stage {
+  position: sticky;
+  top: clamp(1rem, 6vh, 3.5rem);
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(17rem, 0.8fr);
+  gap: clamp(1.5rem, 5vw, 5rem);
+  width: var(--content-width);
+  min-height: min(74vh, 720px);
+  margin-inline: auto;
+  align-items: center;
+}
+
 .radial-context {
   padding: clamp(5rem, 10vw, 9rem) 0;
   background: var(--white);
@@ -409,11 +421,8 @@ a:focus-visible {
 }
 
 .radial-chart {
-  position: sticky;
-  top: clamp(1rem, 6vh, 3.5rem);
-  width: min(94vw, 1120px);
+  width: 100%;
   min-height: min(74vh, 720px);
-  margin: 0 auto;
 }
 
 .radial-chart svg {
@@ -421,6 +430,17 @@ a:focus-visible {
   width: 100%;
   height: auto;
   overflow: hidden;
+}
+
+.radial-impact {
+  max-width: 31rem;
+  color: var(--white-75);
+}
+
+.radial-impact p {
+  margin-bottom: 0.9rem;
+  font-size: clamp(0.9rem, 1.25vw, 1.05rem);
+  line-height: 1.5;
 }
 
 .radial-readout-year,
@@ -811,10 +831,21 @@ a:focus-visible {
     padding-top: 1rem;
   }
 
+  .radial-stage {
+    display: block;
+    min-height: auto;
+  }
+
   .radial-chart {
-    top: 1rem;
     width: 100vw;
     min-height: 32rem;
+    margin-left: -1rem;
+  }
+
+  .radial-impact {
+    max-width: 34rem;
+    margin: 0 auto;
+    padding: 0 0 2rem;
   }
 
   .historical-data-table td:last-child {
@@ -840,7 +871,7 @@ a:focus-visible {
     min-height: auto !important;
   }
 
-  .radial-chart {
+  .radial-stage {
     position: relative;
     top: auto;
   }
@@ -856,7 +887,7 @@ a:focus-visible {
     min-height: auto !important;
   }
 
-  .radial-chart {
+  .radial-stage {
     position: relative;
     top: auto;
   }
