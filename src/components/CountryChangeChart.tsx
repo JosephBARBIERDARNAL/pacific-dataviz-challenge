@@ -22,24 +22,41 @@ export function CountryChangeChart({ data }: CountryChangeChartProps) {
     [data],
   );
   const median = toCentimeters(d3.median(sorted, (datum) => datum.rise) ?? 0);
-  const extent = (d3.extent(sorted, (datum) => datum.rise) as [number, number]).map(
-    toCentimeters,
-  );
+  const extent = (
+    d3.extent(sorted, (datum) => datum.rise) as [number, number]
+  ).map(toCentimeters);
 
   return (
-    <section className="country-section" aria-labelledby="country-chart-heading">
+    <section
+      className="country-section"
+      aria-labelledby="country-chart-heading"
+    >
       <div className="country-section-inner">
         <p className="section-kicker">Official Pacific Data Hub comparison</p>
-        <h2 id="country-chart-heading">Every country in the dataset recorded a higher anomaly</h2>
+        <h2 id="country-chart-heading">
+          <span className="text-highlight">Every country</span> recorded a
+          higher anomaly
+        </h2>
         <p className="section-deck">
           Change between the 1993–1997 and 2019–2023 period means. Values are
           shown from a zero baseline and ordered from largest to smallest.
         </p>
 
         <div className="country-summary" aria-label="Comparison summary">
-          <div><strong>{sorted.length}</strong><span>countries and territories</span></div>
-          <div><strong>+{median} cm</strong><span>median increase</span></div>
-          <div><strong>{extent[0]}–{extent[1]} cm</strong><span>observed range</span></div>
+          <div>
+            <strong>{sorted.length}</strong>
+            <span>countries and territories</span>
+          </div>
+          <div>
+            <strong>+{median} cm</strong>
+            <span>median increase</span>
+          </div>
+          <div>
+            <strong>
+              {extent[0]}–{extent[1]} cm
+            </strong>
+            <span>observed range</span>
+          </div>
         </div>
 
         <div
@@ -72,9 +89,9 @@ export function CountryChangeChart({ data }: CountryChangeChartProps) {
         </div>
 
         <p className="chart-caption">
-          Source: Pacific Data Hub, Sea level anomalies. Published annual
-          values use 0.1 m increments; period-mean changes are shown in
-          centimetres and reduce the influence of a single year.
+          Source: Pacific Data Hub, Sea level anomalies. Published annual values
+          use 0.1 m increments; period-mean changes are shown in centimetres and
+          reduce the influence of a single year.
         </p>
       </div>
     </section>

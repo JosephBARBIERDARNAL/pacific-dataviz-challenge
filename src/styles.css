@@ -1,6 +1,7 @@
 :root {
   --navy: #1a2b4b;
   --satellite: #65d2d9;
+  --highlight: #d05a34;
   --white: #ffffff;
   --white-75: rgba(255, 255, 255, 0.75);
   --white-16: rgba(255, 255, 255, 0.16);
@@ -79,6 +80,10 @@ h2 {
   font-weight: 500;
   letter-spacing: -0.055em;
   line-height: 0.95;
+}
+
+.text-highlight {
+  color: var(--highlight);
 }
 
 a:focus-visible {
@@ -233,15 +238,16 @@ a:focus-visible {
 
 .country-name {
   font-family: var(--heading);
-  font-size: 0.82rem;
+  font-size: 0.94rem;
   font-weight: 600;
   line-height: 1.1;
+  margin-left: auto;
 }
 
 .country-bar-track {
   position: relative;
   display: block;
-  height: 0.78rem;
+  height: 0.96rem;
   background:
     linear-gradient(
       to right,
@@ -254,7 +260,7 @@ a:focus-visible {
 
 .country-bar {
   display: flex;
-  height: 100%;
+  height: 110%;
   padding-right: 0.4rem;
   justify-content: flex-end;
   align-items: center;
@@ -294,14 +300,11 @@ a:focus-visible {
 .radial-context .chart-source,
 .radial-context .chart-note,
 .radial-context .radial-legend,
-.radial-context .coverage-heading-row span,
-.radial-context .coverage-years,
 .radial-context .historical-trend figcaption,
 .radial-context .data-notes-content {
   color: rgba(26, 43, 75, 0.74);
 }
 
-.radial-context .coverage-panel,
 .radial-context .historical-trend,
 .radial-context .data-notes {
   border-color: rgba(26, 43, 75, 0.18);
@@ -311,12 +314,7 @@ a:focus-visible {
   border-top-color: rgba(26, 43, 75, 0.74);
 }
 
-.radial-context .coverage-bar:focus-visible {
-  box-shadow: 0 0 0 2px var(--navy);
-}
-
 .radial-context .historical-trend figcaption strong,
-.radial-context .trend-end-label,
 .radial-context .data-links a {
   color: var(--navy);
 }
@@ -329,7 +327,9 @@ a:focus-visible {
   stroke: rgba(26, 43, 75, 0.74);
 }
 
-.radial-context .trend-axis-label {
+.radial-context .trend-axis-label,
+.radial-context .trend-axis-title,
+.radial-context .coverage-chart-label {
   fill: rgba(26, 43, 75, 0.74);
 }
 
@@ -350,122 +350,6 @@ a:focus-visible {
 .chart-note {
   max-width: 34rem;
   margin: 0;
-}
-
-.coverage-panel {
-  max-width: 56rem;
-  margin-top: 1.3rem;
-  padding-top: 1rem;
-  border-top: 1px solid var(--white-16);
-}
-
-.coverage-heading-row {
-  display: flex;
-  gap: 1rem;
-  justify-content: space-between;
-  align-items: baseline;
-  font-family: var(--heading);
-}
-
-.coverage-heading-row h3 {
-  margin: 0;
-  font-size: 0.78rem;
-}
-
-.coverage-heading-row span {
-  color: var(--white-75);
-  font-size: 0.75rem;
-}
-
-.coverage-bars {
-  display: flex;
-  gap: 2px;
-  align-items: end;
-  height: clamp(5.5rem, 10vw, 7.5rem);
-  margin-top: 1rem;
-}
-
-.coverage-bar {
-  position: relative;
-  flex: 1 1 0;
-  min-width: 1px;
-  background: var(--satellite);
-  opacity: 0.75;
-  transition: opacity 120ms ease;
-}
-
-.coverage-bar:hover,
-.coverage-bar:focus-visible {
-  z-index: 1;
-  opacity: 1;
-  outline: none;
-}
-
-.coverage-bar:focus-visible {
-  box-shadow: 0 0 0 2px var(--white);
-}
-
-.coverage-tooltip {
-  position: absolute;
-  bottom: calc(100% + 0.55rem);
-  left: 50%;
-  display: grid;
-  width: max-content;
-  padding: 0.55rem 0.7rem;
-  border-radius: 0.3rem;
-  background: var(--white);
-  color: var(--navy);
-  font-family: var(--heading);
-  font-size: 0.68rem;
-  line-height: 1.35;
-  pointer-events: none;
-  opacity: 0;
-  transform: translate(-50%, 0.25rem);
-  transition:
-    opacity 120ms ease,
-    transform 120ms ease;
-}
-
-.coverage-tooltip strong {
-  margin-bottom: 0.15rem;
-  color: #397d86;
-  font-size: 0.76rem;
-}
-
-.coverage-bar:hover .coverage-tooltip,
-.coverage-bar:focus-visible .coverage-tooltip {
-  opacity: 1;
-  transform: translate(-50%, 0);
-}
-
-.coverage-bar:first-child .coverage-tooltip {
-  left: 0;
-  transform: translate(0, 0.25rem);
-}
-
-.coverage-bar:first-child:hover .coverage-tooltip,
-.coverage-bar:first-child:focus-visible .coverage-tooltip {
-  transform: translate(0, 0);
-}
-
-.coverage-bar:last-child .coverage-tooltip {
-  right: 0;
-  left: auto;
-  transform: translate(0, 0.25rem);
-}
-
-.coverage-bar:last-child:hover .coverage-tooltip,
-.coverage-bar:last-child:focus-visible .coverage-tooltip {
-  transform: translate(0, 0);
-}
-
-.coverage-years {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 0.25rem;
-  color: var(--white-75);
-  font-family: var(--heading);
-  font-size: 0.62rem;
 }
 
 .radial-copy h2 {
@@ -498,7 +382,7 @@ a:focus-visible {
 .legend-swatch {
   display: inline-block;
   width: 1.4rem;
-  border-top: 3px solid rgb(196, 150, 105);
+  border-top: 3px solid var(--highlight);
 }
 
 .legend-baseline {
@@ -605,16 +489,40 @@ a:focus-visible {
   stroke-dasharray: 3 4;
 }
 
+.coverage-divider,
+.coverage-baseline {
+  stroke: var(--white-16);
+  stroke-width: 1;
+}
+
+.coverage-bar {
+  fill: var(--satellite);
+  opacity: 0.75;
+}
+
+.coverage-chart-label,
+.trend-axis-title {
+  fill: var(--white-75);
+  font-family: var(--heading);
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.trend-selection {
+  stroke: var(--highlight);
+  stroke-width: 1;
+  stroke-dasharray: 3 3;
+}
+
 .trend-line {
   fill: none;
-  stroke: rgb(196, 150, 105);
+  stroke: var(--highlight);
   stroke-linecap: round;
   stroke-linejoin: round;
   stroke-width: 3;
 }
 
-.trend-axis-label,
-.trend-end-label {
+.trend-axis-label {
   fill: var(--white-75);
   font-family: var(--heading);
   font-size: 11px;
@@ -628,13 +536,44 @@ a:focus-visible {
 
 .trend-endpoint {
   fill: var(--white);
-  stroke: rgb(196, 150, 105);
+  stroke: var(--highlight);
   stroke-width: 2;
 }
 
-.trend-end-label {
-  fill: var(--white);
+.trend-tooltip {
+  pointer-events: none;
+}
+
+.trend-tooltip rect {
+  fill: var(--navy);
+  stroke: var(--satellite);
+  stroke-width: 1;
+}
+
+.trend-tooltip text {
+  fill: var(--white-75);
+  font-family: var(--heading);
+  font-size: 10px;
+}
+
+.trend-tooltip .trend-tooltip-year {
+  fill: var(--satellite);
+  font-size: 12px;
   font-weight: 700;
+}
+
+.trend-hit-area {
+  fill: transparent;
+  cursor: crosshair;
+}
+
+.trend-hit-area:focus {
+  outline: none;
+}
+
+.trend-hit-area:focus-visible {
+  stroke: var(--highlight);
+  stroke-width: 2;
 }
 
 .historical-data-table summary {
@@ -846,16 +785,6 @@ a:focus-visible {
 
   .radial-legend {
     font-size: 0.75rem;
-  }
-
-  .coverage-heading-row {
-    display: block;
-  }
-
-  .coverage-heading-row span {
-    display: block;
-    margin-top: 0.25rem;
-    font-size: 0.72rem;
   }
 
   .radial-story {

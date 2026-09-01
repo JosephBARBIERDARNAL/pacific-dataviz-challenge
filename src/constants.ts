@@ -1,6 +1,6 @@
 export const COLORS = {
   navy: "#1a2b4b",
-  historical: "rgb(196, 150, 105)",
+  historical: "#d05a34",
   white: "#ffffff",
 } as const;
 

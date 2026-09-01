@@ -13,10 +13,6 @@ export function RadialScrollChart({ data, progress }: RadialScrollChartProps) {
   const chartRef = useRef<HTMLDivElement>(null);
   const handleRef = useRef<RadialChartHandle | null>(null);
   const progressRef = useRef(progress);
-  const maximumCountryCount = Math.max(
-    ...data.map((datum) => datum.count ?? 0),
-    1,
-  );
 
   useEffect(() => {
     progressRef.current = progress;
@@ -107,53 +103,6 @@ export function RadialScrollChart({ data, progress }: RadialScrollChartProps) {
               coverage
             </span>
             <span>A 100 mm key shows the radial offset scale</span>
-          </div>
-          <div className="coverage-panel" aria-labelledby="coverage-heading">
-            <div className="coverage-heading-row">
-              <h3 id="coverage-heading">Countries contributing each year</h3>
-            </div>
-            <div
-              className="coverage-bars"
-              role="list"
-              aria-label="Annual tide-gauge coverage"
-            >
-              {data.map((datum) => {
-                const countryCount = datum.count ?? 0;
-                const stationCount = datum.stationCount ?? 0;
-                const countryLabel =
-                  countryCount === 1 ? "country" : "countries";
-                const stationLabel =
-                  stationCount === 1 ? "station" : "stations";
-
-                return (
-                  <span
-                    key={datum.year}
-                    className="coverage-bar"
-                    role="listitem"
-                    tabIndex={0}
-                    aria-label={`${datum.year}: ${countryCount} ${countryLabel}, ${stationCount} ${stationLabel}`}
-                    style={{
-                      height: `${(countryCount / maximumCountryCount) * 100}%`,
-                    }}
-                  >
-                    <span className="coverage-tooltip" role="tooltip">
-                      <strong>{datum.year}</strong>
-                      <span>
-                        {countryCount} {countryLabel}
-                      </span>
-                      <span>
-                        {stationCount} {stationLabel}
-                      </span>
-                    </span>
-                  </span>
-                );
-              })}
-            </div>
-            <div className="coverage-years" aria-hidden="true">
-              <span>{data[0]?.year}</span>
-              <span>1985</span>
-              <span>{data.at(-1)?.year}</span>
-            </div>
           </div>
           <HistoricalTrendChart data={data} />
           <br />
