@@ -259,7 +259,12 @@ a:focus-visible {
   display: block;
   height: 0.78rem;
   background:
-    linear-gradient(to right, transparent 49.8%, rgba(26, 43, 75, 0.14) 50%, transparent 50.2%),
+    linear-gradient(
+      to right,
+      transparent 49.8%,
+      rgba(26, 43, 75, 0.14) 50%,
+      transparent 50.2%
+    ),
     rgba(26, 43, 75, 0.07);
 }
 
@@ -351,7 +356,6 @@ a:focus-visible {
   min-width: 1px;
   background: var(--satellite);
   opacity: 0.75;
-  cursor: help;
   transition: opacity 120ms ease;
 }
 
@@ -382,7 +386,9 @@ a:focus-visible {
   pointer-events: none;
   opacity: 0;
   transform: translate(-50%, 0.25rem);
-  transition: opacity 120ms ease, transform 120ms ease;
+  transition:
+    opacity 120ms ease,
+    transform 120ms ease;
 }
 
 .coverage-tooltip strong {

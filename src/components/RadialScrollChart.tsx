@@ -2,7 +2,6 @@ import { useEffect, useRef } from "react";
 import { RECORD_RANGES, RESIZE_OBSERVER } from "../constants";
 import { drawRadialChart, type RadialChartHandle } from "../lib/radialChart";
 import type { ChartPoint } from "../types";
-import { formatSignedValue } from "../lib/format";
 import { HistoricalTrendChart } from "./HistoricalTrendChart";
 
 interface RadialScrollChartProps {
@@ -77,8 +76,8 @@ export function RadialScrollChart({ data, progress }: RadialScrollChartProps) {
           <p id="radial-chart-note" className="chart-note">
             The colored line comes from a curated, non-exhaustive set of tide
             gauges and is an unweighted mean of the available country records,
-            smoothed with an up-to-five-year centered window. Its distance from the
-            dashed line shows the anomaly relative to each station&apos;s
+            smoothed with an up-to-five-year centered window. Its distance from
+            the dashed line shows the anomaly relative to each station&apos;s
             1993–2000 baseline.
           </p>
           <p className="chart-note">
@@ -105,7 +104,6 @@ export function RadialScrollChart({ data, progress }: RadialScrollChartProps) {
           <div className="coverage-panel" aria-labelledby="coverage-heading">
             <div className="coverage-heading-row">
               <h3 id="coverage-heading">Countries contributing each year</h3>
-              <span>1–{maximumCountryCount} of 12 represented countries</span>
             </div>
             <div
               className="coverage-bars"
@@ -115,8 +113,10 @@ export function RadialScrollChart({ data, progress }: RadialScrollChartProps) {
               {data.map((datum) => {
                 const countryCount = datum.count ?? 0;
                 const stationCount = datum.stationCount ?? 0;
-                const countryLabel = countryCount === 1 ? "country" : "countries";
-                const stationLabel = stationCount === 1 ? "station" : "stations";
+                const countryLabel =
+                  countryCount === 1 ? "country" : "countries";
+                const stationLabel =
+                  stationCount === 1 ? "station" : "stations";
 
                 return (
                   <span
@@ -149,35 +149,7 @@ export function RadialScrollChart({ data, progress }: RadialScrollChartProps) {
             </div>
           </div>
           <HistoricalTrendChart data={data} />
-          <details className="historical-data-table">
-            <summary>Inspect the annual values, coverage, and contributing locations</summary>
-            <div className="table-scroll">
-              <table>
-                <thead>
-                  <tr>
-                    <th scope="col">Year</th>
-                    <th scope="col">Annual mean</th>
-                    <th scope="col">Countries</th>
-                    <th scope="col">Stations</th>
-                    <th scope="col">Contributing countries</th>
-                    <th scope="col">Station IDs</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {data.map((datum) => (
-                    <tr key={datum.year}>
-                      <th scope="row">{datum.year}</th>
-                      <td>{formatSignedValue(datum.value ?? 0)} mm</td>
-                      <td>{datum.count}</td>
-                      <td>{datum.stationCount}</td>
-                      <td>{datum.countries?.join(", ")}</td>
-                      <td>{datum.stationIds?.join(", ")}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </details>
+          <br />
           <details className="data-notes">
             <summary>Methods, sources, and data downloads</summary>
             <div className="data-notes-content">
@@ -188,14 +160,15 @@ export function RadialScrollChart({ data, progress }: RadialScrollChartProps) {
               </p>
               <p>
                 Historical context uses Permanent Service for Mean Sea Level
-                (PSMSL) Revised Local Reference annual data: 28 candidate stations
-                in 12 countries and territories, of which 23 meet the baseline
-                rule. Each station is expressed relative to its available 1993–2000
-                mean; stations are averaged within a country, then countries are
-                averaged without weighting. The candidate station IDs are 539, 540,
-                528, 1370, 1925, 513, 1217, 1838, 1254, 1303, 1607, 1608, 1609,
-                1610, 1860, 1739, 1804, 1452, 1839, 1373, 1861, 1841, 1327, 1805,
-                2356, 1397, 2242, and 1843.
+                (PSMSL) Revised Local Reference annual data: 28 candidate
+                stations in 12 countries and territories, of which 23 meet the
+                baseline rule. Each station is expressed relative to its
+                available 1993–2000 mean; stations are averaged within a
+                country, then countries are averaged without weighting. The
+                candidate station IDs are 539, 540, 528, 1370, 1925, 513, 1217,
+                1838, 1254, 1303, 1607, 1608, 1609, 1610, 1860, 1739, 1804,
+                1452, 1839, 1373, 1861, 1841, 1327, 1805, 2356, 1397, 2242, and
+                1843.
               </p>
               <p>
                 The full method and provenance are documented in the project
@@ -205,10 +178,14 @@ export function RadialScrollChart({ data, progress }: RadialScrollChartProps) {
                 <a href={`${import.meta.env.BASE_URL}data/country_summary.csv`}>
                   Download country comparison CSV
                 </a>
-                <a href={`${import.meta.env.BASE_URL}data/sea_level_historical.csv`}>
+                <a
+                  href={`${import.meta.env.BASE_URL}data/sea_level_historical.csv`}
+                >
                   Download historical context CSV
                 </a>
-                <a href={`${import.meta.env.BASE_URL}data/historical_station_coverage.csv`}>
+                <a
+                  href={`${import.meta.env.BASE_URL}data/historical_station_coverage.csv`}
+                >
                   Download annual station coverage CSV
                 </a>
                 <a href={`${import.meta.env.BASE_URL}data/provenance.json`}>

@@ -57,10 +57,6 @@ export function HistoricalTrendChart({ data }: HistoricalTrendChartProps) {
     <figure className="historical-trend" aria-labelledby="trend-heading">
       <figcaption>
         <strong id="trend-heading">Read the spiral as a timeline</strong>
-        <span>
-          The same up-to-five-year mean, shown on a conventional millimetre
-          scale.
-        </span>
       </figcaption>
       <svg
         viewBox={`0 0 ${WIDTH} ${HEIGHT}`}
@@ -82,20 +78,32 @@ export function HistoricalTrendChart({ data }: HistoricalTrendChartProps) {
           </g>
         ))}
         <path className="trend-line" d={line(points) ?? ""} />
-        {years.concat([1985]).filter((year, index, values) => values.indexOf(year) === index).map((year) => (
-          <text
-            className="trend-axis-label trend-year"
-            key={year}
-            x={x(year)}
-            y={HEIGHT - 10}
-          >
-            {year}
-          </text>
-        ))}
+        {years
+          .concat([1985])
+          .filter((year, index, values) => values.indexOf(year) === index)
+          .map((year) => (
+            <text
+              className="trend-axis-label trend-year"
+              key={year}
+              x={x(year)}
+              y={HEIGHT - 10}
+            >
+              {year}
+            </text>
+          ))}
         {end && (
           <>
-            <circle className="trend-endpoint" cx={x(end.year)} cy={y(end.smoothed)} r={4} />
-            <text className="trend-end-label" x={x(end.year) - 8} y={y(end.smoothed) - 10}>
+            <circle
+              className="trend-endpoint"
+              cx={x(end.year)}
+              cy={y(end.smoothed)}
+              r={4}
+            />
+            <text
+              className="trend-end-label"
+              x={x(end.year) - 8}
+              y={y(end.smoothed) - 10}
+            >
               {formatSignedValue(end.smoothed)} mm
             </text>
           </>

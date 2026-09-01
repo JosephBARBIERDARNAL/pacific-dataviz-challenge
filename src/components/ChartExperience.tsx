@@ -3,7 +3,6 @@ import { usePinnedElementProgress } from "../hooks/useScrollProgress";
 import type { SeaLevelData } from "../types";
 import { CountryChangeChart } from "./CountryChangeChart";
 import { RadialScrollChart } from "./RadialScrollChart";
-import { StoryConclusion } from "./StoryConclusion";
 
 interface ChartExperienceProps {
   data: SeaLevelData;
@@ -22,7 +21,6 @@ export function ChartExperience({ data }: ChartExperienceProps) {
       <div ref={ref}>
         <RadialScrollChart data={data.regionalHistorical} progress={progress} />
       </div>
-      <StoryConclusion />
     </div>
   );
 }

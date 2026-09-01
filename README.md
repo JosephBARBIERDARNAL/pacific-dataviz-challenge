@@ -24,8 +24,8 @@ the generation time, source endpoints, and complete selected station list.
 The exact generation timestamp for the current release is recorded in the
 provenance file. Cite the historical source as: Permanent Service for Mean Sea
 Level (PSMSL), 2026, “Tide Gauge Data”; and Holgate et al. (2013), “New Data
-Systems and Products at the Permanent Service for Mean Sea Level,” *Journal of
-Coastal Research* 29(3), 493–504,
+Systems and Products at the Permanent Service for Mean Sea Level,” _Journal of
+Coastal Research_ 29(3), 493–504,
 [doi:10.2112/JCOASTRES-D-12-00175.1](https://doi.org/10.2112/JCOASTRES-D-12-00175.1).
 
 ## Official 21-country comparison
@@ -69,22 +69,9 @@ baseline radius; the dashed spiral is zero anomaly; the colored line’s offset 
 the smoothed anomaly on a symmetric linear millimetre scale. A conventional
 timeline reproduces the same values for easier reading.
 
-## Development and validation
+## Local development
 
-Requires Bun. R is needed only to regenerate data.
-
-```bash
-bun install
-bun run dev
-bun run check:data
-bun run typecheck
-bun run lint
-bun run build
-bun run validate
-Rscript script/data.R
 ```
-
-`bun run validate` checks data invariants, type safety, linting, and production
-build output. Before publishing UI changes, manually check 320, 375, 768, and
-1440 px widths; mobile landscape; 200% zoom; keyboard-only navigation;
-reduced-motion mode; data-table usability; and the full chart scroll.
+npm install
+npm run dev
+```
