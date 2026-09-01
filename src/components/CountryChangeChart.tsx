@@ -37,10 +37,6 @@ export function CountryChangeChart({ data }: CountryChangeChartProps) {
           <span className="text-highlight">Every country</span> recorded a
           higher anomaly
         </h2>
-        <p className="section-deck">
-          Change between the 1993–1997 and 2019–2023 period means. Values are
-          shown from a zero baseline and ordered from largest to smallest.
-        </p>
 
         <div className="country-summary" aria-label="Comparison summary">
           <div>
@@ -59,6 +55,9 @@ export function CountryChangeChart({ data }: CountryChangeChartProps) {
           </div>
         </div>
 
+        <p className="section-deck">
+          Difference between the 1993–1997 and 2019–2023 period means.
+        </p>
         <div
           className="country-chart"
           role="list"

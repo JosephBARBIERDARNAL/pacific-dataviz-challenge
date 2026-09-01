@@ -68,13 +68,17 @@ export function RadialScrollChart({ data, progress }: RadialScrollChartProps) {
           ref={chartRef}
         />
       </section>
-      <section className="radial-context" aria-labelledby="radial-chart-heading">
+      <section
+        className="radial-context"
+        aria-labelledby="radial-chart-heading"
+      >
         <div className="radial-copy">
           <p className="chart-source">
             Selected tide-gauge context · {RECORD_RANGES.historical.hyphenLabel}
           </p>
           <h2 id="radial-chart-heading">
-            The long record rises—but its coverage keeps changing
+            The long record rises, but its{" "}
+            <span className="text-highlight">coverage keeps changing</span>
           </h2>
           <p id="radial-chart-note" className="chart-note">
             The colored line comes from a curated, non-exhaustive set of tide
