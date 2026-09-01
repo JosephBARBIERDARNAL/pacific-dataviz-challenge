@@ -294,14 +294,7 @@ a:focus-visible {
   position: relative;
   display: block;
   height: clamp(0.52rem, 1.2vh, 0.78rem);
-  background:
-    linear-gradient(
-      to right,
-      transparent 49.8%,
-      rgba(26, 43, 75, 0.22) 50%,
-      transparent 50.2%
-    ),
-    rgba(26, 43, 75, 0.12);
+  background: rgba(26, 43, 75, 0.12);
 }
 
 .country-bar {
@@ -755,6 +748,7 @@ a:focus-visible {
 .site-footer {
   width: 100%;
   max-width: none;
+  margin-top: 6rem;
   padding: 4rem 0;
   border-top: 1px solid var(--white-16);
   background: var(--navy);

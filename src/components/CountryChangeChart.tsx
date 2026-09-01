@@ -7,13 +7,16 @@ interface CountryChangeChartProps {
   progress: number;
 }
 
-const CHART_MAX_CM = 20;
+const CHART_MAX_CM = 18;
 
 function toCentimeters(millimeters: number): number {
   return millimeters / 10;
 }
 
-export function CountryChangeChart({ data, progress }: CountryChangeChartProps) {
+export function CountryChangeChart({
+  data,
+  progress,
+}: CountryChangeChartProps) {
   const sorted = useMemo(
     () =>
       [...data].sort(
@@ -63,37 +66,40 @@ export function CountryChangeChart({ data, progress }: CountryChangeChartProps) 
           role="list"
           aria-label="Sea-level anomaly increase by country and territory"
         >
-          {sorted.map((datum, index) => (
-            <div
-              className="country-row"
-              key={datum.code}
-              role="listitem"
-              aria-label={`${datum.country}: +${toCentimeters(datum.rise)} centimetres`}
-            >
-              <span className="country-name">{datum.country}</span>
-              <span className="country-bar-track" aria-hidden="true">
-                <span
-                  className={`country-bar${index === 0 ? " country-bar-highlight" : ""}`}
-                  style={{
-                    width: `${Math.min(100, (toCentimeters(datum.rise) / CHART_MAX_CM) * 100 * progress)}%`,
-                  }}
-                >
+          {sorted.map((datum, index) => {
+            const actualCentimeters = toCentimeters(datum.rise);
+            const currentCentimeters = Math.min(
+              actualCentimeters,
+              CHART_MAX_CM * progress,
+            );
+
+            return (
+              <div
+                className="country-row"
+                key={datum.code}
+                role="listitem"
+                aria-label={`${datum.country}: +${actualCentimeters} centimetres`}
+              >
+                <span className="country-name">{datum.country}</span>
+                <span className="country-bar-track" aria-hidden="true">
                   <span
-                    style={{ opacity: progress === 0 ? 0 : 1 }}
-                    className={`${index === 0 ? "country-value country-value-white" : "country-value"}`}
+                    className={`country-bar${index === 0 ? " country-bar-highlight" : ""}`}
+                    style={{
+                      width: `${(currentCentimeters / CHART_MAX_CM) * 100}%`,
+                    }}
                   >
-                    +{toCentimeters(datum.rise)} cm
+                    <span
+                      style={{ opacity: progress === 0 ? 0 : 1 }}
+                      className={`${index === 0 ? "country-value country-value-white" : "country-value"}`}
+                    >
+                      +{Number(currentCentimeters.toFixed(1))} cm
+                    </span>
                   </span>
                 </span>
-              </span>
-            </div>
-          ))}
+              </div>
+            );
+          })}
         </div>
-
-        <p className="chart-caption">
-          Source: Pacific Data Hub, Sea level anomalies. Published annual values
-          use 0.1 m increments.
-        </p>
       </div>
     </section>
   );
