@@ -312,7 +312,7 @@ a:focus-visible {
   position: sticky;
   top: clamp(1rem, 6vh, 3.5rem);
   display: grid;
-  grid-template-columns: minmax(0, 1.5fr) minmax(17rem, 0.7fr);
+  grid-template-columns: minmax(0, 1.3fr) minmax(17rem, 0.7fr);
   gap: clamp(1rem, 3vw, 3rem);
   width: min(92vw, 1300px);
   min-height: min(74vh, 720px);
