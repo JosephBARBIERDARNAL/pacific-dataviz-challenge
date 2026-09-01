@@ -4,6 +4,7 @@ import type { CountrySummary } from "../types";
 
 interface CountryChangeChartProps {
   data: CountrySummary[];
+  progress: number;
 }
 
 const CHART_MAX_CM = 20;
@@ -12,7 +13,7 @@ function toCentimeters(millimeters: number): number {
   return millimeters / 10;
 }
 
-export function CountryChangeChart({ data }: CountryChangeChartProps) {
+export function CountryChangeChart({ data, progress }: CountryChangeChartProps) {
   const sorted = useMemo(
     () =>
       [...data].sort(
@@ -32,7 +33,6 @@ export function CountryChangeChart({ data }: CountryChangeChartProps) {
       aria-labelledby="country-chart-heading"
     >
       <div className="country-section-inner">
-        <p className="section-kicker">Official Pacific Data Hub comparison</p>
         <h2 id="country-chart-heading">
           <span className="text-highlight">Every country</span> recorded a
           higher anomaly
@@ -75,11 +75,12 @@ export function CountryChangeChart({ data }: CountryChangeChartProps) {
                 <span
                   className={`country-bar${index === 0 ? " country-bar-highlight" : ""}`}
                   style={{
-                    width: `${Math.min(100, (toCentimeters(datum.rise) / CHART_MAX_CM) * 100)}%`,
+                    width: `${Math.min(100, (toCentimeters(datum.rise) / CHART_MAX_CM) * 100 * progress)}%`,
                   }}
                 >
                   <span
-                    className={`country-bar${index === 0 ? "country-value country-value-white" : "country-value"}`}
+                    style={{ opacity: progress === 0 ? 0 : 1 }}
+                    className={`${index === 0 ? "country-value country-value-white" : "country-value"}`}
                   >
                     +{toCentimeters(datum.rise)} cm
                   </span>

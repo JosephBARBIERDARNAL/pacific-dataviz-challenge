@@ -151,10 +151,27 @@ a:focus-visible {
   color: var(--white);
 }
 
+.country-story {
+  position: relative;
+  min-height: 100vh;
+}
+
 .country-section {
-  padding: clamp(5rem, 10vw, 9rem) 0;
+  position: sticky;
+  top: 0;
+  display: flex;
+  height: 100vh;
+  min-height: 100vh;
+  padding: clamp(1rem, 4vh, 3.5rem) 0 clamp(0.75rem, 2vh, 1.5rem);
+  overflow: hidden;
   background: var(--white);
   color: var(--navy);
+}
+
+.country-section-inner {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
 }
 
 .country-section h2,
@@ -188,13 +205,13 @@ a:focus-visible {
 .country-summary {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  margin: clamp(2rem, 5vw, 4rem) 0 3rem;
+  margin: clamp(0.8rem, 3vh, 2rem) 0 clamp(0.65rem, 2vh, 1.5rem);
   border-top: 1px solid rgba(26, 43, 75, 0.18);
   border-bottom: 1px solid rgba(26, 43, 75, 0.18);
 }
 
 .country-summary div {
-  padding: 1.25rem;
+  padding: 0.65rem 1rem;
   border-right: 1px solid rgba(26, 43, 75, 0.18);
 }
 
@@ -214,29 +231,38 @@ a:focus-visible {
 
 .country-summary strong {
   color: var(--navy);
-  font-size: clamp(2rem, 4vw, 3.8rem);
+  font-size: clamp(1.6rem, 3.5vw, 3rem);
   font-weight: 500;
   line-height: 1;
 }
 
 .country-summary span {
-  margin-top: 0.65rem;
+  margin-top: 0.3rem;
   color: rgba(26, 43, 75, 0.74);
-  font-size: 0.78rem;
+  font-size: 0.68rem;
   font-weight: 600;
   letter-spacing: 0.04em;
   text-transform: uppercase;
 }
 
+.country-section .section-deck {
+  flex: none;
+  margin: 0 0 clamp(0.55rem, 1.5vh, 1rem) auto;
+}
+
 .country-chart {
   display: grid;
-  gap: 0.55rem;
+  min-height: 0;
+  flex: 1;
+  grid-auto-rows: minmax(0, 1fr);
+  gap: 0.18rem;
 }
 
 .country-row {
   display: grid;
   grid-template-columns: minmax(9.5rem, 12rem) minmax(10rem, 1fr);
   gap: 1rem;
+  min-height: 0;
   align-items: center;
 }
 
@@ -259,12 +285,15 @@ a:focus-visible {
   font-weight: 600;
   line-height: 1.1;
   margin-left: auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .country-bar-track {
   position: relative;
   display: block;
-  height: 0.96rem;
+  height: clamp(0.52rem, 1.2vh, 0.78rem);
   background:
     linear-gradient(
       to right,
@@ -290,9 +319,10 @@ a:focus-visible {
 
 .chart-caption {
   max-width: 50rem;
-  margin: 1.5rem 0 0;
+  flex: none;
+  margin: clamp(0.55rem, 1.5vh, 1rem) 0 0;
   color: rgba(26, 43, 75, 0.74);
-  font-size: 0.75rem;
+  font-size: 0.68rem;
 }
 
 .chart-experience {
@@ -797,15 +827,32 @@ a:focus-visible {
     font-size: 1rem;
   }
 
+  .country-section {
+    padding: 1rem 0 0.75rem;
+  }
+
   .country-summary {
     grid-template-columns: 1fr;
   }
 
   .country-summary div,
   .country-summary div:first-child {
-    padding: 1rem 0;
+    padding: 0.35rem 0;
     border-right: 0;
     border-bottom: 1px solid var(--white-16);
+  }
+
+  .country-summary {
+    margin-block: 0.65rem;
+  }
+
+  .country-summary strong {
+    font-size: clamp(1.35rem, 7vw, 2rem);
+  }
+
+  .country-summary span {
+    margin-top: 0.15rem;
+    font-size: 0.6rem;
   }
 
   .country-summary div:last-child {
@@ -819,7 +866,16 @@ a:focus-visible {
 
   .country-name,
   .country-value {
-    font-size: 0.78rem;
+    font-size: 0.7rem;
+  }
+
+  .country-row {
+    grid-template-columns: minmax(5.5rem, 7.5rem) minmax(5rem, 1fr);
+    gap: 0.45rem;
+  }
+
+  .country-section .section-deck {
+    font-size: 0.76rem;
   }
 
   .chart-note {

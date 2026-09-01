@@ -9,18 +9,34 @@ interface ChartExperienceProps {
 }
 
 export function ChartExperience({ data }: ChartExperienceProps) {
-  const { ref, progress } = usePinnedElementProgress<HTMLDivElement>({
+  const {
+    ref: radialRef,
+    progress: radialProgress,
+  } = usePinnedElementProgress<HTMLDivElement>({
     scrollContainerSelector: ".radial-story",
     targetSelector: ".radial-stage",
     travelScreens: SCROLL_PROGRESS.radialPinnedTravelScreens,
   });
+  const { ref: countryRef, progress: countryProgress } =
+    usePinnedElementProgress<HTMLDivElement>({
+      targetSelector: ".country-section",
+      lockBufferPx: 0,
+    });
 
   return (
     <div className="chart-experience">
-      <div ref={ref}>
-        <RadialScrollChart data={data.regionalHistorical} progress={progress} />
+      <div ref={radialRef}>
+        <RadialScrollChart
+          data={data.regionalHistorical}
+          progress={radialProgress}
+        />
       </div>
-      <CountryChangeChart data={data.summaries} />
+      <div ref={countryRef} className="country-story">
+        <CountryChangeChart
+          data={data.summaries}
+          progress={countryProgress}
+        />
+      </div>
     </div>
   );
 }

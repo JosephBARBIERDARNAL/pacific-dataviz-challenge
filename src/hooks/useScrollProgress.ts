@@ -5,6 +5,7 @@ interface PinnedElementProgressOptions {
   targetSelector: string;
   scrollContainerSelector?: string;
   travelScreens?: number;
+  lockBufferPx?: number;
 }
 
 function clamp(value: number): number {
@@ -15,6 +16,7 @@ export function usePinnedElementProgress<T extends HTMLElement>({
   scrollContainerSelector,
   targetSelector,
   travelScreens = SCROLL_PROGRESS.defaultPinnedTravelScreens,
+  lockBufferPx = SCROLL_PROGRESS.lockBufferPx,
 }: PinnedElementProgressOptions) {
   const ref = useRef<T>(null);
   const startScrollYRef = useRef(0);
@@ -70,7 +72,7 @@ export function usePinnedElementProgress<T extends HTMLElement>({
             containerTop +
             targetHeight +
             travel +
-            SCROLL_PROGRESS.lockBufferPx,
+            lockBufferPx,
         ),
       )}px`;
     };
@@ -109,7 +111,7 @@ export function usePinnedElementProgress<T extends HTMLElement>({
       window.removeEventListener("scroll", requestUpdate);
       window.removeEventListener("resize", handleResize);
     };
-  }, [scrollContainerSelector, targetSelector, travelScreens]);
+  }, [lockBufferPx, scrollContainerSelector, targetSelector, travelScreens]);
 
   return { ref, progress };
 }
