@@ -64,7 +64,7 @@ export function CountryChangeChart({ data }: CountryChangeChartProps) {
           role="list"
           aria-label="Sea-level anomaly increase by country and territory"
         >
-          {sorted.map((datum) => (
+          {sorted.map((datum, index) => (
             <div
               className="country-row"
               key={datum.code}
@@ -74,7 +74,7 @@ export function CountryChangeChart({ data }: CountryChangeChartProps) {
               <span className="country-name">{datum.country}</span>
               <span className="country-bar-track" aria-hidden="true">
                 <span
-                  className="country-bar"
+                  className={`country-bar${index === 0 ? " country-bar-highlight" : ""}`}
                   style={{
                     width: `${Math.min(100, (toCentimeters(datum.rise) / CHART_MAX_CM) * 100)}%`,
                   }}

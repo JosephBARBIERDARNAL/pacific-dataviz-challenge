@@ -267,6 +267,10 @@ a:focus-visible {
   background: #397d86;
 }
 
+.country-bar-highlight {
+  background: var(--highlight);
+}
+
 .chart-caption {
   max-width: 50rem;
   margin: 1.5rem 0 0;
