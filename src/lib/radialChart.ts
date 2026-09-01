@@ -40,12 +40,6 @@ function rollingMean(
   return d3.mean(values) ?? (data[index].value as number);
 }
 
-function coverageLabel(datum: RadialDatum): string {
-  const countryLabel = datum.count === 1 ? "country" : "countries";
-  const stationLabel = datum.stationCount === 1 ? "station" : "stations";
-  return `${datum.count} ${countryLabel} · ${datum.stationCount} ${stationLabel}`;
-}
-
 function pathPointAt(
   path: SVGPathElement,
   length: number,
@@ -244,7 +238,10 @@ export function drawRadialChart(
   const scaleGuideLength = Math.abs(anomaly(scaleGuideValue) - anomaly(0));
   const scaleGuide = grid
     .append("g")
-    .attr("transform", `translate(${mobile ? 20 : 34},${height - (mobile ? 24 : 34)})`);
+    .attr(
+      "transform",
+      `translate(${mobile ? 20 : 34},${height - (mobile ? 24 : 34)})`,
+    );
   scaleGuide
     .append("line")
     .attr("x1", 0)
@@ -291,7 +288,10 @@ export function drawRadialChart(
   const pointProgress = points.reduce<number[]>((progresses, point, index) => {
     if (index === 0) return [0];
     const previous = points[index - 1];
-    const segmentLength = Math.hypot(point.x - previous.x, point.y - previous.y);
+    const segmentLength = Math.hypot(
+      point.x - previous.x,
+      point.y - previous.y,
+    );
     return [...progresses, progresses[index - 1] + segmentLength];
   }, []);
   const totalPointLength = pointProgress.at(-1) || 1;
@@ -365,10 +365,6 @@ export function drawRadialChart(
     readout
       .select(".radial-readout-value")
       .text(`${formatSignedValue(datum.smoothed)} mm · 5-year mean`);
-    readout
-      .select(".radial-readout-annual")
-      .text(`${formatSignedValue(datum.value)} mm · annual mean`);
-    readout.select(".radial-readout-coverage").text(coverageLabel(datum));
   }
 
   update(prefersStaticChart.matches ? 1 : 0);

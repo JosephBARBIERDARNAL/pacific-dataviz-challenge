@@ -79,11 +79,17 @@ export function HistoricalTrendChart({ data }: HistoricalTrendChartProps) {
   const selected = points[displayedIndex] ?? points.at(-1)!;
   const tooltipX = Math.max(
     MARGIN.left,
-    Math.min(x(selected.year) - TOOLTIP_WIDTH / 2, WIDTH - MARGIN.right - TOOLTIP_WIDTH),
+    Math.min(
+      x(selected.year) - TOOLTIP_WIDTH / 2,
+      WIDTH - MARGIN.right - TOOLTIP_WIDTH,
+    ),
   );
   const tooltipY = Math.max(
     MARGIN.top,
-    Math.min(y(selected.smoothed) - TOOLTIP_HEIGHT - 12, LINE_BOTTOM - TOOLTIP_HEIGHT),
+    Math.min(
+      y(selected.smoothed) - TOOLTIP_HEIGHT - 12,
+      LINE_BOTTOM - TOOLTIP_HEIGHT,
+    ),
   );
   const barWidth = Math.max(
     3,
@@ -111,7 +117,10 @@ export function HistoricalTrendChart({ data }: HistoricalTrendChartProps) {
               0,
               Math.min(
                 points.length - 1,
-                d3.bisectCenter(points.map((datum) => datum.year), pointerYear),
+                d3.bisectCenter(
+                  points.map((datum) => datum.year),
+                  pointerYear,
+                ),
               ),
             ),
           );
@@ -119,8 +128,9 @@ export function HistoricalTrendChart({ data }: HistoricalTrendChartProps) {
         onPointerLeave={() => setSelectedIndex(null)}
       >
         <desc>
-          Sea-level anomaly is measured in millimetres relative to each station&apos;s
-          1993–2000 baseline. Coverage bars show the number of contributing countries.
+          Sea-level anomaly is measured in millimetres relative to each
+          station&apos;s 1993–2000 baseline. Coverage bars show the number of
+          contributing countries.
         </desc>
         {ticks.map((tick) => (
           <g key={tick}>
@@ -205,13 +215,22 @@ export function HistoricalTrendChart({ data }: HistoricalTrendChartProps) {
           transform={`translate(${tooltipX}, ${tooltipY})`}
         >
           <rect width={TOOLTIP_WIDTH} height={TOOLTIP_HEIGHT} rx={4} />
-          <text className="trend-tooltip-year" x={10} y={17}>{selected.year}</text>
-          <text x={10} y={35}>Annual mean: {formatSignedValue(selected.value)} mm</text>
-          <text x={10} y={51}>5-year mean: {formatSignedValue(selected.smoothed)} mm</text>
-          <text x={10} y={67}>
-            Coverage: {pluralize(selected.count ?? 0, "country", "countries")} · {pluralize(selected.stationCount ?? 0, "station", "stations")}
+          <text className="trend-tooltip-year" x={10} y={17}>
+            {selected.year}
           </text>
-          <text x={10} y={83}>Anomaly vs. 1993–2000 baseline</text>
+          <text x={10} y={35}>
+            Annual mean: {formatSignedValue(selected.value)} mm
+          </text>
+          <text x={10} y={51}>
+            5-year mean: {formatSignedValue(selected.smoothed)} mm
+          </text>
+          <text x={10} y={67}>
+            Coverage: {pluralize(selected.count ?? 0, "country", "countries")} ·{" "}
+            {pluralize(selected.stationCount ?? 0, "station", "stations")}
+          </text>
+          <text x={10} y={83}>
+            Anomaly vs. 1993–2000 baseline
+          </text>
         </g>
         {points.map((datum, index) => (
           <rect

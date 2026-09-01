@@ -312,9 +312,9 @@ a:focus-visible {
   position: sticky;
   top: clamp(1rem, 6vh, 3.5rem);
   display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(17rem, 0.8fr);
-  gap: clamp(1.5rem, 5vw, 5rem);
-  width: var(--content-width);
+  grid-template-columns: minmax(0, 1.5fr) minmax(17rem, 0.7fr);
+  gap: clamp(1rem, 3vw, 3rem);
+  width: min(92vw, 1300px);
   min-height: min(74vh, 720px);
   margin-inline: auto;
   align-items: center;
@@ -435,6 +435,12 @@ a:focus-visible {
 .radial-impact {
   max-width: 31rem;
   color: var(--white-75);
+}
+
+.radial-impact h2 {
+  max-width: 11ch;
+  margin-bottom: 1rem;
+  color: var(--white);
 }
 
 .radial-impact p {
