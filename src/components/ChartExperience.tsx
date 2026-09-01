@@ -17,10 +17,10 @@ export function ChartExperience({ data }: ChartExperienceProps) {
 
   return (
     <div className="chart-experience">
-      <CountryChangeChart data={data.summaries} />
       <div ref={ref}>
         <RadialScrollChart data={data.regionalHistorical} progress={progress} />
       </div>
+      <CountryChangeChart data={data.summaries} />
     </div>
   );
 }

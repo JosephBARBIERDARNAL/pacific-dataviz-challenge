@@ -66,6 +66,13 @@ export function RadialScrollChart({ data, progress }: RadialScrollChartProps) {
         aria-labelledby="radial-chart-heading"
         aria-describedby="radial-chart-note"
       >
+        <div
+          id="radial-sea-level-chart"
+          className="radial-chart"
+          ref={chartRef}
+        />
+      </section>
+      <section className="radial-context" aria-labelledby="radial-chart-heading">
         <div className="radial-copy">
           <p className="chart-source">
             Selected tide-gauge context · {RECORD_RANGES.historical.hyphenLabel}
@@ -209,11 +216,6 @@ export function RadialScrollChart({ data, progress }: RadialScrollChartProps) {
             </div>
           </details>
         </div>
-        <div
-          id="radial-sea-level-chart"
-          className="radial-chart"
-          ref={chartRef}
-        />
       </section>
     </>
   );

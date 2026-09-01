@@ -47,13 +47,6 @@ export function CountryChangeChart({ data }: CountryChangeChartProps) {
           role="list"
           aria-label="Sea-level anomaly increase by country and territory"
         >
-          <div className="country-axis" aria-hidden="true">
-            <span className="country-axis-scale">
-              <span>0</span><span>10</span><span>20 cm</span>
-            </span>
-            <span />
-            <span />
-          </div>
           {sorted.map((datum) => (
             <div
               className="country-row"
@@ -68,9 +61,12 @@ export function CountryChangeChart({ data }: CountryChangeChartProps) {
                   style={{
                     width: `${Math.min(100, (toCentimeters(datum.rise) / CHART_MAX_CM) * 100)}%`,
                   }}
-                />
+                >
+                  <span className="country-value">
+                    +{toCentimeters(datum.rise)} cm
+                  </span>
+                </span>
               </span>
-              <span className="country-value">+{toCentimeters(datum.rise)} cm</span>
             </div>
           ))}
         </div>
