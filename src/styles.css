@@ -153,8 +153,8 @@ a:focus-visible {
 
 .country-section {
   padding: clamp(5rem, 10vw, 9rem) 0;
-  background: var(--navy);
-  color: var(--white);
+  background: var(--white);
+  color: var(--navy);
 }
 
 .country-section h2,
@@ -167,11 +167,11 @@ a:focus-visible {
 }
 
 .country-section .section-kicker {
-  color: var(--satellite);
+  color: #397d86;
 }
 
 .country-section .text-highlight {
-  color: #ffb57d;
+  color: var(--highlight);
 }
 
 .section-deck {
@@ -182,20 +182,20 @@ a:focus-visible {
 }
 
 .country-section .section-deck {
-  color: var(--white-75);
+  color: rgba(26, 43, 75, 0.74);
 }
 
 .country-summary {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   margin: clamp(2rem, 5vw, 4rem) 0 3rem;
-  border-top: 1px solid var(--white-16);
-  border-bottom: 1px solid var(--white-16);
+  border-top: 1px solid rgba(26, 43, 75, 0.18);
+  border-bottom: 1px solid rgba(26, 43, 75, 0.18);
 }
 
 .country-summary div {
   padding: 1.25rem;
-  border-right: 1px solid var(--white-16);
+  border-right: 1px solid rgba(26, 43, 75, 0.18);
 }
 
 .country-summary div:first-child {
@@ -213,7 +213,7 @@ a:focus-visible {
 }
 
 .country-summary strong {
-  color: var(--satellite);
+  color: var(--navy);
   font-size: clamp(2rem, 4vw, 3.8rem);
   font-weight: 500;
   line-height: 1;
@@ -221,7 +221,7 @@ a:focus-visible {
 
 .country-summary span {
   margin-top: 0.65rem;
-  color: var(--white-75);
+  color: rgba(26, 43, 75, 0.74);
   font-size: 0.78rem;
   font-weight: 600;
   letter-spacing: 0.04em;
@@ -265,10 +265,10 @@ a:focus-visible {
     linear-gradient(
       to right,
       transparent 49.8%,
-      rgba(255, 255, 255, 0.22) 50%,
+      rgba(26, 43, 75, 0.22) 50%,
       transparent 50.2%
     ),
-    rgba(255, 255, 255, 0.12);
+    rgba(26, 43, 75, 0.12);
 }
 
 .country-bar {
@@ -287,7 +287,7 @@ a:focus-visible {
 .chart-caption {
   max-width: 50rem;
   margin: 1.5rem 0 0;
-  color: var(--white-75);
+  color: rgba(26, 43, 75, 0.74);
   font-size: 0.75rem;
 }
 
@@ -722,9 +722,9 @@ a:focus-visible {
   width: 100%;
   max-width: none;
   padding: 4rem 0;
-  border-top: 1px solid rgba(26, 43, 75, 0.18);
-  background: var(--white);
-  color: rgba(26, 43, 75, 0.78);
+  border-top: 1px solid var(--white-16);
+  background: var(--navy);
+  color: var(--white-75);
   font-size: 0.8rem;
 }
 
@@ -739,12 +739,11 @@ a:focus-visible {
   display: block;
   width: min(10rem, 20vw);
   height: auto;
-  filter: brightness(0) saturate(100%) invert(14%) sepia(18%) saturate(2062%)
-    hue-rotate(178deg) brightness(92%) contrast(92%);
+  filter: brightness(0) invert(1);
 }
 
 .footer-label {
-  color: var(--navy);
+  color: var(--white);
   font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 0.1em;
@@ -753,7 +752,7 @@ a:focus-visible {
 
 .site-footer a {
   margin-bottom: 0.3rem;
-  color: var(--navy);
+  color: var(--white);
 }
 
 @media (max-width: 1200px) {
