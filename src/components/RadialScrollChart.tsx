@@ -1,8 +1,7 @@
 import { useEffect, useRef } from "react";
-import { RECORD_RANGES, RESIZE_OBSERVER } from "../constants";
+import { RESIZE_OBSERVER } from "../constants";
 import { drawRadialChart, type RadialChartHandle } from "../lib/radialChart";
 import type { ChartPoint } from "../types";
-import { HistoricalTrendChart } from "./HistoricalTrendChart";
 
 interface ImpactTextSegment {
   text: string;

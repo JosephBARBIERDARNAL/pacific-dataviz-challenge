@@ -281,7 +281,7 @@ a:focus-visible {
 }
 
 .country-bar-highlight {
-  background: #ffb57d;
+  background: var(--highlight);
 }
 
 .chart-caption {
@@ -739,7 +739,6 @@ a:focus-visible {
   display: block;
   width: min(10rem, 20vw);
   height: auto;
-  filter: brightness(0) invert(1);
 }
 
 .footer-label {
