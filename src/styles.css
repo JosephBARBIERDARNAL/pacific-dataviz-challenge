@@ -242,11 +242,15 @@ a:focus-visible {
 
 .country-value {
   font-family: var(--heading);
-  font-size: 0.82rem;
+  font-size: 0.7rem;
   font-weight: 600;
   color: var(--navy);
   line-height: 1;
   white-space: nowrap;
+}
+
+.country-value-white {
+  color: white;
 }
 
 .country-name {
@@ -273,7 +277,7 @@ a:focus-visible {
 
 .country-bar {
   display: flex;
-  height: 110%;
+  height: 115%;
   padding-right: 0.4rem;
   justify-content: flex-end;
   align-items: center;

@@ -78,7 +78,9 @@ export function CountryChangeChart({ data }: CountryChangeChartProps) {
                     width: `${Math.min(100, (toCentimeters(datum.rise) / CHART_MAX_CM) * 100)}%`,
                   }}
                 >
-                  <span className="country-value">
+                  <span
+                    className={`country-bar${index === 0 ? "country-value country-value-white" : "country-value"}`}
+                  >
                     +{toCentimeters(datum.rise)} cm
                   </span>
                 </span>
